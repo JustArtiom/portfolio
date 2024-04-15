@@ -1,8 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import LandingPage from "./pages/landing";
-import "./components/global.css";
+import LandingPage from "pages/landing";
+import "components/global.css";
 
 const root = ReactDOM.createRoot(
     document.getElementById("root") as HTMLElement

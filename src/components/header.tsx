@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 function Header() {
-    const [currentSection, setCurrentSection] = useState("");
+    const [currentSection, setCurrentSection] = useState("home");
 
     useEffect(() => {
         const handleScroll = () => {
@@ -12,8 +12,8 @@ function Header() {
                 const sectionTop = section.offsetTop;
                 const sectionHeight = section.clientHeight;
                 if (
-                    window.scrollY + window.innerHeight/3 >= sectionTop &&
-                    window.scrollY + window.innerHeight/3 < sectionTop + sectionHeight
+                    window.scrollY + window.innerHeight/4 >= sectionTop &&
+                    window.scrollY + window.innerHeight/4 < sectionTop + sectionHeight
                 ) {
                     current = section.id;
                 }
@@ -23,6 +23,10 @@ function Header() {
         };
 
         window.addEventListener("scroll", handleScroll);
+
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        };
     }, []);
 
     return (

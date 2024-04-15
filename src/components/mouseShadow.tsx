@@ -1,7 +1,7 @@
 import React, { ReactNode, useEffect, useState } from "react";
 
 function MouseShadow({ children }: { children: ReactNode }) {
-    const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+    const [mousePosition, setMousePosition] = useState({ x: -500, y: -500 });
 
     useEffect(() => {
         const handleMouseMove = (event: MouseEvent) => {

@@ -12,8 +12,9 @@ function Header() {
                 const sectionTop = section.offsetTop;
                 const sectionHeight = section.clientHeight;
                 if (
-                    window.scrollY + window.innerHeight/3 >= sectionTop &&
-                    window.scrollY + window.innerHeight/3 < sectionTop + sectionHeight
+                    window.scrollY + window.innerHeight / 3 >= sectionTop &&
+                    window.scrollY + window.innerHeight / 3 <
+                        sectionTop + sectionHeight
                 ) {
                     current = section.id;
                 }
@@ -29,7 +30,10 @@ function Header() {
     }, []);
 
     return (
-        <div className="fixed w-full h-[72px] flex bg-background" style={{zIndex: 999}}>
+        <div
+            className="fixed w-full h-[72px] flex bg-background"
+            style={{ zIndex: 999 }}
+        >
             <div className="flex max-w-[1500px] h-full w-full m-auto">
                 <div className="flex-1 grid items-center">
                     <p
@@ -53,7 +57,9 @@ function Header() {
                             href={l.h}
                             className={
                                 "px-2 py-1.5 mx-3 text-sm rounded-md " +
-                                (currentSection === l.h.substring(1) ? "bg-primary text-black hover:bg-primaryHover hover:text-white" : "hover:bg-secondary")
+                                (currentSection === l.h.substring(1)
+                                    ? "bg-primary text-black hover:bg-primaryDarker hover:text-white"
+                                    : "hover:bg-secondary")
                             }
                         >
                             {l.t}
@@ -61,11 +67,12 @@ function Header() {
                     ))}
                 </div>
                 <div className="flex-1 flex justify-center items-center">
-                    <button className="p-2 py-1.5 bg-white text-black rounded-md text-sm shadow-mainShadow shadow-primary hover:bg-gray-400">Contact me</button>
+                    <button className="p-2 py-1.5 bg-white text-black rounded-md text-sm shadow-mainShadow shadow-primary hover:bg-gray-400">
+                        Contact me
+                    </button>
                 </div>
             </div>
         </div>
-
     );
 }
 

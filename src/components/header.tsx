@@ -12,8 +12,8 @@ function Header() {
                 const sectionTop = section.offsetTop;
                 const sectionHeight = section.clientHeight;
                 if (
-                    window.scrollY + window.innerHeight/4 >= sectionTop &&
-                    window.scrollY + window.innerHeight/4 < sectionTop + sectionHeight
+                    window.scrollY + window.innerHeight/3 >= sectionTop &&
+                    window.scrollY + window.innerHeight/3 < sectionTop + sectionHeight
                 ) {
                     current = section.id;
                 }
@@ -30,7 +30,7 @@ function Header() {
     }, []);
 
     return (
-        <div className="fixed w-full h-[72px] flex bg-background">
+        <div className="fixed w-full h-[72px] flex bg-background z-1">
             <div className="flex max-w-[1500px] h-full w-full m-auto">
                 <div className="flex-1 grid items-center">
                     <p

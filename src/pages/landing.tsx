@@ -2,6 +2,7 @@ import React from "react";
 import Header from "components/header";
 import MouseShadow from "components/mouseShadow";
 import Box from "components/box";
+import BackgroundElements from "components/background";
 
 import svg_github from "styles/github.svg"
 import svg_instagram from "styles/instagram.svg"
@@ -17,9 +18,12 @@ import svg_react from "styles/react.svg"
 import svg_tailwind from "styles/tailwind.svg"
 import svg_tensorflow from "styles/tensorflow.svg"
 import svg_git from "styles/git.svg"    
+import svg_code from "styles/code.svg"    
 
 import svg_lock from "styles/lock.svg"
 import svg_chain from "styles/chain.svg"
+
+
 
 const projects = [
     {
@@ -65,8 +69,9 @@ const projects = [
 ]
 
 function App() {
-    return (
+    return (<>
         <MouseShadow>
+        <BackgroundElements />
             <Header />
             <div className="w-full max-w-[1000px] m-auto">
                 <section id="home" className="w-full h-[100vh] pt-[25vh] flex flex-col">
@@ -137,6 +142,7 @@ function App() {
                                 <div className="flex flex-col">
                                     <h3 className="text-xl font-semibold mb-2 flex items-center mx-5 text-textPrimary">
                                         <span className="mr-2">{project.name}</span>
+                                        {project.productionurl && <a href={project.productionurl}><img width={35} height={25} src={svg_code} alt="code"/></a>}
                                         {project.sourceurl ? 
                                             <a href={project.sourceurl}><img src={svg_chain} alt="chain" className="ml-1 w-5 h-5" /></a>
                                             :
@@ -153,6 +159,7 @@ function App() {
                 <section id="contactme" className="w-full h-[100vh]">form/contact me section</section>
             </div>
         </MouseShadow>
+        </>
     );
 }
 

@@ -41,7 +41,7 @@ function Header() {
                         Artiom
                     </p>
                 </div>
-                <div className="flex-1 flex items-center justify-center">
+                <div className="flex-1 flex items-center justify-center min-w-[450px]">
                     {[
                         { t: "Home", h: "#home" },
                         { t: "About Me", h: "#aboutme" },

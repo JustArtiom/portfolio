@@ -54,7 +54,7 @@ function App() {
                 </section>
 
                 {/* This section needs to be redesigned */}
-                <section id="aboutme" className="w-full h-[80vh] py-[30vh]">
+                <section id="aboutme" className="w-full py-[20vh]">
                     <Box width={"70%"} className="p-5 flex flex-col">
                         <p className="text-center">Passionate and dedicated software developer with a keen interest in crafting innovative solutions to real-world problems. With some years of experience, I've had the opportunity to work on a variety of projects across different domains, honing my skills and embracing new technologies along the way.</p>
                         <div className="flex pt-5 gap-5 justify-center">

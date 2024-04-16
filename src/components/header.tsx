@@ -29,7 +29,7 @@ function Header() {
     }, []);
 
     return (
-        <div className="fixed w-full h-[72px] flex bg-background z-1">
+        <div className="fixed w-full h-[72px] flex bg-background" style={{zIndex: 999}}>
             <div className="flex max-w-[1500px] h-full w-full m-auto">
                 <div className="flex-1 grid items-center">
                     <p

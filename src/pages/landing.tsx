@@ -146,7 +146,7 @@ function App() {
                         <p className="text-4xl w-full text-center mb-7">
                             About me
                         </p>
-                        <Box width={"70%"} className="p-5 flex flex-col m-auto">
+                        <Box className="w-[70%] resp:w-[90%] p-5 flex flex-col m-auto">
                             <p className="text-center resp:text-[16px]">
                                 18 Years old guy passionated and dedicated
                                 software developer with a keen interest in
@@ -191,7 +191,7 @@ function App() {
                             {projects.map((project, index) => (
                                 <Box
                                     key={index}
-                                    className="w-1/3 min-w-[400px] flex flex-col resp:min-w-[95%]"
+                                    className="w-1/3 min-w-[400px] flex flex-col resp:min-w-[90%]"
                                 >
                                     <div className="mb-4 relative">
                                         <div className="absolute flex w-full h-full justify-end items-end p-2">

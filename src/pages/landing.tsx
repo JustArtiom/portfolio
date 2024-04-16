@@ -85,14 +85,14 @@ function App() {
                         id="home"
                         className="w-full h-[100vh] pt-[25vh] flex flex-col"
                     >
-                        <p className="w-full text-center text-[40px]">
+                        <p className="w-full text-center text-[40px] resp:text-[30px]">
                             Hi 👋, I'm Artiom
                         </p>
-                        <p className="w-full text-center text-[20px] font-thin">
+                        <p className="w-full text-center text-[20px] font-thin resp:text-[18px]">
                             Coding, building web apps, exploring AI,
                             contributing to open-source.
                         </p>
-                        <div className="flex w-[60%] h-[65px] m-auto my-7 rounded-2xl px-10 bg-primaryDarker shadow-mainShadow shadow-primary items-center justify-around">
+                        <div className="flex w-[60%] h-[65px] m-auto my-7 rounded-2xl px-10 resp:px-4 resp:w-[80%] bg-primaryDarker shadow-mainShadow shadow-primary items-center justify-around">
                             {[
                                 {
                                     i: svg_github,
@@ -118,9 +118,8 @@ function App() {
                                 <a key={x.alt} href={x.url}>
                                     <img
                                         src={x.i}
-                                        width={35}
-                                        height={35}
                                         alt={x.alt}
+                                        className="w-[35px] h-[35px] resp:w-[30px] resp:h-[30px]"
                                     />
                                 </a>
                             ))}
@@ -148,7 +147,7 @@ function App() {
                             About me
                         </p>
                         <Box width={"70%"} className="p-5 flex flex-col m-auto">
-                            <p className="text-center">
+                            <p className="text-center resp:text-[16px]">
                                 18 Years old guy passionated and dedicated
                                 software developer with a keen interest in
                                 crafting innovative solutions to real-world
@@ -158,7 +157,7 @@ function App() {
                                 skills and embracing new technologies along the
                                 way.
                             </p>
-                            <div className="flex pt-5 gap-5 justify-center">
+                            <div className="flex flex-wrap pt-5 gap-5 justify-center">
                                 {[
                                     [svg_js, "javascript"],
                                     [svg_ts, "typescript"],
@@ -192,7 +191,7 @@ function App() {
                             {projects.map((project, index) => (
                                 <Box
                                     key={index}
-                                    className="w-1/3 min-w-[400px] flex flex-col"
+                                    className="w-1/3 min-w-[400px] flex flex-col resp:min-w-[95%]"
                                 >
                                     <div className="mb-4 relative">
                                         <div className="absolute flex w-full h-full justify-end items-end p-2">

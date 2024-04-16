@@ -27,10 +27,12 @@ function MouseShadow({ children }: { children: ReactNode }) {
                     width: "300px",
                     height: "300px",
                     borderRadius: "50%",
-                    background: "radial-gradient(500px at 50% 50%, rgba(29, 78, 216, 0.15), transparent 25%)",
+                    background:
+                        "radial-gradient(500px at 50% 50%, rgba(29, 78, 216, 0.15), transparent 25%)",
                     pointerEvents: "none",
                     zIndex: -1,
                 }}
+                className="flex items-center align-center"
             ></div>
         </>
     );

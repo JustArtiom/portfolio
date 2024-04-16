@@ -18,7 +18,6 @@ function Header() {
                     current = section.id;
                 }
             });
-
             setCurrentSection(current);
         };
 

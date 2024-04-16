@@ -18,7 +18,6 @@ import svg_tailwind from "styles/tailwind.svg"
 import svg_tensorflow from "styles/tensorflow.svg"
 import svg_git from "styles/git.svg"
 
-
 function App() {
     return (
         <MouseShadow>
@@ -27,7 +26,7 @@ function App() {
                 <section id="home" className="w-full h-[100vh] pt-[25vh] flex flex-col">
                     <p className="w-full text-center text-[40px]">Hi 👋, I'm Artiom</p>
                     <p className="w-full text-center text-[20px] font-thin">Coding, building web apps, exploring AI, contributing to open-source.</p>
-                    <div className="flex w-[60%] h-[65px] m-auto my-7 rounded-2xl px-10 bg-primaryHover items-center justify-around">  
+                    <div className="flex w-[60%] h-[65px] m-auto my-7 rounded-2xl px-10 bg-primary shadow-mainShadow shadow-primary items-center justify-around">  
                         {
                             [{
                                 i: svg_github,

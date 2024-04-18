@@ -3,6 +3,7 @@ import Header from "components/header";
 import MouseShadow from "components/mouseShadow";
 import Box from "components/box";
 import BackgroundElements from "components/background";
+import InputField from "components/inputField";
 
 import svg_github from "styles/github.svg";
 import svg_instagram from "styles/instagram.svg";
@@ -182,7 +183,7 @@ function App() {
 
                     <section
                         id="projects"
-                        className="w-full min-h-[100vh] pt-[20vh] mb-[20vh]"
+                        className="w-full min-h-[100vh] pt-[20vh]"
                     >
                         <p className="text-4xl w-full text-center mb-7">
                             Projects
@@ -260,8 +261,30 @@ function App() {
                         </div>
                     </section>
 
-                    <section id="contactme" className="w-full h-[100vh]">
-                        form/contact me section
+                    <section
+                        id="contactme"
+                        className="w-[95%] max-w-[750px] mx-auto py-[20vh]"
+                    >
+                        <p className="text-4xl w-full text-center mb-7">
+                            Contact me
+                        </p>
+
+                        <form action="" className="flex flex-col gap-5">
+                            <div className="flex justify-around resp:flex-col resp:gap-5">
+                                <InputField placeholder="Your Name" />
+                                <InputField placeholder="Email" />
+                            </div>
+                            <InputField placeholder="Subject" />
+                            <textarea
+                                placeholder="Description"
+                                className="mx-3 shadow-mainShadow shadow-primary bg-background text-md rounded-md py-4 px-6 h-[200px]"
+                            ></textarea>
+                            <input
+                                type="submit"
+                                value="Submit"
+                                className="p-4 py-3 w-[100px] mx-auto bg-white text-black rounded-md text-md shadow-mainShadow shadow-primary hover:bg-gray-400"
+                            ></input>
+                        </form>
                     </section>
                 </div>
             </MouseShadow>

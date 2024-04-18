@@ -76,29 +76,19 @@ const projects = [
 ];
 
 function App() {
-    const [formErrors, setFormErrors] = useState<
+    const [formErrors] = useState<
         { type: "error" | "success"; message?: string }[]
-    >([]);
+    >([
+        {
+            type: "error",
+            message:
+                "This feature is not ready yet but it will be, i promise. For now you can convtact me via social media",
+        },
+    ]);
 
     const handleFormSubmit = (
         e: React.MouseEvent<HTMLFormElement, MouseEvent>
     ) => {
-        if (true)
-            setFormErrors([
-                {
-                    type: "error",
-                    message:
-                        "This feature is not ready yet but it will be, i promise. For now you can convtact me via social media",
-                },
-            ]);
-        else
-            setFormErrors([
-                {
-                    type: "success",
-                    message: "The message has been sent successfully!",
-                },
-            ]);
-
         e.preventDefault();
     };
 
@@ -334,7 +324,7 @@ function App() {
                             />
                             <textarea
                                 placeholder="Description"
-                                className="shadow-mainShadow shadow-primary bg-background text-md rounded-md h-[200px] mx-2 px-4 py-3"
+                                className="shadow-mainShadow shadow-primary bg-background text-md rounded-md h-[200px] mx-2 px-6 py-4"
                             ></textarea>
 
                             <input

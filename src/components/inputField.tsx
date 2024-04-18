@@ -15,7 +15,7 @@ const Box = ({
             type={type}
             placeholder={placeholder}
             className={
-                "mx-3 flex-1 shadow-mainShadow shadow-primary bg-background text-xl rounded-md py-4 px-6 " +
+                "shadow-mainShadow shadow-primary bg-background text-md rounded-md " +
                 className
             }
         />

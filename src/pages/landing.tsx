@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "components/header";
 import MouseShadow from "components/mouseShadow";
 import Box from "components/box";
@@ -76,6 +76,32 @@ const projects = [
 ];
 
 function App() {
+    const [formErrors, setFormErrors] = useState<
+        { type: "error" | "success"; message?: string }[]
+    >([]);
+
+    const handleFormSubmit = (
+        e: React.MouseEvent<HTMLFormElement, MouseEvent>
+    ) => {
+        if (true)
+            setFormErrors([
+                {
+                    type: "error",
+                    message:
+                        "This feature is not ready yet but it will be, i promise. For now you can convtact me via social media",
+                },
+            ]);
+        else
+            setFormErrors([
+                {
+                    type: "success",
+                    message: "The message has been sent successfully!",
+                },
+            ]);
+
+        e.preventDefault();
+    };
+
     return (
         <>
             <MouseShadow>
@@ -265,25 +291,57 @@ function App() {
                         id="contactme"
                         className="w-[95%] max-w-[750px] mx-auto py-[20vh]"
                     >
-                        <p className="text-4xl w-full text-center mb-7">
+                        <p className="text-4xl w-full text-center mb-2">
                             Contact me
                         </p>
+                        <p className="w-full text-center text-[20px] font-thin resp:text-[18px] mb-4">
+                            Lets stay in touch ;)
+                        </p>
 
-                        <form action="" className="flex flex-col gap-5">
-                            <div className="flex justify-around resp:flex-col resp:gap-5">
-                                <InputField placeholder="Your Name" />
-                                <InputField placeholder="Email" />
+                        <div className="mb-6">
+                            {formErrors.map((err) => (
+                                <div
+                                    style={{
+                                        backgroundColor:
+                                            err.type === "error"
+                                                ? "#bf1717"
+                                                : "green",
+                                    }}
+                                    className="rounded-md text-[14px] font-extralight p-2 px-4 m-2"
+                                >
+                                    {err.message}
+                                </div>
+                            ))}
+                        </div>
+
+                        <form
+                            onSubmit={handleFormSubmit}
+                            className="flex flex-col gap-5"
+                        >
+                            <div className="flex justify-between gap-5 resp:flex-col">
+                                <InputField
+                                    placeholder="Your Name"
+                                    className="flex-1 py-4 px-6 ml-2 resp:mr-2"
+                                />
+                                <InputField
+                                    placeholder="Email"
+                                    className="flex-1 py-4 px-6 mr-2 resp:ml-2"
+                                />
                             </div>
-                            <InputField placeholder="Subject" />
+                            <InputField
+                                placeholder="Subject"
+                                className="flex-1 py-4 px-6 mx-2"
+                            />
                             <textarea
                                 placeholder="Description"
-                                className="mx-3 shadow-mainShadow shadow-primary bg-background text-md rounded-md py-4 px-6 h-[200px]"
+                                className="shadow-mainShadow shadow-primary bg-background text-md rounded-md h-[200px] mx-2 px-4 py-3"
                             ></textarea>
+
                             <input
                                 type="submit"
                                 value="Submit"
                                 className="p-4 py-3 w-[100px] mx-auto bg-white text-black rounded-md text-md shadow-mainShadow shadow-primary hover:bg-gray-400"
-                            ></input>
+                            />
                         </form>
                     </section>
                 </div>

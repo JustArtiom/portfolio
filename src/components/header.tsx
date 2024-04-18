@@ -27,7 +27,9 @@ function Header() {
                     current = section.id;
                 }
             });
-            setCurrentSection(current);
+
+            if (nav_links.find((x) => x.h.substring(1) === current))
+                setCurrentSection(current);
         };
 
         window.addEventListener("scroll", handleScroll);
@@ -95,9 +97,11 @@ function Header() {
             </div>
             <div
                 style={{
-                    height: isMenuOpen ? "auto" : "0",
+                    maxHeight: isMenuOpen ? "200px" : "0",
+                    overflow: "hidden",
+                    transition: "max-height 0.3s ease-in-out",
                 }}
-                className="absolute top-[72px] w-full bg-background overflow-hidden"
+                className="absolute top-[72px] w-full bg-background"
             >
                 <div className="flex flex-col items-center py-5">
                     {nav_links.map((x) => (

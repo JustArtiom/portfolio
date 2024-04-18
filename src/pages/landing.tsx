@@ -86,6 +86,32 @@ function App() {
         },
     ]);
 
+    const [activeSection, setActiveSection] = useState<string>("whoami");
+
+    const handleScroll = (e: React.UIEvent<HTMLDivElement, UIEvent>) => {
+        const aboutMeDiv = e.currentTarget; // Get the aboutme div that is being scrolled
+        const sections = aboutMeDiv.getElementsByTagName("section");
+        const scrollPosition =
+            aboutMeDiv.scrollTop + aboutMeDiv.offsetHeight / 2;
+
+        let activeSectionId = "";
+        for (let i = 0; i < sections.length; i++) {
+            const section = sections[i];
+            const sectionTop = section.offsetTop - aboutMeDiv.offsetTop; // Adjust for the offset of the aboutme div
+            const sectionHeight = section.offsetHeight;
+
+            if (
+                scrollPosition >= sectionTop &&
+                scrollPosition < sectionTop + sectionHeight
+            ) {
+                activeSectionId = section.id;
+                break;
+            }
+        }
+
+        setActiveSection(activeSectionId);
+    };
+
     const handleFormSubmit = (
         e: React.MouseEvent<HTMLFormElement, MouseEvent>
     ) => {
@@ -97,7 +123,7 @@ function App() {
             <MouseShadow>
                 <BackgroundElements />
                 <Header />
-                <div className="w-full max-w-[1000px] m-auto">
+                <div id="landingpage" className="w-full max-w-[1000px] m-auto">
                     <section
                         id="home"
                         className="w-full h-[100vh] pt-[25vh] flex flex-col"
@@ -158,41 +184,148 @@ function App() {
                         </div>
                     </section>
 
-                    {/* This section needs to be redesigned */}
                     <section id="aboutme" className="w-full pt-[30vh]">
                         <p className="text-4xl w-full text-center mb-7">
                             About me
                         </p>
-                        <Box className="w-[70%] resp:w-[90%] p-5 flex flex-col m-auto">
-                            <p className="text-center resp:text-[16px]">
-                                18 Years old guy passionated and dedicated
-                                software developer with a keen interest in
-                                crafting innovative solutions to real-world
-                                problems. With some years of experience, I've
-                                had the opportunity to work on a variety of
-                                projects across different domains, honing my
-                                skills and embracing new technologies along the
-                                way.
-                            </p>
-                            <div className="flex flex-wrap pt-5 gap-5 justify-center">
-                                {[
-                                    [svg_js, "javascript"],
-                                    [svg_ts, "typescript"],
-                                    [svg_py, "python"],
-                                    [svg_c, "Clang"],
-                                    [svg_react, "React"],
-                                    [svg_tailwind, "tailwind"],
-                                    [svg_tensorflow, "tensorflow"],
-                                    [svg_git, "git"],
-                                ].map((svg) => (
-                                    <img
-                                        key={svg[1]}
-                                        src={svg[0]}
-                                        alt={svg[1]}
-                                        width={45}
-                                        height={45}
-                                    />
-                                ))}
+                        <Box className="w-[95%] max-w-[1000px] h-[400px] p-5 flex flex-row m-auto resp:flex-col resp:h-[500px]">
+                            <div className="flex flex-1 flex-col resp:mb-2">
+                                <div className="flex-1 px-10 py-8 text-2xl resp:px-3 resp:py-2 resp:text-xl ">
+                                    {[
+                                        { id: "whoami", message: "Who am I" },
+                                        { id: "history", message: "History" },
+                                        { id: "exp", message: "Experience" },
+                                    ].map((x) => (
+                                        <p
+                                            key={x.id}
+                                            style={
+                                                activeSection === x.id
+                                                    ? {
+                                                          color: "white",
+                                                          marginLeft: "20px",
+                                                          fontWeight: 300,
+                                                      }
+                                                    : {
+                                                          color: "gray",
+                                                      }
+                                            }
+                                            className="duration-300 transition-all font-thin mb-3"
+                                        >
+                                            - {x.message}
+                                        </p>
+                                    ))}
+                                </div>
+                                <div className="flex flex-1 gap-x-5 flex-wrap justify-center px-10 resp:px-5 resp:gap-2">
+                                    {[
+                                        [svg_js, "javascript"],
+                                        [svg_ts, "typescript"],
+                                        [svg_py, "python"],
+                                        [svg_c, "Clang"],
+                                        [svg_react, "React"],
+                                        [svg_tailwind, "tailwind"],
+                                        [svg_tensorflow, "tensorflow"],
+                                        [svg_git, "git"],
+                                    ].map((svg, index) => (
+                                        <img
+                                            key={index}
+                                            src={svg[0]}
+                                            alt={svg[1]}
+                                            className="w-[40px] h-[40px] resp:w-[35] resp:h-[35px]"
+                                        />
+                                    ))}
+                                </div>
+                            </div>
+                            <div
+                                id={"aboutmescroll"}
+                                className="flex-1 p-4 overflow-y-auto resp:p-2"
+                                onScroll={handleScroll}
+                            >
+                                <section id="whoami" className="pb-5">
+                                    <p className="text-xl font-semibold mb-2">
+                                        Who am I?
+                                    </p>
+                                    <p className="text-[15px] font-light mb-2">
+                                        My name is Artiom, and I'm a passionate
+                                        and dedicated software developer with a
+                                        keen interest in crafting innovative
+                                        solutions to real-world problems. Since
+                                        my childhood, I've been fascinated by
+                                        technology, computers, and the endless
+                                        possibilities they offer. As I grew
+                                        older, my curiosity led me to explore
+                                        the world of coding and development.
+                                    </p>
+                                    <p className="text-[15px] font-light">
+                                        Coding isn't just a hobby for me; it's a
+                                        way of life. I find joy in solving
+                                        complex problems and creating elegant
+                                        solutions. Whether it's developing a web
+                                        application, designing algorithms, or
+                                        optimizing code for performance, I
+                                        thrive on the challenges that
+                                        programming presents.
+                                    </p>
+                                </section>
+                                <section id="history" className="pb-5">
+                                    <p className="text-xl font-semibold mb-2">
+                                        History
+                                    </p>
+                                    <p className="text-[15px] font-light mb-2">
+                                        My journey into the world of programming
+                                        began at a young age when I started
+                                        experimenting with basic scripts and
+                                        tinkering with APIs. Over time, my
+                                        skills evolved, and I delved deeper into
+                                        languages like JavaScript, TypeScript,
+                                        and Python. One of my pivotal moments
+                                        was when I created my first Discord bot,
+                                        which ignited my passion for software
+                                        development.
+                                    </p>
+                                    <p className="text-[15px] font-light">
+                                        As I honed my skills, I ventured into
+                                        the realm of open-source development,
+                                        contributing to various projects and
+                                        collaborating with like-minded
+                                        individuals. This journey not only
+                                        expanded my knowledge but also instilled
+                                        in me a sense of community and
+                                        camaraderie.
+                                    </p>
+                                </section>
+                                <section id="exp" className="pb-5">
+                                    <p className="text-xl font-semibold mb-2">
+                                        My Experience
+                                    </p>
+                                    <p className="text-[15px] font-light mb-2">
+                                        Throughout my career, I've had the
+                                        privilege of working on a diverse range
+                                        of projects spanning web development,
+                                        server management, and cloud computing.
+                                        My experience includes developing robust
+                                        web applications using modern frameworks
+                                        like React.js and Express.js, as well as
+                                        building scalable backend systems with
+                                        technologies like Node.js and SQL.
+                                    </p>
+                                    <p className="text-[15px] font-light">
+                                        Currently, I am proud to serve as a
+                                        staff and developer at{" "}
+                                        <a
+                                            href="https://danbot.host"
+                                            className="underline"
+                                        >
+                                            DanBot Hosting
+                                        </a>
+                                        , a forward-thinking company that
+                                        provides free hosting services for
+                                        aspiring programmers. In this role, I
+                                        contribute to the development of
+                                        innovative solutions and play a key role
+                                        in helping users bring their projects to
+                                        life.
+                                    </p>
+                                </section>
                             </div>
                         </Box>
                     </section>
@@ -289,8 +422,9 @@ function App() {
                         </p>
 
                         <div className="mb-6">
-                            {formErrors.map((err) => (
+                            {formErrors.map((err, index) => (
                                 <div
+                                    key={index}
                                     style={{
                                         backgroundColor:
                                             err.type === "error"

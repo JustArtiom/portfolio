@@ -149,12 +149,12 @@ function App() {
                                 },
                                 {
                                     i: svg_discord,
-                                    url: "https://instagram.com/im_artiom",
+                                    url: "https://discord.com/users/526191240962768910",
                                     alt: "discord",
                                 },
                                 {
                                     i: svg_tiktok,
-                                    url: "https://instagram.com/im_artiom",
+                                    url: "https://www.tiktok.com/@justartiom",
                                     alt: "tiktok",
                                 },
                             ].map((x) => (

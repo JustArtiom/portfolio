@@ -5,7 +5,6 @@ const nav_links = [
     { t: "Home", h: "#home" },
     { t: "About Me", h: "#aboutme" },
     { t: "Projects", h: "#projects" },
-    { t: "Get In Touch", h: "#contactme" },
 ];
 
 function Header() {
@@ -75,9 +74,12 @@ function Header() {
                     ))}
                 </div>
                 <div className="flex-1 flex justify-center items-center resp:hidden">
-                    <button className="p-2 py-1.5 bg-white text-black rounded-md text-sm shadow-mainShadow shadow-primary hover:bg-gray-400">
+                    <a
+                        href="#contactme"
+                        className="p-2 py-1.5 bg-white text-black rounded-md text-sm shadow-mainShadow shadow-primary hover:bg-gray-400"
+                    >
                         Contact me
-                    </button>
+                    </a>
                 </div>
                 <div className="hidden flex-1 items-center justify-end resp:flex">
                     <button onClick={toggleMenu}>

@@ -35,7 +35,7 @@ const BackgroundElements = () => {
     return (
         <div className="absolute w-full top-0 left-0" style={{ zIndex: -99 }}>
             <img
-                className="absolute left-[50%] w-[50%] translate-x-[-50%] top-[125vh]"
+                className="absolute left-[50%] translate-x-[-50%] top-[125vh] w-full max-w-[1000px]"
                 src={"cdn/bgcode.png"}
                 alt={"bgcode"}
             />

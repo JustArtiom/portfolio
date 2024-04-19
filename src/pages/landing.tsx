@@ -20,6 +20,7 @@ import svg_tailwind from "styles/tailwind.svg";
 import svg_tensorflow from "styles/tensorflow.svg";
 import svg_git from "styles/git.svg";
 import svg_code from "styles/code.svg";
+import svg_mail from "styles/email.svg";
 
 import svg_lock from "styles/lock.svg";
 import svg_chain from "styles/chain.svg";
@@ -156,6 +157,11 @@ function App() {
                                     i: svg_tiktok,
                                     url: "https://www.tiktok.com/@justartiom",
                                     alt: "tiktok",
+                                },
+                                {
+                                    i: svg_mail,
+                                    url: "mailto:contact@artiom.me",
+                                    alt: "mail",
                                 },
                             ].map((x) => (
                                 <a key={x.alt} href={x.url}>

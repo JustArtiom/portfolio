@@ -13,7 +13,7 @@ const Header = () => {
     const [currentSection, setCurrentSection] = useState("home");
 
     return (
-        <div className="fixed w-full bg-BgColor dark:bg-DarkBgColor">
+        <div className="fixed w-full backdrop-filter backdrop-blur-xl">
             <div className="flex w-full max-w-[1000px] h-[72px] mx-auto px-5">
                 <div className="flex-1 grid items-center">
                     <p className="text-center text-2xl font-semibold shadow-neon">

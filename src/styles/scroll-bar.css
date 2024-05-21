@@ -8,8 +8,12 @@
     border-radius: 4px;
 }
 
+.dark {
+    --scrollbar-track-color: var(--dark-scrollbar-track-color); 
+}
+
 /* Track */
 ::-webkit-scrollbar-track {
-    /* background: rgb(27, 27, 34); */
+    background: var(--scrollbar-track-color);
     border-radius: 4px;
 }

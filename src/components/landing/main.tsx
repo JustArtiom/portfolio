@@ -1,29 +1,26 @@
-import config from "config";
-import { useEffect, useState } from "react";
-import calculateAge from "utils/calculateAge";
+import MouseScroll from "./mouse";
+import SocialBox from "./socialsBox";
 
 const LandingMain = () => {
-    const [age, setAge] = useState<string>("");
-
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setAge(calculateAge(config.dob).toFixed(10));
-        }, 10);
-        return () => clearInterval(interval);
-    }, []);
-
     return (
         <section
             id="home"
             className="max-w-[1000px] w-full min-h-screen mx-auto py-[10vh]"
         >
-            <p className="w-full text-center text-[40px] font-medium pt-[10vh]">
+            <p
+                className="w-full text-center text-[40px] font-medium"
+                style={{ marginTop: "calc(max(5vh, 100px))" }}
+            >
                 Hi 👋, I'm Artiom
             </p>
             <p className="w-full text-center text-[20px] font-light resp:text-[18px]">
-                I'm just a <span className="font-mono">{age}</span> year old
-                developer
+                Coding, building web apps, exploring AI, contributing to
+                open-source.
             </p>
+            <SocialBox />
+            <div className="flex-1 flex justify-center items-end">
+                <MouseScroll />
+            </div>
         </section>
     );
 };

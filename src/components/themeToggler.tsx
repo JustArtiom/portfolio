@@ -9,8 +9,7 @@ const ThemeTogglerButton = ({ size }: { size?: number } = { size: 50 }) => {
     );
 
     useEffect(() => {
-        if (darkMode) document.documentElement.classList.add("dark");
-        else document.documentElement.classList.remove("dark");
+        document.documentElement.classList.toggle("dark", darkMode);
     }, [darkMode]);
 
     const handleToggle = () => {

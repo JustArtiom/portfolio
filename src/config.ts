@@ -1,5 +1,5 @@
 const config = {
-    dob: "2000-04-23",
+    dob: "2005-06-24",
 };
 
 export default config;

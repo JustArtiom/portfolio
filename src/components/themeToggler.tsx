@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import MoonSvg from "assets/svgs/icons/moon.svg";
 import SunSvg from "assets/svgs/icons/sun.svg";
 
-const ThemeTogglerButton = ({ size }: { size?: number } = { size: 50 }) => {
+const ThemeTogglerButton = () => {
     const [darkMode, setDarkMode] = useState(
         window.matchMedia &&
             window.matchMedia("(prefers-color-scheme: dark)").matches

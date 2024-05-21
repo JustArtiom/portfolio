@@ -1,19 +1,34 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import navlink_style from "styles/navlink_style";
 import ThemeTogglerButton from "./themeToggler";
-
-const nav_links = [
-    { id: "home", title: "Home" },
-    { id: "about", title: "About Me" },
-    { id: "projects", title: "Projects" },
-    { id: "contact", title: "Contact" },
-];
+import config from "config";
 
 const Header = () => {
     const [currentSection, setCurrentSection] = useState("home");
 
+    useEffect(() => {
+        const handleScroll = () => {
+            const sections = config.nav_links.map((link) =>
+                document.getElementById(link.id)
+            );
+
+            sections.forEach((section) => {
+                if (!section) return;
+                if (window.scrollY >= section.offsetTop - 200) {
+                    setCurrentSection(section.id);
+                }
+            });
+        };
+
+        window.addEventListener("scroll", handleScroll);
+
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        };
+    }, []);
+
     return (
-        <div className="fixed w-full backdrop-filter backdrop-blur-xl">
+        <div className="fixed w-full backdrop-filter backdrop-blur-2xl z-50">
             <div className="flex w-full max-w-[1000px] h-[72px] mx-auto px-5">
                 <div className="flex-1 grid items-center">
                     <p className="text-center text-2xl font-semibold shadow-neon">
@@ -21,13 +36,10 @@ const Header = () => {
                     </p>
                 </div>
                 <div className="flex-1 flex items-center justify-center min-w-[450px] resp:hidden">
-                    {nav_links.map((nav) => (
+                    {config.nav_links.map((nav) => (
                         <a
                             key={nav.id}
                             href={`#${nav.id}`}
-                            onClick={() => {
-                                setCurrentSection(nav.id);
-                            }}
                             className={navlink_style({
                                 active: currentSection === nav.id,
                             })}

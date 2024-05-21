@@ -6,6 +6,12 @@ import EnvelopeSVG from "assets/svgs/icons/envelope.svg";
 
 const config = {
     dob: "2005-06-24",
+    nav_links: [
+        { id: "home", title: "Home" },
+        { id: "about", title: "About Me" },
+        { id: "projects", title: "Projects" },
+        { id: "contact", title: "Contact" },
+    ],
     socials: [
         {
             name: "github",

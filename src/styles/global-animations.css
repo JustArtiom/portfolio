@@ -27,3 +27,32 @@
         transform: scale(1, 1) translateY(0);
     }
 }
+
+.canim-hidden-ttb {
+    opacity: 0;
+    transform: translateY(-200px);
+    transition: opacity 0.5s, transform 0.5s
+}
+
+.canim-hidden-btt {
+    opacity: 0;
+    transform: translateY(200px);
+    transition: opacity 0.5s, transform 0.5s
+}
+
+.canim-hidden-ltr {
+    opacity: 0;
+    transform: translateX(-200px);
+    transition: opacity 0.5s, transform 0.5s
+}
+
+.canim-hidden-rtl {
+    opacity: 0;
+    transform: translateX(200px);
+    transition: opacity 0.5s, transform 0.5s
+}
+
+.canim-default {
+    opacity: 1;
+    transform: translateX(0);
+}

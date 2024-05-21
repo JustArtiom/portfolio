@@ -3,68 +3,8 @@
 @tailwind components;
 @tailwind utilities;
 
-::-webkit-scrollbar {
-    width: 8px; /* width of the scrollbar */
-}
-
-/* Handle */
-::-webkit-scrollbar-thumb {
-    background: #d08485; /* color of the scrollbar */
-    border-radius: 4px; /* roundness of the scrollbar */
-}
-
-/* Track */
-::-webkit-scrollbar-track {
-    background: rgb(27, 27, 34); /* background color of the scrollbar track */
-    border-radius: 4px;
-}
-
-* {
-    padding: 0;
-    margin: 0;
-}
-
-html {
-    scroll-behavior: smooth;
-}
-
 body {
-    background-color: #131419;
-    color: white;
+    margin: 0;
+    padding: 0;
     font-family: "Inter", sans-serif;
-}
-
-.mouseScrollAnimation {
-    animation-name: mouseScrollAnimationFrames;
-    animation-duration: 3s;
-    animation-iteration-count: infinite;
-}
-
-@keyframes mouseScrollAnimationFrames {
-    0% {
-        transform: scale(1, 1) translateY(0);
-    }
-    10% {
-        transform: scale(1.1, 0.9) translateY(0);
-    }
-    30% {
-        transform: scale(0.9, 1.1) translateY(-20px);
-    }
-    50% {
-        transform: scale(1.05, 0.95) translateY(0);
-    }
-    57% {
-        transform: scale(1, 1) translateY(-4px);
-    }
-    64% {
-        transform: scale(1, 1) translateY(0);
-    }
-    100% {
-        transform: scale(1, 1) translateY(0);
-    }
-}
-
-.placeHolderAtTheTop::placeholder {
-    position: absolute;
-    top: 25px;
 }

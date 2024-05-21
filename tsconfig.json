@@ -17,6 +17,6 @@
         "moduleResolution": "node",
         "baseUrl": "./src"
     },
-    "include": ["src/**/*.ts", "src/**/*.tsx"],
+    "include": ["./**/*.svg", "./**/*.ts", "./**/*.tsx"],
     "exclude": ["node_modules", "dist"]
 }

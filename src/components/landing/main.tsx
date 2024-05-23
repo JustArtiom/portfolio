@@ -8,7 +8,7 @@ const LandingMainSection = () => {
             className="flex flex-col max-w-[1000px] w-full min-h-screen mx-auto"
             style={{ paddingBlock: "calc(max(5vh, 100px))" }}
         >
-            <div className="flex-1 flex flex-col justify-center canim-hidden-ttb">
+            <div className="flex-1 flex flex-col justify-center custanim-ttb">
                 <p className="w-full text-center text-[40px] font-medium resp:text-[28px]">
                     Hi 👋, I'm Artiom
                 </p>

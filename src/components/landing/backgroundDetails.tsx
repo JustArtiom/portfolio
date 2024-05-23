@@ -10,16 +10,16 @@ const BackgroundDetails = () => {
     return (
         <div className="absolute w-full h-full -z-0 opacity-50 overflow-hidden dark:opacity-20 select-none">
             <div
-                className="absolute left-[30%] resp:left-[40%] text-center canim-hidden-btt transform-gpu"
+                className="absolute left-[30%] resp:left-[40%] text-center custanim-btt transform-gpu"
                 style={{ top: "calc(max(15%, 100px))" }}
             >
                 <p className="-rotate-12 -translate-x-[50%] w-[300px] resp:text-sm resp:w-[200px]">
-                    These background images are chosen by my followers on
+                    These background images were chosen by my followers on
                     instagram
                 </p>
             </div>
 
-            <div className="absolute left-[65%] top-[7vh] rotate-12 canim-hidden-btt transform-gpu">
+            <div className="absolute left-[65%] top-[7vh] rotate-12 custanim-btt transform-gpu">
                 <img
                     src={MellstroyAmAm}
                     alt="Mellstroy am am am"
@@ -29,7 +29,7 @@ const BackgroundDetails = () => {
                 <div className="text-sm mt-[-35px] rotate-12">@umz.47</div>
             </div>
 
-            <div className="absolute left-[200px] top-[20%] rotate-90 canim-hidden-ltr transform-gpu">
+            <div className="absolute left-[200px] top-[20%] rotate-90 custanim-ltr transform-gpu">
                 <div className="absolute left-[-220px]">
                     <img
                         src={SkibidiToiler}
@@ -43,7 +43,7 @@ const BackgroundDetails = () => {
                 </div>
             </div>
 
-            <div className="absolute left-[10%] top-[70vh] -rotate-12 canim-hidden-btt transform-gpu">
+            <div className="absolute left-[10%] top-[70vh] -rotate-12 custanim-btt transform-gpu">
                 <img
                     src={ManLaughingInDarkness}
                     alt="Man Laughing in darkness"
@@ -53,7 +53,7 @@ const BackgroundDetails = () => {
                 <div className="dark:hidden">@oni._.kys</div>
             </div>
 
-            <div className="absolute right-[200px] top-[70vh] -rotate-45 canim-hidden-rtl transform-gpu">
+            <div className="absolute right-[200px] top-[70vh] -rotate-45 custanim-rtl transform-gpu">
                 <div className="absolute right-[-270px] -rotate-45">
                     <p className="absolute -rotate-45 top-[10px] right-[-45px] text-sm resp:right-[45px] resp:left-[65px]">
                         @itsyourpinartt
@@ -68,7 +68,7 @@ const BackgroundDetails = () => {
             </div>
 
             <div
-                className="absolute left-[50%] canim-hidden-ttb resp:mt-[20px] transform-gpu"
+                className="absolute left-[50%] custanim-ttb resp:mt-[20px] transform-gpu"
                 style={{ top: "calc(max(50vh, 240px))" }}
             >
                 <img
@@ -80,7 +80,7 @@ const BackgroundDetails = () => {
                 <div className="">@ceyaa_kingston</div>
             </div>
 
-            <div className="absolute right-[200px] top-[30vh] -rotate-90 canim-hidden-rtl transform-gpu">
+            <div className="absolute right-[200px] top-[30vh] -rotate-90 custanim-rtl transform-gpu">
                 <div className="absolute right-[-250px]">
                     <p className="absolute resp:left-[20px] left-[70px] text-sm -top-[50px] -rotate-90">
                         @negevosu
@@ -94,7 +94,7 @@ const BackgroundDetails = () => {
                 </div>
             </div>
 
-            <div className="absolute left-[-50px] bottom-[-50px] rotate-45 canim-hidden-btt transform-gpu">
+            <div className="absolute left-[-50px] bottom-[-50px] rotate-45 custanim-btt transform-gpu">
                 <div>
                     <div className="ml-[70px] absolute rotate-90 left-[-50px]">
                         @_lorra1ne

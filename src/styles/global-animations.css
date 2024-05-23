@@ -28,31 +28,31 @@
     }
 }
 
-.canim-hidden-ttb {
+.custanim-ttb {
     opacity: 0;
     transform: translateY(-200px);
-    transition: opacity 0.5s, transform 0.5s
+    transition: opacity 0.5s, transform 0.5s;
 }
 
-.canim-hidden-btt {
+.custanim-btt {
     opacity: 0;
     transform: translateY(200px);
     transition: opacity 0.5s, transform 0.5s;
 }
 
-.canim-hidden-ltr {
+.custanim-ltr {
     opacity: 0;
     transform: translateX(-200px);
-    transition: opacity 0.5s, transform 0.5s
+    transition: opacity 0.5s, transform 0.5s;
 }
 
-.canim-hidden-rtl {
+.custanim-rtl {
     opacity: 0;
     transform: translateX(200px);
     transition: opacity 0.5s, transform 0.5s
 }
 
-.canim-default {
+.custanim-default {
     opacity: 1;
     transform: translate(0px, 0px);
 }

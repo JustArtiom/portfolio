@@ -1,16 +1,22 @@
 const subscribeAnimator = () => {
-    const observer = new IntersectionObserver((entries) => {
-        for (let entry of entries) {
-            if (entry.isIntersecting) {
-                entry.target.classList.add("canim-default");
-            } else {
-                entry.target.classList.remove("canim-default");
-            }
-        }
-    });
+    const handleScroll = () => {
+        const elements = document.querySelectorAll(".custanim-btt, .custanim-ttb, .custanim-rtl, .custanim-ltr");
 
-    const toObserve = document.querySelectorAll(".canim-hidden-btt, .canim-hidden-ttb, .canim-hidden-rtl, .canim-hidden-ltr")
-    toObserve.forEach((el) => observer.observe(el));
-}
+        elements.forEach((element, index) => {
+            const elemTop = element.getBoundingClientRect().top + element.getBoundingClientRect().height /2;
+            const windowHeight = window.innerHeight;
+
+            const threshold = windowHeight+200;
+
+            if (elemTop < threshold && elemTop > -200) {
+                element.classList.add("custanim-default");
+            } else {
+                element.classList.remove("custanim-default")
+            }
+        });
+    };
+    handleScroll();
+    window.addEventListener("scroll", handleScroll);
+};
 
 export default subscribeAnimator;

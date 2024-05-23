@@ -4,10 +4,14 @@
 @tailwind utilities;
 
 html {
+    color: var(--text-primary);
+    transition: background-color 1s, color 1s;
     background-color: var(--background-color);
+    scroll-behavior: smooth;
 }
 
 html.dark {
+    color: var(--dark-text-primary);
     background-color: var(--dark-background-color);
 }
 
@@ -16,4 +20,3 @@ body {
     padding: 0;
     font-family: "Inter", sans-serif;
 }
-

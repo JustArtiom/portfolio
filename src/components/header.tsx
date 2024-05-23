@@ -31,9 +31,12 @@ const Header = () => {
         <div className="fixed w-full backdrop-filter backdrop-blur-2xl z-50">
             <div className="flex w-full max-w-[1000px] h-[72px] mx-auto px-5">
                 <div className="flex-1 grid items-center">
-                    <p className="text-center text-2xl font-semibold shadow-neon">
+                    <a
+                        href="#home"
+                        className="text-center text-2xl font-semibold shadow-neon select-none cursor-pointer"
+                    >
                         Artiom
-                    </p>
+                    </a>
                 </div>
                 <div className="flex-1 flex items-center justify-center min-w-[450px] resp:hidden">
                     {config.nav_links.map((nav) => (

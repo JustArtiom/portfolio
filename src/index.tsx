@@ -12,10 +12,10 @@ import subscribeAnimator from "utils/animations";
 const MainApp = () => {
     useEffect(() => {
         subscribeAnimator();
-    });
+    }, []);
 
     return (
-        <div className="w-full min-h-screen text-TextPrimary dark:text-DarkTextPrimary">
+        <div className="w-full min-h-screen">
             <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<LandingPage />} />

@@ -5,6 +5,7 @@ import LinkedInSVG from "assets/svgs/icons/linkedin.svg";
 import EnvelopeSVG from "assets/svgs/icons/envelope.svg";
 
 const config = {
+    scroll_smoothness: 10,
     dob: "2005-06-24",
     nav_links: [
         { id: "home", title: "Home" },

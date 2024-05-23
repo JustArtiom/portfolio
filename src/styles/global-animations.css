@@ -37,7 +37,7 @@
 .canim-hidden-btt {
     opacity: 0;
     transform: translateY(200px);
-    transition: opacity 0.5s, transform 0.5s
+    transition: opacity 0.5s, transform 0.5s;
 }
 
 .canim-hidden-ltr {
@@ -54,5 +54,5 @@
 
 .canim-default {
     opacity: 1;
-    transform: translateX(0);
+    transform: translate(0px, 0px);
 }

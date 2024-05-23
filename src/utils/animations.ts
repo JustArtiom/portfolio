@@ -9,7 +9,7 @@ const subscribeAnimator = () => {
         }
     });
 
-    const toObserve = document.querySelectorAll(".canim-hidden-btt, .canim-hidden-ttb, .canim-hidden-rtl .canim-hidden-ltr")
+    const toObserve = document.querySelectorAll(".canim-hidden-btt, .canim-hidden-ttb, .canim-hidden-rtl, .canim-hidden-ltr")
     toObserve.forEach((el) => observer.observe(el));
 }
 

@@ -24,3 +24,5 @@ jobs:
             npm install
             npm run build:backend
             npx pm2 start dist_backend/index.js --name "backend"
+            clear
+            npx pm2 logs backend

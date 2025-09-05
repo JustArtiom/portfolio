@@ -1,0 +1,26 @@
+name: Deploy to Production
+
+on:
+  push:
+    branches:
+      - 'main'
+
+jobs:
+  all:
+    name: CI/CD workflow
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Deploy Backend
+        uses: JustArtiom/ptero-deploy@v1
+        with:
+          url: ${{ secrets.PTERO_URL }}
+          api_key: ${{ secrets.PTERO_API_KEY }}
+          server_id: ${{ secrets.PTERO_BACKEND_SERVER_ID }}
+          clean: true
+          run: |
+            npm install
+            npm run build:backend
+            npx pm2 start dist_backend/index.js --name "backend"

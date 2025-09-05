@@ -1,21 +1,22 @@
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 
 export default function App() {
-  const [message, setMessage] = useState(``)
-
   useEffect(() => {
-    fetch(`/api/`).then(res => res.json()).then(data => {
-      setMessage(data.message)
-    })
+    const el = document.querySelector(`.cursor-spot`) as HTMLElement
+    const onMove = (e: MouseEvent) => {
+      el?.style.setProperty(`--mx`, `${e.clientX}px`)
+      el?.style.setProperty(`--my`, `${e.clientY}px`)
+    }
+    window.addEventListener(`mousemove`, onMove, { passive: true })
+    return () => window.removeEventListener(`mousemove`, onMove)
   }, [])
 
   return (
-    <div className="App">
-      <h1>Hello, Vite + React!</h1>
-      <p>{message}</p>
-      <h1 className="text-3xl font-bold underline">
-        Hello world!
-      </h1>
+    <div className="flex-center flex-col h-screen w-full" aria-hidden="true">
+      <div>
+        <h1 className="text-accent">I'm Artiom</h1>
+        <p className="text-xl">Hello world :)</p>
+      </div>
     </div>
   )
 }

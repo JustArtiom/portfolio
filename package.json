@@ -23,6 +23,7 @@
     "build:backend": "tsup"
   },
   "dependencies": {
+    "@tailwindcss/vite": "^4.1.13",
     "@vitejs/plugin-react": "^5.0.2",
     "axios": "^1.11.0",
     "dotenv": "^17.2.2",
@@ -30,6 +31,7 @@
     "globals": "^16.3.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
+    "tailwindcss": "^4.1.13",
     "vite": "^7.1.4"
   },
   "devDependencies": {

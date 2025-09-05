@@ -1,9 +1,10 @@
+import tailwindcss from '@tailwindcss/vite'
 import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
 
 export default defineConfig({
   root: `frontend`,
-  plugins: [react()],
+  plugins: [tailwindcss(), react()],
   build: {
     outDir: `../dist_frontend`,
     emptyOutDir: true,

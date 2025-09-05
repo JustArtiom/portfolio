@@ -14,7 +14,6 @@ export default defineConfig([
     files: [`**/*.js`,`**/*.jsx`,`**/*.ts`,`**/*.tsx`],
     plugins: { import: importPlugin },
     rules: {
-      "no-trailing-spaces": `error`,
       "array-bracket-spacing": [2,`never`],
       "arrow-parens": [`error`,`as-needed`],
       "arrow-spacing": `error`,
@@ -22,7 +21,7 @@ export default defineConfig([
 
       "comma-spacing": [`error`,{
         before: false,
-        after: false,
+        after: true,
       }],
 
       "computed-property-spacing": [`error`,`never`],

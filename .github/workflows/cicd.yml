@@ -13,6 +13,17 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Lint Code
+        run: npx eslint .
+
       - name: Deploy Backend
         uses: JustArtiom/ptero-deploy@v1
         with:
@@ -29,7 +40,6 @@ jobs:
 
       - name: Build Frontend
         run: |
-          npm install
           npm run build:frontend
 
       - name: Deploy Frontend

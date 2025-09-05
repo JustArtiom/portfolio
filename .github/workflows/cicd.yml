@@ -50,4 +50,5 @@ jobs:
           server_id: ${{ secrets.PTERO_FRONTEND_SERVER_ID }}
           base_path: ./dist_frontend
           destination_path: ./www
+          restart: false
           clean: true

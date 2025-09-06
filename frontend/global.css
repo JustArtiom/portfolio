@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+
 @import "tailwindcss";
 
 @custom-variant dark (&:where(.dark, .dark *));
@@ -6,15 +8,15 @@
   /* Accent Colors */
   --color-accent: hsl(0, 100%, 65%);
 
-  --color-accent-100: hsl(0, 100%, 95%);
-  --color-accent-200: hsl(0, 100%, 85%);
-  --color-accent-300: hsl(0, 100%, 75%);
-  --color-accent-400: hsl(0, 100%, 55%);
+  --color-accent-100: hsl(0, 100%, 90%);
+  --color-accent-200: hsl(0, 100%, 80%);
+  --color-accent-300: hsl(0, 100%, 70%);
+  --color-accent-400: hsl(0, 100%, 60%);
   --color-accent-500: hsl(0, 100%, 50%);
-  --color-accent-600: hsl(0, 100%, 45%);
-  --color-accent-700: hsl(0, 100%, 35%);
-  --color-accent-800: hsl(0, 100%, 25%);
-  --color-accent-900: hsl(0, 100%, 15%);
+  --color-accent-600: hsl(0, 100%, 40%);
+  --color-accent-700: hsl(0, 100%, 30%);
+  --color-accent-800: hsl(0, 100%, 20%);
+  --color-accent-900: hsl(0, 100%, 10%);
 
   /* Background Colors */
   --background-color-primary: hsl(0, 0%, 90%);
@@ -23,38 +25,78 @@
 
   /* Text Colors */
   --text-color-primary: hsl(0, 0%, 5%);
-  --text-color-muted: hsl(0, 0%, 30%);
+  --text-color-muted: hsl(0, 0%, 20%);
+
+  /* Animations */
+  --animate-wiggle: wiggle 0.3s ease-in-out;
+  @keyframes wiggle {
+    0%,
+    100% {
+      transform: rotate(calc(var(--wiggle-angle, 3deg) * -1));
+    }
+    50% {
+      transform: rotate(var(--wiggle-angle, 3deg));
+    }
+  }
 }
 
 @layer theme {
   .dark {
-    --background-color-primary: hsl(0, 0%, 0%);
-    --background-color-secondary: hsl(0, 0%, 5%);
-    --background-color-highlight: hsl(0, 0%, 10%);
+    --background-color-primary: hsl(0, 0%, 2.5%);
+    --background-color-secondary: hsl(0, 0%, 10%);
+    --background-color-highlight: hsl(0, 0%, 15%);
 
-    --text-color-primary: hsl(0, 0%, 95%);
-    --text-color-muted: hsl(0, 0%, 70%);
+    --text-color-primary: hsl(0, 0%, 90%);
+    --text-color-muted: hsl(0, 0%, 50%);
   }
 }
 
 body {
-  @apply bg-primary text-primary;
-  font-family: 'Inter', sans-serif;
+  @apply bg-primary text-primary font-light;
+  font-family: "Inter", sans-serif;
   margin: 0;
   padding: 0;
 }
 
 ::selection {
   background-color: var(--color-accent);
-  color: white; 
+  color: white;
+}
+
+:focus {
+  outline-color: var(--color-accent);
 }
 
 @layer base {
   .flex-center {
     @apply flex items-center justify-center;
   }
+
+  /* Default styles */
+  h1 {
+    @apply text-4xl font-bold mb-4;
+  }
+
+  h2 {
+    @apply text-3xl font-semibold mb-3;
+  }
 }
 
-h1 {
-  @apply text-4xl font-bold;
+@layer utilities {
+  .animate-wiggle {
+    animation: wiggle 0.3s ease-in-out;
+    display: inline-block;
+  }
+  .wiggle-xs {
+    --wiggle-angle: 1deg;
+  }
+  .wiggle-sm {
+    --wiggle-angle: 2deg;
+  }
+  .wiggle-md {
+    --wiggle-angle: 4deg;
+  }
+  .wiggle-xl {
+    --wiggle-angle: 8deg;
+  }
 }

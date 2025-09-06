@@ -5,83 +5,29 @@ import reactHooks from "eslint-plugin-react-hooks";
 import reactRefresh from "eslint-plugin-react-refresh";
 import globals from "globals";
 import tseslint from "typescript-eslint";
+import prettier from "eslint-config-prettier";
 
 export default defineConfig([
   { ignores: [`**/dist_*/**`] },
   js.configs.recommended,
   tseslint.configs.recommended,
+  prettier,
   {
-    files: [`**/*.js`,`**/*.jsx`,`**/*.ts`,`**/*.tsx`],
+    files: [`**/*.js`, `**/*.jsx`, `**/*.ts`, `**/*.tsx`],
     plugins: { import: importPlugin },
     rules: {
-      "array-bracket-spacing": [2,`never`],
-      "arrow-parens": [`error`,`as-needed`],
-      "arrow-spacing": `error`,
-      "comma-dangle": [`error`,`always-multiline`],
-
-      "comma-spacing": [`error`,{
-        before: false,
-        after: true,
-      }],
-
-      "computed-property-spacing": [`error`,`never`],
-      curly: [`error`,`multi`],
-      "guard-for-in": 1,
-
-      indent: [`error`,2,{
-        SwitchCase: 1,
-        VariableDeclarator: 1,
-      }],
-
-      "key-spacing": [`error`,{ beforeColon: false }],
-
-      "no-bitwise": 1,
-      "no-console": `off`,
-      "no-mixed-requires": [0,false],
-      "no-mixed-spaces-and-tabs": [2],
-      "no-multi-spaces": [`error`],
-      "no-undef": [0],
-      "no-unused-vars": [0],
-
-      "object-curly-newline": [`error`,{
-        multiline: true,
-        minProperties: 7,
-      }],
-
-      "object-curly-spacing": [`error`,`always`],
-
-      "object-property-newline": [`error`,{ allowAllPropertiesOnSameLine: true }],
-
-      "object-shorthand": [`error`,`always`],
-      quotes: [2,`backtick`],
-      semi: [2,`never`],
-      "space-before-function-paren": [`error`,`never`],
-      "space-in-parens": [`error`,`never`],
-      "space-infix-ops": [`error`],
-      "vars-on-top": 0,
-
-      "padding-line-between-statements": [`error`,{
-        blankLine: `always`,
-        prev: `function`,
-        next: `function`,
-      }],
-
-      "import/order": [`error`,{
-        "groups": [
-          `builtin`,
-          `external`,
-          `internal`,
-          [`parent`,`sibling`,`index`],
-        ],
-        "alphabetize": { order: `asc`,caseInsensitive: true },
-        "newlines-between": `always`,
-      }],
+      semi: [`error`, `always`],
     },
   },
 
   // Backend
   {
-    files: [`backend/**/*.ts`,`backend/**/*.tsx`,`backend/**/*.js`,`backend/**/*.jsx`],
+    files: [
+      `backend/**/*.ts`,
+      `backend/**/*.tsx`,
+      `backend/**/*.js`,
+      `backend/**/*.jsx`,
+    ],
     languageOptions: {
       globals: globals.node,
       parserOptions: {
@@ -93,7 +39,12 @@ export default defineConfig([
 
   // Frontend
   {
-    files: [`frontend/**/*.js`,`frontend/**/*.jsx`,`frontend/**/*.ts`,`frontend/**/*.tsx`],
+    files: [
+      `frontend/**/*.js`,
+      `frontend/**/*.jsx`,
+      `frontend/**/*.ts`,
+      `frontend/**/*.tsx`,
+    ],
     extends: [
       reactHooks.configs[`recommended-latest`],
       reactRefresh.configs.vite,
@@ -104,4 +55,4 @@ export default defineConfig([
       parserOptions: { ecmaFeatures: { jsx: true } },
     },
   },
-])
+]);

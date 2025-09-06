@@ -3,6 +3,12 @@
     "rootDir": "./frontend",
     "outDir": "./dist_frontend",
 
+    /* Path aliases */
+    "baseUrl": "./frontend",
+    "paths": {
+      "@/*": ["./*"]
+    },
+
     "target": "esnext",
     "lib": ["esnext", "DOM", "DOM.Iterable"],
     "module": "esnext",
@@ -24,5 +30,5 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["frontend"]
+  "include": ["frontend", "frontend/**/*.d.ts"]
 }

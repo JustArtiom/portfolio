@@ -1,4 +1,4 @@
-import { defineConfig } from "tsup"
+import { defineConfig } from "tsup";
 
 export default defineConfig({
   entry: [`backend`],
@@ -8,4 +8,4 @@ export default defineConfig({
   clean: true,
   format: `cjs`,
   outDir: `dist_backend`,
-})
+});

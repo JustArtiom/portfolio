@@ -4,13 +4,13 @@ import { details, services, skills } from "@/constants";
 import Button from "./Button";
 import { motionProps } from "@/utils/motion";
 
-export default function wAboutMe() {
+export default function AboutMe() {
   return (
-    <div className="w-full">
+    <div className="w-full overflow-hidden">
       <p className="text-xl font-thin tracking-widest dark:text-gray-400 text-gray-600 mb-8">
         About Me
       </p>
-      <div className="flex flex-col md:flex-row gap-10 cursor-default overflow-hidden">
+      <div className="flex flex-col md:flex-row gap-10 cursor-default">
         <motion.div
           className="flex-1"
           {...motionProps({ side: "left", distance: 80 })}

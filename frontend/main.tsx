@@ -8,3 +8,9 @@ ReactDOM.createRoot(document.getElementById(`root`)!).render(
     <App />
   </React.StrictMode>
 );
+
+document.addEventListener("keydown", (e) => {
+  if (e.key.toLowerCase() === "d") {
+    document.documentElement.classList.toggle("dark");
+  }
+});

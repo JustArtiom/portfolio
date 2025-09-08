@@ -38,6 +38,17 @@
       transform: rotate(var(--wiggle-angle, 3deg));
     }
   }
+
+  --animate-bounce: bounce 0.5s infinite;
+  @keyframes bounce {
+    0%,
+    100% {
+      transform: translateY(0) scaleY(1);
+    }
+    50% {
+      transform: translateY(-5px) scaleY(1.1);
+    }
+  }
 }
 
 @layer theme {
@@ -98,5 +109,12 @@ body {
   }
   .wiggle-xl {
     --wiggle-angle: 8deg;
+  }
+  .text-spotlight {
+    text-shadow:
+      0 0 10px var(--tw-text-shadow-color),
+      0 0 30px var(--tw-text-shadow-color),
+      0 0 40px var(--tw-text-shadow-color),
+      0 0 50px var(--tw-text-shadow-color);
   }
 }

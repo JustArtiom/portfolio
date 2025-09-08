@@ -10,7 +10,7 @@ import {
   SiTensorflow,
   SiTypescript,
 } from "react-icons/si";
-import { getAgeSince } from "./math";
+import { getAgeSince } from "./utils/math";
 
 export const details = [
   {
@@ -32,6 +32,10 @@ export const details = [
 ];
 
 export const skills = {
+  typescript: {
+    name: "TypeScript",
+    icon: SiTypescript,
+  },
   javascript: {
     name: "JavaScript",
     icon: SiJavascript,
@@ -39,10 +43,6 @@ export const skills = {
   python: {
     name: "Python",
     icon: SiPython,
-  },
-  typescript: {
-    name: "TypeScript",
-    icon: SiTypescript,
   },
   java: {
     name: "Java",

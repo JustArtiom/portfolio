@@ -10,7 +10,7 @@ export default function wAboutMe() {
       <p className="text-xl font-thin tracking-widest dark:text-gray-400 text-gray-600 mb-8">
         About Me
       </p>
-      <div className="flex flex-col md:flex-row gap-10 cursor-default">
+      <div className="flex flex-col md:flex-row gap-10 cursor-default overflow-hidden">
         <motion.div
           className="flex-1"
           {...motionProps({ side: "left", distance: 80 })}
@@ -85,7 +85,7 @@ export default function wAboutMe() {
         </motion.div>
       </div>
       <motion.div
-        className="flex gap-5 mt-5"
+        className="flex gap-5 mt-10"
         {...motionProps({ side: "bottom" })}
       >
         <Button
@@ -103,9 +103,17 @@ export default function wAboutMe() {
       </motion.div>
       <motion.div
         {...motionProps({ side: "bottom" })}
-        className="min-h-[100px] h-[15vh] text-gray-500 w-full flex items-end justify-center"
+        className="min-h-[100px] h-[15vh] text-gray-500 w-full flex flex-col items-center justify-end mt-10 animate-pulse"
       >
-        <p>Scroll to see more!</p>
+        <div
+          className="flex flex-col items-center gap-3"
+          onClick={() => {
+            window.scrollTo({ top: 100, behavior: "smooth" });
+          }}
+        >
+          <p>Scroll to see more!</p>
+          <div className="w-[1px] h-[50px] bg-gray-500" />
+        </div>
       </motion.div>
     </div>
   );

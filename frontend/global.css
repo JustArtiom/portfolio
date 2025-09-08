@@ -78,6 +78,10 @@ body {
   outline-color: var(--color-accent);
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 @layer base {
   .flex-center {
     @apply flex items-center justify-center;

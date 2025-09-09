@@ -88,10 +88,10 @@ export default function Header() {
   return (
     <div
       ref={headerRef}
-      className="fixed w-full flex flex-col justify-between items-center backdrop-blur-md z-30"
+      className="fixed w-full flex flex-col justify-between items-center backdrop-blur-md z-[500]"
     >
       <header className="w-full px-6 sm:px-6 mx-auto flex justify-between items-center max-w-[1200px] py-4 sm:py-6">
-        <Logo className="h-8 w-8" />
+        <Logo className="h-8 w-8 mx-2" />
 
         {/* Mobile toggle */}
         <button

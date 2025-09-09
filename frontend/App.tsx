@@ -6,8 +6,11 @@ export default function App() {
   return (
     <div className="overflow-hidden">
       <Header />
-      <main className="px-6 mx-auto max-w-[1000px]">
-        <section id="about" className="w-full min-h-screen py-25 flex-center">
+      <main className="px-6 mx-auto max-w-[1200px]">
+        <section
+          id="about"
+          className="w-full min-h-screen py-25 flex-center max-w-[1000px] mx-auto"
+        >
           <AboutMe />
         </section>
         <section id="roadmap" className="w-full">

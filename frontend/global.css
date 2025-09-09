@@ -54,32 +54,14 @@
 @layer theme {
   .dark {
     --background-color-primary: hsl(0, 0%, 2.5%);
-    --background-color-secondary: hsl(0, 0%, 10%);
+    --background-color-secondary: hsl(0, 0%, 6%);
     --background-color-highlight: hsl(0, 0%, 15%);
 
     --text-color-primary: hsl(0, 0%, 90%);
     --text-color-muted: hsl(0, 0%, 50%);
+
+    --border-color-primary: hsl(0, 0%, 30%);
   }
-}
-
-body {
-  @apply bg-primary text-primary font-light;
-  font-family: "Inter", sans-serif;
-  margin: 0;
-  padding: 0;
-}
-
-::selection {
-  background-color: var(--color-accent);
-  color: white;
-}
-
-:focus {
-  outline-color: var(--color-accent);
-}
-
-html {
-  scroll-behavior: smooth;
 }
 
 @layer base {
@@ -121,4 +103,24 @@ html {
       0 0 40px var(--tw-text-shadow-color),
       0 0 50px var(--tw-text-shadow-color);
   }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-primary text-primary font-light underline-offset-2;
+  font-family: "Inter", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+::selection {
+  background-color: var(--color-accent);
+  color: white;
+}
+
+:focus-visible {
+  outline-color: var(--color-accent);
 }

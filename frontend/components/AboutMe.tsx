@@ -1,15 +1,16 @@
-import { ArrowUp } from "lucide-react";
 import { motion } from "framer-motion";
 import { details, services, skills } from "@/constants";
 import Button from "./Button";
 import { motionProps } from "@/utils/motion";
 import SectionTitle from "./SectionTitle";
+import SkillList from "./SkillList";
+import ServiceList from "./ServiceList";
 
 export default function AboutMe() {
   return (
-    <div className="w-full">
+    <div className="cursor-default w-full">
       <SectionTitle title="About Me" />
-      <div className="flex flex-col md:flex-row gap-10 cursor-default">
+      <div className="flex flex-col md:flex-row gap-10">
         <div className="flex-1" {...motionProps({ side: "left" })}>
           <motion.h1
             className="text-6xl font-light"
@@ -49,40 +50,9 @@ export default function AboutMe() {
         </div>
         <motion.div className="flex-1" {...motionProps({ side: "right" })}>
           <h2 className="text-2xl font-normal">Key Skills</h2>
-          <ul className="flex flex-wrap gap-3">
-            {Object.values(skills).map((item, index) => (
-              <motion.li
-                key={index}
-                className="inline-flex items-center gap-2 p-1 px-4 rounded-full text-gray-700 dark:text-gray-300 bg-accent-200/8 hover:bg-accent-200/20 cursor-default transition-colors group hover:text-primary"
-                {...motionProps({
-                  side: "bottom",
-                  distance: 10,
-                  delay: 0.1 * index,
-                  transition: { duration: 0.2 },
-                })}
-              >
-                <item.icon className="text-accent/70 h-5 wiggle-md group-hover:text-accent" />
-                {item.name}
-              </motion.li>
-            ))}
-          </ul>
+          <SkillList skills={Object.values(skills)} />
           <h2 className="text-2xl font-normal mt-4">Services</h2>
-          <ul className="list-none flex flex-col gap-2">
-            {services.map((item, index) => (
-              <motion.li
-                key={index}
-                className="inline-flex items-center gap-2 group"
-                {...motionProps({
-                  side: "right",
-                  distance: 80,
-                  delay: 0.1 * index,
-                })}
-              >
-                <ArrowUp className="text-accent h-4 group-hover:animate-bounce rotate-90" />
-                {item}
-              </motion.li>
-            ))}
-          </ul>
+          <ServiceList services={services} />
         </motion.div>
       </div>
       <motion.div

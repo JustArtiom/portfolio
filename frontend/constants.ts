@@ -33,7 +33,12 @@ export const details = [
   },
 ];
 
-export const skills = {
+export interface Skill {
+  name: string;
+  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+}
+
+export const skills: Record<string, Skill> = {
   typescript: {
     name: "TypeScript",
     icon: SiTypescript,
@@ -92,7 +97,7 @@ export const roadmap = [
     title: "Graduated School",
     location: "London, United Kingdom",
     from: new Date("2012-09-01"),
-    to: new Date("2021-05-31"),
+    to: new Date("2021-09-01"),
     achieved: ["GCSEs"],
     learned: [
       "Got introduced to programming with Python",
@@ -110,7 +115,7 @@ export const roadmap = [
     },
     location: "London, United Kingdom",
     from: new Date("2021-09-01"),
-    to: new Date("2023-06-30"),
+    to: new Date("2023-09-01"),
     achieved: ["A-Levels", "BTEC Extended Diploma In IT"],
     learned: [
       "Introduced to Project Management and different methodologies",
@@ -148,7 +153,7 @@ export const roadmap = [
     },
     location: "Hatfield, United Kingdom",
     from: new Date("2023-09-01"),
-    to: new Date("2026-06-30"),
+    to: undefined,
     achieved: ["BSc Computer Science"],
     learned: [
       "Deepened understanding of computer science fundamentals",
@@ -161,7 +166,7 @@ export const roadmap = [
     title: "Mid-Level Full-Stack Developer",
     company: {
       name: "Wakeflow",
-      logo: "https://www.wakeflow.io/_next/image?url=%2Fbranding%2Fwakeflow-logo-name-gray.png",
+      logo: "https://www.wakeflow.io/branding/padded.png",
       website: "https://wakeflow.io",
     },
     location: "London, United Kingdom",

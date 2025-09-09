@@ -43,10 +43,6 @@ export default function Header() {
   }, [active, updateUnderline]);
 
   useEffect(() => {
-    if (menuOpen) setMenuOpen(false);
-  }, [active, menuOpen]);
-
-  useEffect(() => {
     const observers: IntersectionObserver[] = [];
 
     sections.forEach((id) => {
@@ -149,6 +145,7 @@ export default function Header() {
               <li key={item}>
                 <a
                   href={`#${item}`}
+                  onClick={() => setMenuOpen(false)}
                   className={`block w-full py-2 text-sm uppercase tracking-wider rounded px-2 transition-colors ${
                     active === item
                       ? "text-accent bg-accent/10"

@@ -3,25 +3,26 @@ import { motion } from "framer-motion";
 import { details, services, skills } from "@/constants";
 import Button from "./Button";
 import { motionProps } from "@/utils/motion";
+import SectionTitle from "./SectionTitle";
 
 export default function AboutMe() {
   return (
-    <div className="w-full overflow-hidden">
-      <p className="text-xl font-thin tracking-widest dark:text-gray-400 text-gray-600 mb-8">
-        About Me
-      </p>
+    <div className="w-full">
+      <SectionTitle title="About Me" />
       <div className="flex flex-col md:flex-row gap-10 cursor-default">
-        <motion.div
-          className="flex-1"
-          {...motionProps({ side: "left", distance: 80 })}
-        >
-          <h1 className="text-6xl font-light">
+        <div className="flex-1" {...motionProps({ side: "left" })}>
+          <motion.h1
+            className="text-6xl font-light"
+            {...motionProps({ side: "left" })}
+          >
             Hi, I'm{" "}
             <span className="text-accent text-shadow-accent/25 hover:text-shadow-accent/50 text-spotlight transition-all duration-500">
               Artiom
             </span>
-          </h1>
-          <p>~ Brings ideas to reality ~</p>
+          </motion.h1>
+          <motion.p {...motionProps({ side: "left" })}>
+            ~ Brings ideas to reality ~
+          </motion.p>
           <div className="flex flex-col gap-4 my-5 tracking-wider">
             {details.map((item, index) => (
               <motion.p
@@ -38,15 +39,15 @@ export default function AboutMe() {
               </motion.p>
             ))}
           </div>
-          <p className="mt-4 text-muted">
+          <motion.p
+            className="mt-4 text-muted"
+            {...motionProps({ side: "left" })}
+          >
             Specialising in building modern web apps, mobile apps, and
             automation scripts — tailored to bring your unique ideas to life.
-          </p>
-        </motion.div>
-        <motion.div
-          className="flex-1"
-          {...motionProps({ side: "right", distance: 80 })}
-        >
+          </motion.p>
+        </div>
+        <motion.div className="flex-1" {...motionProps({ side: "right" })}>
           <h2 className="text-2xl font-normal">Key Skills</h2>
           <ul className="flex flex-wrap gap-3">
             {Object.values(skills).map((item, index) => (

@@ -124,6 +124,13 @@ export default function Header() {
                   className={`p-2 text-sm uppercase tracking-wider transition-colors mx-2 ${
                     active === item ? "text-accent" : "hover:text-accent"
                   }`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    document
+                      .getElementById(item)
+                      ?.scrollIntoView({ behavior: "smooth" });
+                    setMenuOpen(false);
+                  }}
                 >
                   {item}
                 </a>

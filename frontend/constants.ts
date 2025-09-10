@@ -94,20 +94,15 @@ export const services = [
 
 export const roadmap = [
   {
-    title: "Graduated School",
+    title: "Going to School",
     location: "London, United Kingdom",
     from: new Date("2012-09-01"),
     to: new Date("2021-09-01"),
     achieved: ["GCSEs"],
-    learned: [
-      "Got introduced to programming with Python",
-      "Built simple websites using HTML, CSS, and JavaScript",
-      "Learned the basics of computer hardware and software",
-      "Developed problem-solving and logical thinking skills",
-    ],
+    learned: ["Basic knowledge"],
   },
   {
-    title: "Graduated College",
+    title: "Going to College",
     company: {
       name: "Leyton Sixth Form College",
       logo: "https://www.leyton.ac.uk/wp-content/themes/C4/assets/images/global/logo.svg",
@@ -118,11 +113,10 @@ export const roadmap = [
     to: new Date("2023-09-01"),
     achieved: ["A-Levels", "BTEC Extended Diploma In IT"],
     learned: [
-      "Introduced to Project Management and different methodologies",
-      "Gained advanced knowledge in Java and Swift programming",
-      "Developed mobile applications using Android Studio and Xcode",
-      "Learned about database management and API integration",
-      "Improved teamwork and collaboration skills through group projects",
+      "Project Management",
+      "Java and Swift programming",
+      "Mobile application development with Android Studio and Xcode",
+      "Database management and API integration",
     ],
   },
   {
@@ -137,15 +131,13 @@ export const roadmap = [
     to: new Date("2024-06-30"),
     skills: [skills.react, skills.typescript, skills.git, skills.electron],
     learned: [
-      "Gained practical experience in full-stack development",
-      "Worked with modern web technologies and frameworks",
-      "Collaborated with cross-functional teams",
-      "Helped with real-world projects and applications",
-      "Contributed in creating custom VPN desktop application using Electron",
+      "Full-Stack development",
+      "Modern web technologies and frameworks",
+      "Created VPN application using Electron and React",
     ],
   },
   {
-    title: "Graduating University",
+    title: "Going to University",
     company: {
       name: "University of Hertfordshire",
       logo: "https://www.herts.ac.uk/__data/assets/git_bridge/0005/258683/dist/mysource_files/herts-logo.svg?h=987654321",
@@ -156,8 +148,8 @@ export const roadmap = [
     to: undefined,
     achieved: ["BSc Computer Science"],
     learned: [
-      "Deepened understanding of computer science fundamentals",
-      "Explored topics such as algorithms, data structures, and software engineering",
+      "Learning computer science fundamentals",
+      "Algorithms, data structures, and software engineering",
       "Engaged in research and development projects",
       "Enhanced critical thinking and analytical skills",
     ],
@@ -170,7 +162,7 @@ export const roadmap = [
       website: "https://wakeflow.io",
     },
     location: "London, United Kingdom",
-    from: new Date("2024-07-01"),
+    from: new Date("2025-02-12"),
     to: undefined,
     skills: [
       skills.javascript,
@@ -180,11 +172,11 @@ export const roadmap = [
       skills.git,
     ],
     learned: [
-      "Taking on more complex projects and responsibilities",
-      "Client communication and requirement gathering",
-      "Leading development of scalable web and mobile applications",
-      "Implementing best practices in coding, testing, and deployment",
-      "Created automated workflows to improve efficiency and reduce manual tasks",
+      "Complex problems solving and debugging",
+      "Client communication",
+      "Scalable application architectures",
+      "Implementing best practices",
+      "Created automated workflows",
     ],
   },
 ];

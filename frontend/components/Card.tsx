@@ -9,6 +9,7 @@ const cardVariants = cva("transition-colors", {
       sm: "p-2",
       md: "p-4",
       lg: "p-6",
+      xl: "p-8",
     },
     rounded: {
       none: "rounded-none",
@@ -34,11 +35,12 @@ export interface CardProps
 export default function Card({
   children,
   variant,
+  size,
   rounded,
   className,
 }: CardProps) {
   return (
-    <div className={cardVariants({ variant, rounded, className })}>
+    <div className={cardVariants({ variant, size, rounded, className })}>
       {children}
     </div>
   );

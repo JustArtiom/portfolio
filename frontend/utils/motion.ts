@@ -51,7 +51,7 @@ export function motionProps({
   };
 
   const mergedViewport = {
-    once: false,
+    once: true,
     amount: 0.2 as "some" | "all" | number,
     ...(viewport ?? {}),
   };

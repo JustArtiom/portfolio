@@ -18,7 +18,8 @@ export default function RoadMap() {
     target: sectionRef,
     offset: ["start end", "end start"],
   });
-  const height = useTransform(scrollYProgress, [0, 0.7], ["0%", "100%"]);
+  const height = useTransform(scrollYProgress, [0, 0.75], ["0%", "100%"]);
+  let lastYear: number | null = null;
 
   return (
     <div ref={sectionRef} className="cursor-default w-full relative py-20">
@@ -40,19 +41,22 @@ export default function RoadMap() {
                 verbose: true,
               })
             : null;
+          const year = item.from
+            ? new Date(item.from).getFullYear()
+            : new Date().getFullYear();
+          const showYear = year !== lastYear;
+          if (showYear) lastYear = year;
           return (
             <div key={index} className="relative">
-              <motion.div
-                className="absolute left-1/2 -top-15 md:-top-10 -translate-x-1/2 p-2"
-                {...motionProps({ side: "bottom" })}
-              >
-                <div className="absolute w-5 h-5 -left-[32px] -top-[5px] shadow-accent shadow-[50px_15px_40px_rgba(0,0,0,0.1)]"></div>
-                <p className="text-xl">
-                  {item.to
-                    ? new Date(item.to).getFullYear()
-                    : new Date().getFullYear()}
-                </p>
-              </motion.div>
+              {showYear && (
+                <motion.div
+                  className="absolute left-1/2 -top-15 md:-top-10 -translate-x-1/2 p-2"
+                  {...motionProps({ side: "bottom" })}
+                >
+                  <div className="absolute w-[20px] h-[20px] -left-[60px] -top-[5px] shadow-accent shadow-[80px_15px_40px_rgba(0,0,0,0.1)]"></div>
+                  <p className="text-xl">{year}</p>
+                </motion.div>
+              )}
               <motion.div
                 className={cn(
                   "absolute md:z-40 left-1/2 top-[20%] -translate-y-1/2 -translate-x-full md:block hidden",
@@ -68,17 +72,25 @@ export default function RoadMap() {
                 />
               </motion.div>
               <motion.div
-                className={cn("w-full z-50 flex mt-20 md:-mt-30 relative", {
-                  "justify-end": index % 2 === 1,
-                  "mt-0": index === 0,
-                })}
+                className={cn(
+                  "w-full md:w-5/12 z-50 flex mt-20 md:-mt-15 relative",
+                  {
+                    "justify-end": index % 2 === 1,
+                    "mt-0": index === 0,
+                    "ml-auto": index % 2 === 1,
+                  }
+                )}
                 key={index}
                 {...motionProps({ side: index % 2 === 0 ? "left" : "right" })}
               >
-                <Card className="py-4 w-full md:w-5/12 transition-transform hover:scale-[1.01] overflow-hidden z-40">
-                  <div className="flex mb-6">
+                <Card
+                  size="lg"
+                  rounded="xl"
+                  className="w-full transition-transform hover:scale-[1.01] overflow-hidden z-[40] flex flex-col gap-6"
+                >
+                  <div className="flex">
                     <div className="flex-1">
-                      <div className="mb-4">
+                      <div className="mb-5">
                         <h1 className="text-lg font-semibold mb-0">
                           {item.title}
                         </h1>
@@ -107,29 +119,36 @@ export default function RoadMap() {
                         {(time || (!item.to && item.from)) && (
                           <p className="flex gap-2 items-center text-muted">
                             <Clock className="h-5 text-accent" />
-                            {time ||
-                              `From ${dateFormat(item.from, "mmmm dS, yyyy")} to today`}
+                            <p>
+                              {dateFormat(item.from, "mmm yyyy")} -{" "}
+                              {item.to
+                                ? dateFormat(item.to, "mmm yyyy")
+                                : "Present"}{" "}
+                              {time && (
+                                <span className="text-sm">({time})</span>
+                              )}
+                            </p>
                           </p>
                         )}
                       </div>
                     </div>
-                    <div className="h-15 flex items-center">
-                      {item.company?.logo && (
+                    {item.company?.logo && (
+                      <div className="h-15 flex items-center pl-4">
                         <img
                           src={item.company.logo}
                           alt={item.company.name}
                           className="max-h-15 max-w-20"
                         />
-                      )}
-                    </div>
+                      </div>
+                    )}
                   </div>
                   {item.skills && (
-                    <div className="mb-4">
+                    <div>
                       <SkillList skills={item.skills} size="sm" />
                     </div>
                   )}
                   {item.learned && (
-                    <div className="mb-4">
+                    <div>
                       <ServiceList services={item.learned} />
                     </div>
                   )}
@@ -139,6 +158,14 @@ export default function RoadMap() {
           );
         })}
       </article>
+      <motion.p
+        className="text-center font-mono dark:text-gray-400 text-gray-600 mt-20"
+        {...motionProps({ side: "bottom" })}
+      >
+        Down To My First
+        <br />
+        <span className="text-accent font-bold">Hello world</span>
+      </motion.p>
     </div>
   );
 }

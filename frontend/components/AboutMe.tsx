@@ -41,7 +41,7 @@ export default function AboutMe() {
             ))}
           </div>
           <motion.p
-            className="mt-4 text-muted"
+            className="mt-6 text-muted"
             {...motionProps({ side: "left" })}
           >
             Specialising in building modern web apps, mobile apps, and
@@ -51,7 +51,7 @@ export default function AboutMe() {
         <motion.div className="flex-1" {...motionProps({ side: "right" })}>
           <h2 className="text-2xl font-normal">Key Skills</h2>
           <SkillList skills={Object.values(skills)} />
-          <h2 className="text-2xl font-normal mt-4">Services</h2>
+          <h2 className="text-2xl font-normal mt-6">Services</h2>
           <ServiceList services={services} />
         </motion.div>
       </div>

@@ -19,13 +19,13 @@
   --color-accent-900: hsl(0, 100%, 10%);
 
   /* Background Colors */
-  --background-color-primary: hsl(0, 0%, 90%);
-  --background-color-secondary: hsl(0, 0%, 95%);
+  --background-color-primary: hsl(0, 0%, 95%);
+  --background-color-secondary: hsl(0, 0%, 97.5%);
   --background-color-highlight: hsl(0, 0%, 100%);
 
   /* Text Colors */
   --text-color-primary: hsl(0, 0%, 5%);
-  --text-color-muted: hsl(0, 0%, 20%);
+  --text-color-muted: hsl(0, 0%, 30%);
 
   /* Animations */
   --animate-wiggle: wiggle 0.3s ease-in-out;
@@ -53,12 +53,12 @@
 
 @layer theme {
   .dark {
-    --background-color-primary: hsl(0, 0%, 2.5%);
-    --background-color-secondary: hsl(0, 0%, 6%);
-    --background-color-highlight: hsl(0, 0%, 15%);
+    --background-color-primary: hsl(0, 0%, 5%);
+    --background-color-secondary: hsl(0, 0%, 7.5%);
+    --background-color-highlight: hsl(0, 0%, 10%);
 
     --text-color-primary: hsl(0, 0%, 90%);
-    --text-color-muted: hsl(0, 0%, 50%);
+    --text-color-muted: hsl(0, 0%, 60%);
 
     --border-color-primary: hsl(0, 0%, 30%);
   }

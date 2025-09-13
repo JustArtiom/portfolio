@@ -38,9 +38,13 @@ export default function Card({
   size,
   rounded,
   className,
+  ...props
 }: CardProps) {
   return (
-    <div className={cardVariants({ variant, size, rounded, className })}>
+    <div
+      className={cardVariants({ variant, size, rounded, className })}
+      {...props}
+    >
       {children}
     </div>
   );

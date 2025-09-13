@@ -22,7 +22,7 @@ export default function RoadMap() {
   let lastYear: number | null = null;
 
   return (
-    <div ref={sectionRef} className="cursor-default w-full relative py-20">
+    <div ref={sectionRef} className="cursor-default w-full relative py-35 ">
       <motion.div
         className="absolute bg-gradient-to-b from-transparent via-accent/10 to-transparent w-[5px] h-full top-0 left-1/2 -translate-x-1/2 z-40"
         style={{ height }}
@@ -91,7 +91,7 @@ export default function RoadMap() {
                   <div className="flex">
                     <div className="flex-1">
                       <div className="mb-5">
-                        <h1 className="text-lg font-semibold mb-0">
+                        <h1 className="text-xl font-semibold mb-1">
                           {item.title}
                         </h1>
                         {item.achieved && (
@@ -119,7 +119,7 @@ export default function RoadMap() {
                         {(time || (!item.to && item.from)) && (
                           <p className="flex gap-2 items-center text-muted">
                             <Clock className="h-5 text-accent" />
-                            <p>
+                            <span>
                               {dateFormat(item.from, "mmm yyyy")} -{" "}
                               {item.to
                                 ? dateFormat(item.to, "mmm yyyy")
@@ -127,7 +127,7 @@ export default function RoadMap() {
                               {time && (
                                 <span className="text-sm">({time})</span>
                               )}
-                            </p>
+                            </span>
                           </p>
                         )}
                       </div>
@@ -142,14 +142,14 @@ export default function RoadMap() {
                       </div>
                     )}
                   </div>
-                  {item.skills && (
-                    <div>
-                      <SkillList skills={item.skills} size="sm" />
-                    </div>
-                  )}
                   {item.learned && (
                     <div>
                       <ServiceList services={item.learned} />
+                    </div>
+                  )}
+                  {item.skills && (
+                    <div>
+                      <SkillList skills={item.skills} size="md" />
                     </div>
                   )}
                 </Card>

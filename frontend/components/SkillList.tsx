@@ -13,7 +13,7 @@ export default function SkillList({ skills, size = "md" }: SkillListProps) {
     <ul
       className={cn(
         "flex flex-wrap",
-        size === "sm" && "gap-1",
+        size === "sm" && "gap-2",
         size === "md" && "gap-2",
         size === "lg" && "gap-3"
       )}
@@ -22,7 +22,7 @@ export default function SkillList({ skills, size = "md" }: SkillListProps) {
         <motion.li
           key={index}
           className={cn(
-            "inline-flex items-center gap-2 p-1 px-4 rounded-full text-gray-700 dark:text-gray-300 bg-accent-200/8 hover:bg-accent-200/20 transition-colors group hover:text-primary",
+            "inline-flex items-center gap-2 p-1.5 px-5 rounded-full text-gray-700 dark:text-gray-300 bg-accent-200/8 hover:bg-accent-200/20 transition-colors group hover:text-primary",
             size === "sm" && "text-sm",
             size === "md" && "text-base",
             size === "lg" && "text-lg"

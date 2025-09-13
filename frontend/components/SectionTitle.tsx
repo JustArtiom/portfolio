@@ -12,7 +12,7 @@ export default function SectionTitle({
   return (
     <motion.p
       className={cn(
-        `text-xl font-thin tracking-widest dark:text-gray-400 text-gray-600 mb-8`,
+        `text-xl tracking-widest dark:text-gray-400 text-gray-600 mb-10`,
         className
       )}
       {...motionProps({ side: "left" })}

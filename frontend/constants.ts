@@ -180,3 +180,77 @@ export const roadmap = [
     ],
   },
 ];
+
+export const projects = [
+  {
+    name: "TimeTrekker",
+    description:
+      "A free and open-source software to let you keep track easily of your time and productivity on your pc. It keeps track of the applications you use and gives you detailed statistics and insights.",
+    src: "https://github.com/JustArtiom/TimeTrekker",
+    background: {
+      image: "/assets/img/timetrekker.webp",
+    },
+    download: [
+      {
+        platform: "Windows",
+        url: "https://github.com/JustArtiom/TimeTrekker/releases/download/Prototype/timetrekker-prototype-win-x64-Installer.exe",
+      },
+    ],
+    skills: [skills.electron, skills.react, skills.typescript],
+  },
+  {
+    name: "UpApp",
+    description:
+      "Upload, Host, Share your files in seconds. UpApp is a fast and reliable file storage client powered by a MinIO server backend, designed to simplify file management and sharing.",
+    src: "https://github.com/JustArtiom/UpApp",
+    background: {
+      image: "https://github.com/JustArtiom/UpApp/raw/main/.example/demo.gif",
+    },
+    download: [
+      {
+        platform: "Windows",
+        url: "https://github.com/JustArtiom/UpApp/releases/download/v0.0.1-alpha/upapp-0.0.1-alpha.Setup.exe",
+      },
+    ],
+    skills: [skills.electron, skills.react, skills.typescript, skills.go],
+  },
+  {
+    name: "GoHueBLE",
+    description:
+      "A simple Go-based utility to control BLE (Bluetooth Low Energy) HUE light devices. This program allows you to connect to a device via BLE, turn it on/off, change its brightness, and adjust the color using XY color coordinates or RGB hex codes",
+    src: "https://github.com/JustArtiom/GoHueBLE",
+    background: {
+      image: "/assets/img/gohueble.webp",
+    },
+    download: [
+      {
+        platform: "Windows",
+        url: "https://github.com/JustArtiom/GoHueBle/releases/download/v1.0.0/GoHueBle-v1.0.0-windows-amd64.exe",
+      },
+      {
+        platform: "Linux",
+        url: "https://github.com/JustArtiom/GoHueBle/releases/download/v1.0.0/GoHueBle-v1.0.0-linux-amd64",
+      },
+    ],
+    skills: [skills.go],
+  },
+  {
+    name: "TILC Agent",
+    description:
+      "An AI-powered agent to support you with UK financial advisers with underwriting queries for Life Insurance, Critical Illness, and Income Protection",
+    background: {
+      image: "/assets/img/tilc.webp",
+    },
+    skills: [skills.javascript, skills.react],
+  },
+  {
+    name: "Text Classifier",
+    description:
+      "A text classification web app using TensorFlow that categorizes user-input text into predefined categories in real-time",
+    src: "https://github.com/JustArtiom/text-classifier-AI",
+    background: {
+      image: "/assets/img/textclassifier.webp",
+    },
+    skills: [skills.python, skills.tensorflow],
+  },
+];

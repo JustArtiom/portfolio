@@ -17,6 +17,7 @@ export default defineConfig([
     plugins: { import: importPlugin },
     rules: {
       semi: [`error`, `always`],
+      "@typescript-eslint/no-explicit-any": `off`,
     },
   },
 

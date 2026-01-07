@@ -20,7 +20,7 @@ export default function App() {
         <section id="projects" className="min-h-screen">
           <Projects />
         </section>
-        <section id="contact" className="h-screen">Hello world</section>
+        <section id="contact" className="h-screen">Hello world!!!!!!</section>
       </main>
     </div>
   );

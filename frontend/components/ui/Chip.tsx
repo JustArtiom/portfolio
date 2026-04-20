@@ -3,7 +3,7 @@ import { motion, type HTMLMotionProps } from "framer-motion";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/utils/cn";
 
-export const chipVariants = cva(
+const chipVariants = cva(
   "inline-flex items-center gap-1.5 px-2.5 py-0.5 border border-line rounded-full bg-bg cursor-default",
   {
     variants: {

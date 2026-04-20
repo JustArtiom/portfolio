@@ -3,7 +3,7 @@ import { motion, type HTMLMotionProps } from "framer-motion";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/utils/cn";
 
-export const cardVariants = cva("border border-line", {
+const cardVariants = cva("border border-line", {
   variants: {
     surface: { glass: "glass", solid: "bg-bg" },
     rounded: {

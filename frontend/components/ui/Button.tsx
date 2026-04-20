@@ -3,7 +3,7 @@ import { motion, type HTMLMotionProps } from "framer-motion";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/utils/cn";
 
-export const buttonVariants = cva(
+const buttonVariants = cva(
   "group inline-flex items-center gap-2.5 rounded-full border transition-colors cursor-pointer",
   {
     variants: {

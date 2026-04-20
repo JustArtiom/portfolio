@@ -46,7 +46,7 @@ export default defineConfig([
       `frontend/**/*.tsx`,
     ],
     extends: [
-      reactHooks.configs[`recommended-latest`],
+      reactHooks.configs.flat[`recommended-latest`],
       reactRefresh.configs.vite,
     ],
     languageOptions: {

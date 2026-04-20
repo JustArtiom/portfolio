@@ -1,171 +1,205 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import { Moon, Sun } from "lucide-react";
 import Logo from "@/assets/svg/logo.svg";
-import { Menu, X } from "lucide-react";
+import { cn } from "@/utils/cn";
+import { yearsSince } from "@/utils/math";
+import { site } from "@/constants";
 
-const sections = ["about", "roadmap", "projects", "contact"] as const;
-type SectionId = (typeof sections)[number];
+const links = [
+  { id: "about", label: "About", num: "01" },
+  { id: "work", label: "Work", num: "02" },
+  { id: "projects", label: "Projects", num: "03" },
+  { id: "contact", label: "Contact", num: "04" },
+] as const;
 
-export default function Header() {
-  const [active, setActive] = useState<SectionId>("about");
-  const [underline, setUnderline] = useState<{ left: number; width: number }>({
-    left: 0,
-    width: 0,
-  });
+type Props = {
+  activeSection: string;
+  onNav: (id: string) => void;
+  theme: "light" | "dark";
+  onToggleTheme: () => void;
+};
+
+export default function Header({ activeSection, onNav, theme, onToggleTheme }: Props) {
+  const [age, setAge] = useState(() => yearsSince(site.birthDate));
+  const [exp, setExp] = useState(() => yearsSince(site.careerStart));
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const headerRef = useRef<HTMLDivElement>(null);
-
-  const ulRef = useRef<HTMLUListElement | null>(null);
-  const linkRefs = useRef<Record<SectionId, HTMLAnchorElement | null>>({
-    about: null,
-    roadmap: null,
-    projects: null,
-    contact: null,
-  });
-
-  const updateUnderline = useCallback(() => {
-    const ul = ulRef.current;
-    const el = linkRefs.current[active ?? "about"];
-    if (!ul || !el) return;
-    const ulRect = ul.getBoundingClientRect();
-    const elRect = el.getBoundingClientRect();
-    const left = elRect.left - ulRect.left;
-    setUnderline({ left, width: elRect.width });
-  }, [active]);
-
   useEffect(() => {
-    window.addEventListener("resize", updateUnderline);
-    return () => window.removeEventListener("resize", updateUnderline);
-  }, [updateUnderline]);
-
-  useEffect(() => {
-    updateUnderline();
-  }, [active, updateUnderline]);
-
-  useEffect(() => {
-    const observers: IntersectionObserver[] = [];
-
-    sections.forEach((id) => {
-      const target = document.getElementById(id);
-      if (!target) return;
-
-      const obs = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              setActive(id);
-            }
-          });
-        },
-        {
-          root: null,
-          rootMargin: "-50% 0px -50% 0px",
-          threshold: 0,
-        }
-      );
-
-      obs.observe(target);
-      observers.push(obs);
-    });
-
-    return () => observers.forEach((o) => o.disconnect());
+    const id = setInterval(() => {
+      setAge(yearsSince(site.birthDate));
+      setExp(yearsSince(site.careerStart));
+    }, 80);
+    return () => clearInterval(id);
   }, []);
 
-  useEffect(() => {
-    function handleClickOutside(e: MouseEvent) {
-      if (
-        menuOpen &&
-        headerRef.current &&
-        !headerRef.current.contains(e.target as Node)
-      ) {
-        setMenuOpen(false);
-      }
-    }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [menuOpen]);
-
   return (
-    <div
-      ref={headerRef}
-      className="fixed w-full flex flex-col justify-between items-center backdrop-blur-md z-[500]"
+    <motion.header
+      initial={{ y: -40, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+      className="sticky top-0 z-40 border-b border-line-2 bg-[color-mix(in_oklab,var(--color-bg)_80%,transparent)] backdrop-blur-md backdrop-saturate-150"
     >
-      <header className="w-full px-6 sm:px-6 mx-auto flex justify-between items-center max-w-[1200px] py-4 sm:py-6">
-        <Logo className="h-8 w-8 mx-2" />
-
-        {/* Mobile toggle */}
-        <button
-          className="md:hidden inline-flex items-center justify-center p-2 rounded hover:bg-accent/10 focus:outline-none focus:ring-2 focus:ring-accent/40"
-          aria-label="Toggle menu"
-          aria-expanded={menuOpen}
-          onClick={() => setMenuOpen((v) => !v)}
+      <div className="max-w-page mx-auto flex items-center justify-between gap-6 px-5 py-4 md:px-10">
+        {/* Mark */}
+        <a
+          href="#top"
+          onClick={(e) => {
+            e.preventDefault();
+            onNav("top");
+          }}
+          className="flex items-center gap-3 font-medium"
         >
-          {menuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-        </button>
+          <span className="inline-flex w-[22px] h-[22px] items-center justify-center text-ink">
+            <Logo className="h-full w-full" />
+          </span>
+          <span className="tracking-tight">{site.name}</span>
+          <span className="hidden md:inline-flex items-baseline gap-1.5 pl-3 ml-1 border-l border-line font-mono text-[11px] text-muted">
+            <span className="inline-block min-w-[8ch] tabular-nums text-ink-2">
+              {age.toFixed(6)}
+            </span>
+            <span className="text-faint">yrs</span>
+            <span className="text-faint">·</span>
+            <span className="inline-block min-w-[8ch] tabular-nums text-ink-2">
+              {exp.toFixed(6)}
+            </span>
+            <span className="text-faint">exp</span>
+          </span>
+        </a>
 
         {/* Desktop nav */}
-        <nav className="hidden md:block">
-          <ul ref={ulRef} className="relative flex">
-            {/* Animated underline (desktop only) */}
-            <div
-              className="absolute h-[1px] bg-accent -bottom-1 left-0 transition-all duration-300"
-              style={{
-                width: underline.width,
-                transform: `translateX(${underline.left}px)`,
-              }}
-            />
-            {sections.map((item) => (
-              <li key={item} className="hover:animate-wiggle">
-                <a
-                  ref={(el) => {
-                    linkRefs.current[item] = el;
-                  }}
-                  href={`#${item}`}
-                  className={`p-2 text-sm uppercase tracking-wider transition-colors mx-2 ${
-                    active === item ? "text-accent" : "hover:text-accent"
-                  }`}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    document
-                      .getElementById(item)
-                      ?.scrollIntoView({ behavior: "smooth" });
-                    setMenuOpen(false);
-                  }}
+        <nav className="hidden md:flex items-center gap-1 text-sm">
+          {links.map((l) => {
+            const active = activeSection === l.id;
+            return (
+              <a
+                key={l.id}
+                href={`#${l.id}`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  onNav(l.id);
+                }}
+                className={cn(
+                  "inline-flex items-baseline gap-1.5 px-3.5 py-2 rounded-full transition-colors",
+                  active ? "text-ink" : "text-muted hover:text-ink hover:bg-bg-2"
+                )}
+              >
+                <span
+                  className={cn(
+                    "font-mono text-[11px]",
+                    active ? "text-accent" : "text-faint"
+                  )}
                 >
-                  {item}
-                </a>
-              </li>
-            ))}
-          </ul>
+                  {l.num}
+                </span>
+                {l.label}
+              </a>
+            );
+          })}
+          <motion.button
+            type="button"
+            onClick={onToggleTheme}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.9, rotate: -30 }}
+            aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+            title={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+            className="ml-2 w-9 h-9 rounded-full border border-line bg-bg-2 text-ink inline-flex items-center justify-center transition-colors hover:border-ink hover:text-accent overflow-hidden"
+          >
+            <motion.span
+              key={theme}
+              initial={{ rotate: -90, opacity: 0 }}
+              animate={{ rotate: 0, opacity: 1 }}
+              transition={{ duration: 0.3 }}
+              className="inline-flex"
+            >
+              {theme === "dark" ? (
+                <Moon className="w-4 h-4" />
+              ) : (
+                <Sun className="w-4 h-4" />
+              )}
+            </motion.span>
+          </motion.button>
         </nav>
-      </header>
+
+        {/* Mobile burger */}
+        <button
+          type="button"
+          onClick={() => setMenuOpen((v) => !v)}
+          aria-label="Toggle menu"
+          aria-expanded={menuOpen}
+          className="md:hidden w-10 h-10 rounded-lg border border-line bg-bg-2 flex flex-col items-center justify-center gap-1"
+        >
+          <span
+            className={cn(
+              "block w-[18px] h-[1.5px] bg-ink transition-transform duration-200 origin-center",
+              menuOpen && "translate-y-[5.5px] rotate-45"
+            )}
+          />
+          <span
+            className={cn(
+              "block w-[18px] h-[1.5px] bg-ink transition-opacity duration-200",
+              menuOpen && "opacity-0"
+            )}
+          />
+          <span
+            className={cn(
+              "block w-[18px] h-[1.5px] bg-ink transition-transform duration-200 origin-center",
+              menuOpen && "-translate-y-[5.5px] -rotate-45"
+            )}
+          />
+        </button>
+      </div>
 
       {/* Mobile nav panel */}
       <div
-        className={`md:hidden w-full px-4 sm:px-6 transition-[max-height,opacity] duration-300 overflow-hidden ${
-          menuOpen ? "max-h-64 opacity-100" : "max-h-0 opacity-0"
-        }`}
+        className={cn(
+          "md:hidden overflow-hidden border-b border-line bg-bg transition-[max-height,opacity] duration-200",
+          menuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+        )}
       >
-        <nav>
-          <ul className="flex flex-col gap-2 py-2">
-            {sections.map((item) => (
-              <li key={item}>
-                <a
-                  href={`#${item}`}
-                  onClick={() => setMenuOpen(false)}
-                  className={`block w-full py-2 text-sm uppercase tracking-wider rounded px-2 transition-colors ${
-                    active === item
-                      ? "text-accent bg-accent/10"
-                      : "hover:text-accent"
-                  }`}
+        <nav className="flex flex-col px-5 py-3 gap-1">
+          {links.map((l) => {
+            const active = activeSection === l.id;
+            return (
+              <a
+                key={l.id}
+                href={`#${l.id}`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  onNav(l.id);
+                  setMenuOpen(false);
+                }}
+                className={cn(
+                  "inline-flex items-baseline gap-2 px-3 py-3 rounded-lg text-[15px] transition-colors",
+                  active ? "text-ink bg-bg-2" : "text-muted hover:text-ink"
+                )}
+              >
+                <span
+                  className={cn(
+                    "font-mono text-[11px]",
+                    active ? "text-accent" : "text-faint"
+                  )}
                 >
-                  {item}
-                </a>
-              </li>
-            ))}
-          </ul>
+                  {l.num}
+                </span>
+                {l.label}
+              </a>
+            );
+          })}
+          <button
+            type="button"
+            onClick={onToggleTheme}
+            className="mt-2 self-end w-9 h-9 rounded-full border border-line bg-bg-2 text-ink inline-flex items-center justify-center"
+            aria-label="Toggle theme"
+          >
+            {theme === "dark" ? (
+              <Moon className="w-4 h-4" />
+            ) : (
+              <Sun className="w-4 h-4" />
+            )}
+          </button>
         </nav>
       </div>
-    </div>
+    </motion.header>
   );
 }

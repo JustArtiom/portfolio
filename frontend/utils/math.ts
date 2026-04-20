@@ -7,3 +7,9 @@ export function getAgeSince(birthDate: string) {
 
   return age;
 }
+
+export function yearsSince(birthDate: string) {
+  const start = new Date(birthDate).getTime();
+  const diff = Date.now() - start;
+  return diff / (365.25 * 24 * 60 * 60 * 1000);
+}

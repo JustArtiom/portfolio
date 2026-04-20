@@ -1,0 +1,13 @@
+/* TEAM */
+    Developer: Artiom
+    Site: https://artiom.me
+    Contact: hello [at] artiom.me
+    Location: London, United Kingdom
+    GitHub: @JustArtiom
+
+/* SITE */
+    Last update: 2026-04
+    Language: English
+    Standards: HTML5, CSS, TypeScript
+    Components: React, Framer Motion, Tailwind CSS, Vite
+    Backend: Node.js, Express

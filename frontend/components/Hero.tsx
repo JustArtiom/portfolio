@@ -16,7 +16,8 @@ export default function Hero() {
   }, []);
 
   return (
-    <motion.div
+    <motion.section
+      aria-label="Introduction"
       className="max-w-page mx-auto px-5 md:px-10 pt-20 pb-30"
       {...staggerOnMount(0.12, 0.1)}
     >
@@ -71,6 +72,6 @@ export default function Hero() {
           Get in touch
         </ButtonLink>
       </motion.div>
-    </motion.div>
+    </motion.section>
   );
 }

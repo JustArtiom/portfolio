@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { yearsSince } from "@/utils/math";
 import { site } from "@/constants";
 import { staggerChild, staggerOnMount } from "@/utils/motion";
+import { ButtonLink } from "./ui/Button";
 
 export default function Hero() {
   const [age, setAge] = useState(() => Math.floor(yearsSince(site.birthDate)));
@@ -37,17 +38,7 @@ export default function Hero() {
       >
         Hi, I&rsquo;m <em>Artiom.</em>
         <br />
-        I build{" "}
-        <span className="relative inline-block text-accent">
-          useful things
-          <motion.span
-            aria-hidden
-            className="absolute left-0 right-0 bottom-1 h-[3px] bg-accent/40 origin-left"
-            initial={{ scaleX: 0 }}
-            animate={{ scaleX: 1 }}
-            transition={{ duration: 0.8, delay: 1.1, ease: [0.22, 1, 0.36, 1] }}
-          />
-        </span>
+        I build <span className="text-accent">useful things</span>
         <br />
         on the web.
       </motion.h1>
@@ -73,25 +64,12 @@ export default function Hero() {
         variants={staggerChild({ side: "bottom", distance: 20 })}
         className="flex flex-wrap gap-3"
       >
-        <motion.a
-          href="#projects"
-          whileHover={{ y: -2 }}
-          whileTap={{ scale: 0.97 }}
-          className="group inline-flex items-center gap-2.5 px-5.5 py-3.5 rounded-full bg-ink text-bg text-[15px] border border-transparent transition-colors hover:bg-accent dark:hover:text-white"
-        >
+        <ButtonLink href="#projects" arrow>
           See the work
-          <span className="transition-transform group-hover:translate-x-1">
-            →
-          </span>
-        </motion.a>
-        <motion.a
-          href="#contact"
-          whileHover={{ y: -2 }}
-          whileTap={{ scale: 0.97 }}
-          className="inline-flex items-center gap-2.5 px-5.5 py-3.5 rounded-full border border-line text-ink text-[15px] transition-colors hover:border-ink"
-        >
+        </ButtonLink>
+        <ButtonLink href="#contact" variant="ghost">
           Get in touch
-        </motion.a>
+        </ButtonLink>
       </motion.div>
     </motion.div>
   );

@@ -1,6 +1,6 @@
 import type { Transition, Variants } from "framer-motion";
 
-export interface ViewportSlideOptions {
+export interface RevealOptions {
   side?: "left" | "right" | "top" | "bottom";
   distance?: number;
   opacity?: boolean;
@@ -12,88 +12,114 @@ export interface ViewportSlideOptions {
   delay?: number;
 }
 
-export function motionProps({
+const DEFAULT_TRANSITION: Transition = {
+  duration: 0.6,
+  ease: [0.22, 1, 0.36, 1],
+};
+
+function hiddenShown({
   side = "bottom",
-  distance = 60,
+  distance = 40,
   opacity = true,
-  transition,
-  viewport,
-  delay,
-}: ViewportSlideOptions = {}) {
-  const initial: Record<string, number | undefined> = {};
-  const target: Record<string, number | undefined> = {};
-
-  if (side === "left") {
-    initial.x = -distance;
-    target.x = 0;
-  } else if (side === "right") {
-    initial.x = distance;
-    target.x = 0;
-  } else if (side === "top") {
-    initial.y = -distance;
-    target.y = 0;
-  } else {
-    // bottom
-    initial.y = distance;
-    target.y = 0;
-  }
-
-  if (opacity) {
-    initial.opacity = 0;
-    target.opacity = 1;
-  }
-
-  const defaultTransition: Transition = { duration: 0.6, ease: "easeOut" };
-  const mergedTransition: Transition = {
-    ...defaultTransition,
-    ...(delay != null ? { delay } : {}),
-    ...(transition ?? {}),
-  };
-
-  const mergedViewport = {
-    once: true,
-    amount: 0.2 as "some" | "all" | number,
-    ...(viewport ?? {}),
-  };
-
-  const props = {
-    initial,
-    whileInView: target,
-    transition: mergedTransition,
-    viewport: mergedViewport,
-  };
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return props as any;
-}
-
-export function slideInVariants({
-  side = "bottom",
-  distance = 60,
-  opacity = true,
-}: Pick<ViewportSlideOptions, "side" | "distance" | "opacity"> = {}): Variants {
-  const hidden: Record<string, number | undefined> = {};
-  const show: Record<string, number | undefined> = {};
-
+}: Pick<RevealOptions, "side" | "distance" | "opacity"> = {}) {
+  const hidden: Record<string, number> = {};
+  const shown: Record<string, number> = {};
   if (side === "left") {
     hidden.x = -distance;
-    show.x = 0;
+    shown.x = 0;
   } else if (side === "right") {
     hidden.x = distance;
-    show.x = 0;
+    shown.x = 0;
   } else if (side === "top") {
     hidden.y = -distance;
-    show.y = 0;
+    shown.y = 0;
   } else {
     hidden.y = distance;
-    show.y = 0;
+    shown.y = 0;
   }
-
   if (opacity) {
     hidden.opacity = 0;
-    show.opacity = 1;
+    shown.opacity = 1;
   }
+  return { hidden, shown };
+}
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return { hidden, show } as any;
+/** Entrance reveal bound to viewport (plays once when scrolled into view). */
+export function motionProps(opts: RevealOptions = {}) {
+  const { hidden, shown } = hiddenShown(opts);
+  const transition: Transition = {
+    ...DEFAULT_TRANSITION,
+    ...(opts.delay != null ? { delay: opts.delay } : {}),
+    ...(opts.transition ?? {}),
+  };
+  const viewport = {
+    once: true,
+    amount: 0.2 as "some" | "all" | number,
+    ...(opts.viewport ?? {}),
+  };
+  return {
+    initial: hidden,
+    whileInView: shown,
+    transition,
+    viewport,
+  };
+}
+
+/** Mount-entrance reveal (plays immediately on mount, not on scroll). */
+export function mountProps(opts: RevealOptions = {}) {
+  const { hidden, shown } = hiddenShown(opts);
+  const transition: Transition = {
+    ...DEFAULT_TRANSITION,
+    ...(opts.delay != null ? { delay: opts.delay } : {}),
+    ...(opts.transition ?? {}),
+  };
+  return {
+    initial: hidden,
+    animate: shown,
+    transition,
+  };
+}
+
+/** Parent container that staggers children. Pair with `staggerChild()`. */
+export function staggerContainer(stagger = 0.08, delayChildren = 0): Variants {
+  return {
+    hidden: {},
+    shown: {
+      transition: {
+        staggerChildren: stagger,
+        delayChildren,
+      },
+    },
+  };
+}
+
+/** Child variant used inside a `staggerContainer`. */
+export function staggerChild(opts: RevealOptions = {}): Variants {
+  const { hidden, shown } = hiddenShown(opts);
+  return {
+    hidden,
+    shown: {
+      ...shown,
+      transition: { ...DEFAULT_TRANSITION, ...(opts.transition ?? {}) },
+    },
+  };
+}
+
+/** Scroll-triggered stagger container (plays once on scroll into view). */
+export function staggerOnScroll(stagger = 0.08, amount: number = 0.2) {
+  return {
+    initial: "hidden",
+    whileInView: "shown",
+    viewport: { once: true, amount },
+    variants: staggerContainer(stagger),
+  };
+}
+
+/** Mount-triggered stagger container (plays immediately). */
+export function staggerOnMount(stagger = 0.08, delayChildren = 0) {
+  return {
+    initial: "hidden",
+    animate: "shown",
+    variants: staggerContainer(stagger, delayChildren),
+  };
 }

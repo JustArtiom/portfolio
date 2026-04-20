@@ -1,126 +1,167 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
-
 @import "tailwindcss";
 
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  /* Accent Colors */
-  --color-accent: hsl(0, 100%, 65%);
+  /* Typography */
+  --font-sans: "Geist", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Instrument Serif", Georgia, serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-hand: "Caveat", "Instrument Serif", cursive;
 
-  --color-accent-100: hsl(0, 100%, 90%);
-  --color-accent-200: hsl(0, 100%, 80%);
-  --color-accent-300: hsl(0, 100%, 70%);
-  --color-accent-400: hsl(0, 100%, 60%);
-  --color-accent-500: hsl(0, 100%, 50%);
-  --color-accent-600: hsl(0, 100%, 40%);
-  --color-accent-700: hsl(0, 100%, 30%);
-  --color-accent-800: hsl(0, 100%, 20%);
-  --color-accent-900: hsl(0, 100%, 10%);
+  /* Accent — red oklch */
+  --color-accent: oklch(0.58 0.22 25);
+  --color-accent-soft: oklch(0.58 0.22 25 / 0.12);
 
-  /* Background Colors */
-  --background-color-primary: hsl(0, 0%, 95%);
-  --background-color-secondary: hsl(0, 0%, 97.5%);
-  --background-color-highlight: hsl(0, 0%, 100%);
+  /* Light theme palette (default) */
+  --color-bg: oklch(0.985 0.004 85);
+  --color-bg-2: oklch(0.97 0.006 80);
+  --color-ink: oklch(0.18 0.01 60);
+  --color-ink-2: oklch(0.3 0.01 60);
+  --color-muted: oklch(0.5 0.008 60);
+  --color-faint: oklch(0.7 0.008 70);
+  --color-line: oklch(0.9 0.006 70);
+  --color-line-2: oklch(0.94 0.004 70);
 
-  /* Text Colors */
-  --text-color-primary: hsl(0, 0%, 5%);
-  --text-color-muted: hsl(0, 0%, 30%);
+  /* Glass */
+  --color-glass: oklch(0.99 0.004 85 / 0.55);
+  --color-glass-line: oklch(1 0 0 / 0.6);
+
+  /* Radii / sizing */
+  --radius-glass: 10px;
+  --container-page: 1160px;
 
   /* Animations */
-  --animate-wiggle: wiggle 0.3s ease-in-out;
-  @keyframes wiggle {
-    0%,
-    100% {
-      transform: rotate(calc(var(--wiggle-angle, 3deg) * -1));
-    }
+  --animate-blink: blink 1.1s steps(2) infinite;
+  @keyframes blink {
     50% {
-      transform: rotate(var(--wiggle-angle, 3deg));
+      opacity: 0;
     }
   }
 
-  --animate-bounce: bounce 0.5s infinite;
-  @keyframes bounce {
+  --animate-now-breath: nowBreath 2.2s ease-in-out infinite;
+  @keyframes nowBreath {
     0%,
     100% {
-      transform: translateY(0) scaleY(1);
+      box-shadow: 0 0 0 0 oklch(0.65 0.17 145 / 0.6);
     }
     50% {
-      transform: translateY(-5px) scaleY(1.1);
+      box-shadow: 0 0 0 6px oklch(0.65 0.17 145 / 0);
     }
   }
 }
 
 @layer theme {
   .dark {
-    --background-color-primary: hsl(0, 0%, 5%);
-    --background-color-secondary: hsl(0, 0%, 7.5%);
-    --background-color-highlight: hsl(0, 0%, 10%);
-
-    --text-color-primary: hsl(0, 0%, 90%);
-    --text-color-muted: hsl(0, 0%, 60%);
-
-    --border-color-primary: hsl(0, 0%, 30%);
+    --color-bg: oklch(0.16 0.006 60);
+    --color-bg-2: oklch(0.19 0.008 60);
+    --color-ink: oklch(0.96 0.004 80);
+    --color-ink-2: oklch(0.85 0.006 70);
+    --color-muted: oklch(0.65 0.008 70);
+    --color-faint: oklch(0.45 0.008 70);
+    --color-line: oklch(0.28 0.008 60);
+    --color-line-2: oklch(0.24 0.008 60);
+    --color-glass: oklch(0.2 0.008 60 / 0.5);
+    --color-glass-line: oklch(1 0 0 / 0.08);
   }
 }
 
 @layer base {
-  .flex-center {
-    @apply flex items-center justify-center;
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
   }
 
-  /* Default styles */
-  h1 {
-    @apply text-4xl font-bold mb-4;
+  html {
+    background: var(--color-bg);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 17px;
+    line-height: 1.55;
+    letter-spacing: -0.005em;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "ss01", "cv11";
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px;
   }
 
-  h2 {
-    @apply text-3xl font-semibold mb-3;
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    position: relative;
+    --mx: 50vw;
+    --my: 50vh;
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background: radial-gradient(
+      520px circle at var(--mx) var(--my),
+      color-mix(in oklab, var(--color-accent) 12%, transparent),
+      transparent 60%
+    );
+    transition: opacity 0.3s;
+  }
+
+  #root {
+    position: relative;
+    z-index: 1;
+  }
+
+  ::selection {
+    background-color: var(--color-accent);
+    color: white;
+  }
+
+  :focus-visible {
+    outline-color: var(--color-accent);
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
   }
 }
 
 @layer utilities {
-  .animate-wiggle {
-    animation: wiggle 0.3s ease-in-out;
-    display: inline-block;
+  /* Handwritten accent for <em> inside prose */
+  .prose-em em {
+    font-family: var(--font-hand);
+    font-style: normal;
+    font-weight: 600;
+    letter-spacing: 0;
+    margin-left: 0.08em;
   }
-  .wiggle-xs {
-    --wiggle-angle: 1deg;
-  }
-  .wiggle-sm {
-    --wiggle-angle: 2deg;
-  }
-  .wiggle-md {
-    --wiggle-angle: 4deg;
-  }
-  .wiggle-xl {
-    --wiggle-angle: 8deg;
-  }
-  .text-spotlight {
-    text-shadow:
-      0 0 10px var(--tw-text-shadow-color),
-      0 0 30px var(--tw-text-shadow-color),
-      0 0 40px var(--tw-text-shadow-color),
-      0 0 50px var(--tw-text-shadow-color);
-  }
-}
 
-html {
-  scroll-behavior: smooth;
-}
+  .glass {
+    background: var(--color-glass);
+    backdrop-filter: saturate(160%) blur(14px);
+    -webkit-backdrop-filter: saturate(160%) blur(14px);
+  }
 
-body {
-  @apply bg-primary text-primary font-light underline-offset-2;
-  font-family: "Inter", sans-serif;
-  margin: 0;
-  padding: 0;
-}
+  /* Prose link — underline on hover */
+  .prose-link {
+    border-bottom: 1px solid var(--color-line);
+    transition:
+      border-color 0.2s,
+      color 0.2s;
+  }
+  .prose-link:hover {
+    color: var(--color-accent);
+    border-bottom-color: var(--color-accent);
+  }
 
-::selection {
-  background-color: var(--color-accent);
-  color: white;
-}
-
-:focus-visible {
-  outline-color: var(--color-accent);
 }

@@ -14,22 +14,27 @@ import {
 } from "react-icons/si";
 import { getAgeSince } from "./utils/math";
 
+export const site = {
+  name: "Artiom",
+  email: "hello@artiom.me",
+  domain: "artiom.me",
+  birthDate: "2005-06-01",
+  careerStart: "2022-07-01",
+  version: "v2026.04",
+};
+
 export const details = [
-  {
-    icon: MapPin,
-    text: `London, United Kingdom`,
-  },
+  { icon: MapPin, label: "Location", text: "London, United Kingdom" },
   {
     icon: Calendar,
-    text: `${getAgeSince(`2005-06-01`)} Years Old`,
+    label: "Age",
+    text: `${getAgeSince(site.birthDate)} Years Old`,
   },
-  {
-    icon: Code,
-    text: `Full-Stack Developer`,
-  },
+  { icon: Code, label: "Role", text: "Full-Stack Developer" },
   {
     icon: BriefcaseBusiness,
-    text: `${getAgeSince(`2021-01-01`)}+ Years of Experience`,
+    label: "Experience",
+    text: `${getAgeSince(site.careerStart)}+ Years`,
   },
 ];
 
@@ -39,121 +44,54 @@ export interface Skill {
 }
 
 export const skills: Record<string, Skill> = {
-  typescript: {
-    name: "TypeScript",
-    icon: SiTypescript,
-  },
-  javascript: {
-    name: "JavaScript",
-    icon: SiJavascript,
-  },
-  python: {
-    name: "Python",
-    icon: SiPython,
-  },
-  java: {
-    name: "Java",
-    icon: FaJava,
-  },
-  go: {
-    name: "Go",
-    icon: SiGo,
-  },
-  react: {
-    name: "React",
-    icon: SiReact,
-  },
-  electron: {
-    name: "Electron",
-    icon: SiElectron,
-  },
-  expo: {
-    name: "Expo",
-    icon: SiExpo,
-  },
-  tensorflow: {
-    name: "TensorFlow",
-    icon: SiTensorflow,
-  },
-  git: {
-    name: "Git",
-    icon: SiGit,
-  },
-  googleCloud: {
-    name: "Google Cloud",
-    icon: SiGooglecloud,
-  },
+  typescript: { name: "TypeScript", icon: SiTypescript },
+  javascript: { name: "JavaScript", icon: SiJavascript },
+  python: { name: "Python", icon: SiPython },
+  java: { name: "Java", icon: FaJava },
+  go: { name: "Go", icon: SiGo },
+  react: { name: "React", icon: SiReact },
+  electron: { name: "Electron", icon: SiElectron },
+  expo: { name: "Expo", icon: SiExpo },
+  tensorflow: { name: "TensorFlow", icon: SiTensorflow },
+  git: { name: "Git", icon: SiGit },
+  googleCloud: { name: "Google Cloud", icon: SiGooglecloud },
 };
 
 export const services = [
-  `Full-Stack Web Development`,
-  `Android & iOS Mobile Apps`,
-  `Automation & Scripting`,
-  `LLM & AI Integration`,
+  "Full-Stack Web Development",
+  "Android & iOS Mobile Apps",
+  "Automation & Scripting",
+  "LLM & AI Integration",
 ];
 
-export const roadmap = [
+export const skillGroups: { label: string; items: Skill[] }[] = [
   {
-    title: "Going to School",
-    location: "London, United Kingdom",
-    from: new Date("2012-09-01"),
-    to: new Date("2021-09-01"),
-    achieved: ["GCSEs"],
-    learned: ["Basic knowledge"],
+    label: "Core",
+    items: [skills.typescript, skills.javascript, skills.react],
   },
   {
-    title: "Going to College",
-    company: {
-      name: "Leyton Sixth Form College",
-      logo: "https://www.leyton.ac.uk/wp-content/themes/C4/assets/images/global/logo.svg",
-      website: "https://leyton.ac.uk",
-    },
-    location: "London, United Kingdom",
-    from: new Date("2021-09-01"),
-    to: new Date("2023-09-01"),
-    achieved: ["A-Levels", "BTEC Extended Diploma In IT"],
-    learned: [
-      "Project Management",
-      "Java and Swift programming",
-      "Mobile application development with Android Studio and Xcode",
-      "Database management and API integration",
-    ],
+    label: "Also ship",
+    items: [skills.python, skills.go, skills.java, skills.electron, skills.expo],
   },
   {
-    title: "Junior Full-Stack Developer",
-    company: {
-      name: "DanBot Hosting",
-      logo: "https://avatars.githubusercontent.com/u/73919385",
-      website: "https://danbot.host",
-    },
-    location: "London, United Kingdom",
-    from: new Date("2022-07-01"),
-    to: new Date("2024-06-30"),
-    skills: [skills.react, skills.typescript, skills.git, skills.electron],
-    learned: [
-      "Full-Stack development",
-      "Modern web technologies and frameworks",
-      "Created VPN application using Electron and React",
-    ],
+    label: "Infra & Tools",
+    items: [skills.googleCloud, skills.git, skills.tensorflow],
   },
-  {
-    title: "Going to University",
-    company: {
-      name: "University of Hertfordshire",
-      logo: "https://www.herts.ac.uk/__data/assets/git_bridge/0005/258683/dist/mysource_files/herts-logo.svg?h=987654321",
-      website: "https://www.herts.ac.uk",
-    },
-    location: "Hatfield, United Kingdom",
-    from: new Date("2023-09-01"),
-    to: undefined,
-    achieved: ["BSc Computer Science"],
-    learned: [
-      "Learning computer science fundamentals",
-      "Algorithms, data structures, and software engineering",
-      "Engaged in research and development projects",
-      "Enhanced critical thinking and analytical skills",
-    ],
-  },
+];
+
+export interface RoadmapItem {
+  title: string;
+  company?: { name: string; logo?: string; website?: string };
+  location: string;
+  from: Date;
+  to?: Date;
+  achieved?: string[];
+  learned?: string[];
+  skills?: Skill[];
+  active?: boolean;
+}
+
+export const roadmap: RoadmapItem[] = [
   {
     title: "Mid-Level Full-Stack Developer",
     company: {
@@ -172,24 +110,84 @@ export const roadmap = [
       skills.git,
     ],
     learned: [
-      "Complex problems solving and debugging",
-      "Client communication",
+      "Complex problem solving & debugging across the stack",
+      "Client communication and scoping",
       "Scalable application architectures",
-      "Implementing best practices",
-      "Created automated workflows",
+      "Built automated workflows",
+    ],
+    active: true,
+  },
+  {
+    title: "BSc Computer Science",
+    company: {
+      name: "University of Hertfordshire",
+      logo: "https://www.herts.ac.uk/__data/assets/git_bridge/0005/258683/dist/mysource_files/herts-logo.svg?h=987654321",
+      website: "https://www.herts.ac.uk",
+    },
+    location: "Hatfield, United Kingdom",
+    from: new Date("2023-09-01"),
+    to: undefined,
+    achieved: ["BSc Computer Science"],
+    learned: [
+      "Algorithms, data structures, and software engineering",
+      "Engaged in research and development projects",
+      "Critical thinking and analytical skills",
+    ],
+    active: true,
+  },
+  {
+    title: "Junior Full-Stack Developer",
+    company: {
+      name: "DanBot Hosting",
+      logo: "https://avatars.githubusercontent.com/u/73919385",
+      website: "https://danbot.host",
+    },
+    location: "London, United Kingdom",
+    from: new Date("2022-07-01"),
+    to: new Date("2024-06-30"),
+    skills: [skills.react, skills.typescript, skills.git, skills.electron],
+    learned: [
+      "Full-stack development with modern frameworks",
+      "Built a VPN application using Electron + React",
+    ],
+  },
+  {
+    title: "A-Levels · BTEC Extended Diploma in IT",
+    company: {
+      name: "Leyton Sixth Form College",
+      logo: "https://www.leyton.ac.uk/wp-content/themes/C4/assets/images/global/logo.svg",
+      website: "https://leyton.ac.uk",
+    },
+    location: "London, United Kingdom",
+    from: new Date("2021-09-01"),
+    to: new Date("2023-09-01"),
+    achieved: ["A-Levels", "BTEC Extended Diploma in IT"],
+    learned: [
+      "Project management, Java & Swift",
+      "Android Studio / Xcode mobile dev",
+      "Databases and API integration",
     ],
   },
 ];
 
-export const projects = [
+export interface Project {
+  name: string;
+  tagline: string;
+  description: string;
+  src?: string;
+  download?: { platform: string; url: string }[];
+  skills: Skill[];
+  year: string;
+  kind: string;
+}
+
+export const projects: Project[] = [
   {
     name: "TimeTrekker",
+    tagline: "Know where your hours go.",
     description:
-      "A free and open-source software to let you keep track easily of your time and productivity on your pc. It keeps track of the applications you use and gives you detailed statistics and insights.",
+      "A free and open-source tool that quietly tracks the apps you use and turns the data into detailed statistics and insights. For people who want to understand their own computer time.",
     src: "https://github.com/JustArtiom/TimeTrekker",
-    background: {
-      image: "/assets/img/timetrekker.webp",
-    },
     download: [
       {
         platform: "Windows",
@@ -197,15 +195,15 @@ export const projects = [
       },
     ],
     skills: [skills.electron, skills.react, skills.typescript],
+    year: "2024",
+    kind: "open source",
   },
   {
     name: "UpApp",
+    tagline: "Upload, host, share — in seconds.",
     description:
-      "Upload, Host, Share your files in seconds. UpApp is a fast and reliable file storage client powered by a MinIO server backend, designed to simplify file management and sharing.",
+      "A fast file-storage client powered by a MinIO backend. Drop, share, done. Designed to stay out of your way.",
     src: "https://github.com/JustArtiom/UpApp",
-    background: {
-      image: "https://github.com/JustArtiom/UpApp/raw/main/.example/demo.gif",
-    },
     download: [
       {
         platform: "Windows",
@@ -213,15 +211,15 @@ export const projects = [
       },
     ],
     skills: [skills.electron, skills.react, skills.typescript, skills.go],
+    year: "2024",
+    kind: "open source",
   },
   {
     name: "GoHueBLE",
+    tagline: "Scripts for your lightbulbs.",
     description:
-      "A simple Go-based utility to control BLE (Bluetooth Low Energy) HUE light devices. This program allows you to connect to a device via BLE, turn it on/off, change its brightness, and adjust the color using XY color coordinates or RGB hex codes",
+      "A Go utility that speaks Bluetooth Low Energy to Philips Hue lights. Toggle, dim, and colour-control from the terminal, without touching the hub.",
     src: "https://github.com/JustArtiom/GoHueBLE",
-    background: {
-      image: "/assets/img/gohueble.webp",
-    },
     download: [
       {
         platform: "Windows",
@@ -233,24 +231,51 @@ export const projects = [
       },
     ],
     skills: [skills.go],
+    year: "2024",
+    kind: "open source",
   },
   {
     name: "TILC Agent",
+    tagline: "An AI second opinion for underwriters.",
     description:
-      "An AI-powered agent to support you with UK financial advisers with underwriting queries for Life Insurance, Critical Illness, and Income Protection",
-    background: {
-      image: "/assets/img/tilc.webp",
-    },
+      "An AI-powered agent built to help UK financial advisers with underwriting queries for Life Insurance, Critical Illness, and Income Protection.",
     skills: [skills.javascript, skills.react],
+    year: "2025",
+    kind: "client work",
   },
   {
     name: "Text Classifier",
+    tagline: "Real-time text classification in the browser.",
     description:
-      "A text classification web app using TensorFlow that categorizes user-input text into predefined categories in real-time",
+      "A TensorFlow-powered web app that categorises user text into pre-defined buckets in real time. Small, fast, surprisingly useful.",
     src: "https://github.com/JustArtiom/text-classifier-AI",
-    background: {
-      image: "/assets/img/textclassifier.webp",
-    },
     skills: [skills.python, skills.tensorflow],
+    year: "2023",
+    kind: "research",
   },
+];
+
+export const socials = [
+  {
+    label: "GitHub",
+    handle: "@JustArtiom",
+    href: "https://github.com/JustArtiom",
+  },
+  {
+    label: "LinkedIn",
+    handle: "artiom",
+    href: "https://linkedin.com/",
+  },
+  {
+    label: "Email",
+    handle: site.email,
+    href: `mailto:${site.email}`,
+  },
+];
+
+export const nowDoing = [
+  { key: "Building", text: "internal tools & automations at Wakeflow" },
+  { key: "Tinkering", text: "with BLE, Electron, and small Go CLIs after hours" },
+  { key: "Learning", text: "distributed systems & Rust, slowly" },
+  { key: "Drinking", text: "too much coffee, as usual" },
 ];

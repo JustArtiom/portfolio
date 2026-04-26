@@ -10,6 +10,22 @@ import { cn } from "@/utils/cn";
 
 export type ContactStatus = "idle" | "sending" | "sent" | "error";
 
+function collectClientMeta() {
+  try {
+    const dpr = window.devicePixelRatio || 1;
+    return {
+      tz: Intl.DateTimeFormat().resolvedOptions().timeZone,
+      lang: navigator.language,
+      langs: navigator.languages?.slice(0, 6).join(","),
+      screen: `${window.screen.width}x${window.screen.height}@${dpr}x`,
+      viewport: `${window.innerWidth}x${window.innerHeight}`,
+      referrer: document.referrer,
+    };
+  } catch {
+    return {};
+  }
+}
+
 export default function ContactForm() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [status, setStatus] = useState<ContactStatus>("idle");
@@ -37,6 +53,7 @@ export default function ContactForm() {
         email: form.email.trim(),
         message: form.message.trim(),
         source: site.domain,
+        ...collectClientMeta(),
       });
       setStatus("sent");
       setForm({ name: "", email: "", message: "" });

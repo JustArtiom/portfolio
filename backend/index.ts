@@ -4,6 +4,8 @@ import contact from "./routes/contact";
 
 const app = express();
 
+app.set("trust proxy", 3);
+
 app.use(express.json({ limit: "32kb" }));
 
 app.get(`/api`, (_, res) => {

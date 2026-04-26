@@ -158,6 +158,16 @@ router.post("/", async (req: Request, res: Response) => {
   console.log(
     `[contact] ${ip} (${country || "??"}) ${device}/${os}/${browser} ${name} <${email}> ray=${ray || "-"}`
   );
+  console.log("[contact:debug]", {
+    "remoteAddress": req.socket.remoteAddress,
+    "req.ip": req.ip,
+    "cf-connecting-ip": req.headers["cf-connecting-ip"],
+    "true-client-ip": req.headers["true-client-ip"],
+    "x-forwarded-for": req.headers["x-forwarded-for"],
+    "x-real-ip": req.headers["x-real-ip"],
+    "cf-ipcountry": req.headers["cf-ipcountry"],
+    "cf-ray": req.headers["cf-ray"],
+  });
 
   const fields = [
     { name: "Name", value: name, inline: true },

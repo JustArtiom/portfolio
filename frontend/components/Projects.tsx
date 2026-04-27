@@ -8,7 +8,7 @@ export default function Projects() {
       id="projects"
       num="03"
       title="Selected work"
-      sub="A mix of shipped apps, open-source tools, and client work. The through-line: small scope, real utility, code I'm not embarrassed to show."
+      sub="A mix of finished apps, open-source tools, and client work. All small in scope, genuinely useful, and built with care."
     >
       <div className="md:pl-[84px] -mx-4 md:-mx-6 flex flex-col">
         {projects.map((p, i) => (

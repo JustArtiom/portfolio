@@ -16,39 +16,18 @@ export default function About() {
             variants={staggerChild({ side: "bottom", distance: 20 })}
             className="text-[22px] leading-normal text-ink tracking-[-0.01em] mb-5 text-pretty"
           >
-            I started writing code at sixteen because I wanted to bend software
-            to my will. What began as a hobby turned into a craft, and then a
-            career — I&rsquo;ve been shipping for over three years now,
-            starting with open-source and third-party work, then in-house at{" "}
-            <a
-              href="https://danbot.host"
-              target="_blank"
-              rel="noreferrer"
-              className="prose-link"
-            >
-              DanBot Hosting
-            </a>
-            , and now as a mid-level full-stack dev at{" "}
-            <a
-              href="https://wakeflow.io"
-              target="_blank"
-              rel="noreferrer"
-              className="prose-link"
-            >
-              Wakeflow
-            </a>
-            .
+            I build software for the web, mobile, and anywhere else
+            it&rsquo;s useful — apps, automations, and AI integrations. My
+            focus is small, clear solutions over bloated do-it-all products.
           </motion.p>
 
           <motion.p
             variants={staggerChild({ side: "bottom", distance: 20 })}
             className="text-lg leading-[1.65] mb-5"
           >
-            I like the parts of this job that most people don&rsquo;t — reading
-            stack traces, untangling legacy behaviour, designing the boring
-            bits so the rest can be interesting. I care about things that feel
-            fast, don&rsquo;t break, and don&rsquo;t waste the user&rsquo;s
-            time.
+            I care about software that feels fast, doesn&rsquo;t break, and
+            respects your time. Usually that means picking the
+            boring-but-correct tool over the trendy one.
           </motion.p>
 
           <motion.p
@@ -56,7 +35,7 @@ export default function About() {
             className="text-lg leading-[1.65] text-muted mb-5"
           >
             Currently studying Computer Science at the University of
-            Hertfordshire, alongside work.
+            Hertfordshire alongside work.
           </motion.p>
 
           <NowBlock />

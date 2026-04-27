@@ -1,20 +1,8 @@
-import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { yearsSince } from "@/utils/math";
-import { site } from "@/constants";
 import { staggerChild, staggerOnMount } from "@/utils/motion";
 import { ButtonLink } from "./ui/Button";
 
 export default function Hero() {
-  const [age, setAge] = useState(() => Math.floor(yearsSince(site.birthDate)));
-  useEffect(() => {
-    const id = setInterval(
-      () => setAge(Math.floor(yearsSince(site.birthDate))),
-      2000
-    );
-    return () => clearInterval(id);
-  }, []);
-
   return (
     <motion.section
       aria-label="Introduction"
@@ -30,7 +18,7 @@ export default function Hero() {
           animate={{ scale: [1, 1.4, 1], opacity: [1, 0.6, 1] }}
           transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
         />
-        London · Available for select projects
+        London · Open to freelance work
       </motion.p>
 
       <motion.h1
@@ -41,24 +29,15 @@ export default function Hero() {
         <br />
         I build <span className="text-accent">useful things</span>
         <br />
-        on the web.
+        Web, Mobile, Automations, AI.
       </motion.h1>
 
       <motion.p
         variants={staggerChild({ side: "bottom", distance: 20 })}
         className="max-w-[58ch] text-xl leading-[1.55] text-ink-2 mb-12 text-pretty"
       >
-        Full-stack developer, {age} years old, writing JavaScript since I was
-        sixteen. Currently shipping at{" "}
-        <a
-          href="https://wakeflow.io"
-          target="_blank"
-          rel="noreferrer"
-          className="prose-link"
-        >
-          Wakeflow
-        </a>{" "}
-        — open to freelance on the side.
+        Full-stack developer based in London. I focus on small, clear
+        software that gets out of your way. ~ Brings ideas to reality ~
       </motion.p>
 
       <motion.div
@@ -66,7 +45,7 @@ export default function Hero() {
         className="flex flex-wrap gap-3"
       >
         <ButtonLink href="#projects" arrow>
-          See the work
+          See my work
         </ButtonLink>
         <ButtonLink href="#contact" variant="ghost">
           Get in touch

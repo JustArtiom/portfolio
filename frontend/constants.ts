@@ -61,7 +61,7 @@ export const services = [
   "Full-Stack Web Development",
   "Android & iOS Mobile Apps",
   "Automation & Scripting",
-  "LLM & AI Integration",
+  "AI Integration",
 ];
 
 export const skillGroups: { label: string; items: Skill[] }[] = [
@@ -70,11 +70,11 @@ export const skillGroups: { label: string; items: Skill[] }[] = [
     items: [skills.typescript, skills.javascript, skills.react],
   },
   {
-    label: "Also ship",
+    label: "Also use",
     items: [skills.python, skills.go, skills.java, skills.electron, skills.expo],
   },
   {
-    label: "Infra & Tools",
+    label: "Tools",
     items: [skills.googleCloud, skills.git, skills.tensorflow],
   },
 ];
@@ -110,9 +110,9 @@ export const roadmap: RoadmapItem[] = [
       skills.git,
     ],
     learned: [
-      "Complex problem solving & debugging across the stack",
-      "Client communication and scoping",
-      "Scalable application architectures",
+      "Solving tricky problems and debugging across the full stack",
+      "Talking to clients and planning project scope",
+      "Designing apps that grow with their users",
       "Built automated workflows",
     ],
     active: true,
@@ -130,8 +130,8 @@ export const roadmap: RoadmapItem[] = [
     achieved: ["BSc Computer Science"],
     learned: [
       "Algorithms, data structures, and software engineering",
-      "Engaged in research and development projects",
-      "Critical thinking and analytical skills",
+      "Worked on research and development projects",
+      "Critical thinking and problem analysis",
     ],
     active: true,
   },
@@ -163,8 +163,8 @@ export const roadmap: RoadmapItem[] = [
     to: new Date("2023-09-01"),
     achieved: ["A-Levels", "BTEC Extended Diploma in IT"],
     learned: [
-      "Project management, Java & Swift",
-      "Android Studio / Xcode mobile dev",
+      "Project management, Java, and Swift",
+      "Mobile development with Android Studio and Xcode",
       "Databases and API integration",
     ],
   },
@@ -183,10 +183,49 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    name: "Esperantoo",
+    tagline: "Reading meets language learning.",
+    description:
+      "An iOS, Android, and web app that turns reading into language learning. Read the original text with natural translations line by line, tap any word to see how it connects across languages — even when word order changes — and pick up right where you left off, with chapter and page tracked automatically.",
+    download: [
+      {
+        platform: "iOS",
+        url: "https://apps.apple.com/gb/app/esperantoo/id6758854217",
+      },
+      {
+        platform: "Android",
+        url: "https://play.google.com/store/apps/details?id=io.wakeflow.traduire",
+      },
+      {
+        platform: "Web",
+        url: "https://esperantoo.com",
+      },
+    ],
+    skills: [skills.typescript, skills.react, skills.expo],
+    year: "2025",
+    kind: "client work",
+  },
+  {
+    name: "360 Private Travel — Events module",
+    tagline: "Brought event management in-house.",
+    description:
+      "Contributed to the iOS and Android apps for a private members' luxury travel platform. Built the events module that replaced their third-party event manager, letting the team create, run, and track events without leaving their own app.",
+    src: "https://360privatetravel.com/",
+    download: [
+      {
+        platform: "Web",
+        url: "https://360privatetravel.com/",
+      },
+    ],
+    skills: [skills.typescript, skills.react, skills.expo],
+    year: "2026",
+    kind: "client work",
+  },
+  {
     name: "TimeTrekker",
     tagline: "Know where your hours go.",
     description:
-      "A free and open-source tool that quietly tracks the apps you use and turns the data into detailed statistics and insights. For people who want to understand their own computer time.",
+      "A free, open-source tool that tracks the apps you use and turns it into clear stats and insights. For people who want to understand how they spend their time on their computer.",
     src: "https://github.com/JustArtiom/TimeTrekker",
     download: [
       {
@@ -202,7 +241,7 @@ export const projects: Project[] = [
     name: "UpApp",
     tagline: "Upload, host, share — in seconds.",
     description:
-      "A fast file-storage client powered by a MinIO backend. Drop, share, done. Designed to stay out of your way.",
+      "A fast file storage app. Drop a file in, get a link, share it. Built to stay out of your way.",
     src: "https://github.com/JustArtiom/UpApp",
     download: [
       {
@@ -218,7 +257,7 @@ export const projects: Project[] = [
     name: "GoHueBLE",
     tagline: "Scripts for your lightbulbs.",
     description:
-      "A Go utility that speaks Bluetooth Low Energy to Philips Hue lights. Toggle, dim, and colour-control from the terminal, without touching the hub.",
+      "A Go tool that talks to Philips Hue lights over Bluetooth. Turn them on, dim them, or change colour from the terminal — no hub needed.",
     src: "https://github.com/JustArtiom/GoHueBLE",
     download: [
       {
@@ -236,18 +275,18 @@ export const projects: Project[] = [
   },
   {
     name: "TILC Agent",
-    tagline: "An AI second opinion for underwriters.",
+    tagline: "An AI helper for insurance advisers.",
     description:
-      "An AI-powered agent built to help UK financial advisers with underwriting queries for Life Insurance, Critical Illness, and Income Protection.",
+      "An AI tool that helps UK financial advisers answer questions about Life Insurance, Critical Illness, and Income Protection cover.",
     skills: [skills.javascript, skills.react],
     year: "2025",
     kind: "client work",
   },
   {
     name: "Text Classifier",
-    tagline: "Real-time text classification in the browser.",
+    tagline: "Sorts text into categories, live in your browser.",
     description:
-      "A TensorFlow-powered web app that categorises user text into pre-defined buckets in real time. Small, fast, surprisingly useful.",
+      "A web app that uses TensorFlow to sort text into preset categories as you type. Small, fast, and surprisingly useful.",
     src: "https://github.com/JustArtiom/text-classifier-AI",
     skills: [skills.python, skills.tensorflow],
     year: "2023",
@@ -274,8 +313,8 @@ export const socials = [
 ];
 
 export const nowDoing = [
-  { key: "Building", text: "internal tools & automations at Wakeflow" },
-  { key: "Tinkering", text: "with BLE, Electron, and small Go CLIs after hours" },
-  { key: "Learning", text: "distributed systems & Rust, slowly" },
+  { key: "Building", text: "internal tools and automations at Wakeflow" },
+  { key: "Tinkering", text: "with Bluetooth, Electron, and small Go tools after work" },
+  { key: "Learning", text: "distributed systems and Rust, bit by bit" },
   { key: "Drinking", text: "too much coffee, as usual" },
 ];

@@ -105,7 +105,7 @@ export default function ContactForm() {
         label="Message"
         value={form.message}
         onChange={update("message")}
-        placeholder="Tell me a little about what you're building, timelines, scope…"
+        placeholder="Tell me what you're working on, timelines, and any details…"
         required
         disabled={status === "sending"}
       />
@@ -131,7 +131,7 @@ export default function ContactForm() {
             {status === "sent" && "Message sent — I'll reply soon."}
             {status === "error" && errorMsg}
             {status === "idle" && "I read every message."}
-            {status === "sending" && "Relaying to Discord…"}
+            {status === "sending" && "Sending…"}
           </motion.span>
         </AnimatePresence>
       </div>

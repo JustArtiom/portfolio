@@ -27,8 +27,8 @@ export default function Contact() {
             variants={staggerChild({ side: "left", distance: 24 })}
             className="text-[17px] text-muted max-w-[42ch] m-0 mb-7"
           >
-            Drop a message below — it lands directly in my inbox. Reply times
-            are usually under a day.
+            Send a message below — it goes straight to me. I usually reply
+            within a day.
           </motion.p>
 
           <motion.div variants={staggerChild({ side: "left", distance: 24 })}>

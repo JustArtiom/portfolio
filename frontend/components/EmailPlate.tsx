@@ -18,7 +18,7 @@ export default function EmailPlate() {
       onClick={copy}
       whileHover={{ y: -2, borderColor: "var(--color-accent)" }}
       whileTap={{ scale: 0.97 }}
-      className="inline-flex items-center gap-3.5 px-5 py-3.5 border border-line rounded-xl glass text-ink mb-8 cursor-pointer"
+      className="inline-flex items-center gap-3.5 px-5 py-3.5 border border-line rounded-md glass text-ink mb-8 cursor-pointer"
     >
       <span className="text-accent inline-flex w-5 h-5">
         <Mail className="w-full h-full" strokeWidth={1.6} />

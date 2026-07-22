@@ -10,6 +10,7 @@ export default function NowBlock() {
       variants={staggerChild({ side: "bottom", distance: 24 })}
       whileHover={{ y: -2 }}
       transition={{ duration: 0.3 }}
+      rounded="lg"
       className="relative mt-9 overflow-hidden"
     >
       <motion.span

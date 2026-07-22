@@ -8,7 +8,7 @@ import MetaLabel from "./ui/MetaLabel";
 export default function DetailList() {
   return (
     <motion.aside {...motionProps({ side: "right", distance: 40 })}>
-      <Card as="div" padding="lg">
+      <Card as="div" padding="lg" rounded="lg">
         <dl className="m-0">
           {details.map((d, i) => (
             <motion.div

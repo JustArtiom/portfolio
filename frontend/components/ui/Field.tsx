@@ -2,7 +2,7 @@ import MetaLabel from "./MetaLabel";
 import { cn } from "@/utils/cn";
 
 const INPUT_CLASS =
-  "font-sans text-[15px] px-3.5 py-3 border border-line rounded-lg bg-bg text-ink disabled:opacity-60 focus:outline-none focus:border-accent focus:shadow-[0_0_0_3px_color-mix(in_oklab,var(--color-accent)_18%,transparent)] transition-all";
+  "font-sans text-[15px] px-3.5 py-3 border border-line rounded-md bg-bg text-ink disabled:opacity-60 focus:outline-none focus:border-accent focus:shadow-[0_0_0_3px_color-mix(in_oklab,var(--color-accent)_18%,transparent)] transition-all";
 
 function FieldShell({
   label,

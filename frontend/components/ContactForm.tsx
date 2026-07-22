@@ -72,7 +72,7 @@ export default function ContactForm() {
       onSubmit={submit}
       noValidate
       {...motionProps({ side: "right", distance: 40 })}
-      className="border border-line rounded-2xl glass p-7 flex flex-col gap-3.5"
+      className="border border-line rounded-lg glass p-7 flex flex-col gap-3.5"
     >
       <div className="flex items-center gap-2.5 pb-3.5 border-b border-line mb-1">
         <motion.span

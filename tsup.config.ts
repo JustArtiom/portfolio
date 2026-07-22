@@ -8,6 +8,4 @@ export default defineConfig({
   clean: true,
   format: `cjs`,
   outDir: `dist_backend`,
-  // native module — must be required from node_modules at runtime, not bundled
-  external: [`better-sqlite3`],
 });

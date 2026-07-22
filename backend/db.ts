@@ -1,31 +1,76 @@
-import Database from "better-sqlite3";
 import fs from "fs";
 import path from "path";
 
-// Lives outside the deploy-cleaned area (CI keeps `data/` via clean_ignore).
+// Pure-JS JSON store — no native modules (the container's glibc is too old for
+// better-sqlite3 prebuilds). Lives in `data/` which CI keeps via clean_ignore.
 const dbPath =
-  process.env.DATABASE_PATH || path.join(process.cwd(), "data", "stats.db");
+  process.env.DATABASE_PATH || path.join(process.cwd(), "data", "stats.json");
 
 fs.mkdirSync(path.dirname(dbPath), { recursive: true });
 
-export const db = new Database(dbPath);
-db.pragma("journal_mode = WAL");
-db.pragma("busy_timeout = 5000");
+interface Data {
+  views: Record<string, number>; // slug -> count
+  stars: Record<string, string[]>; // slug -> client ids that starred it
+}
 
-db.exec(`
-  CREATE TABLE IF NOT EXISTS blog_views (
-    blog_id TEXT PRIMARY KEY,
-    count   INTEGER NOT NULL DEFAULT 0
-  );
+let data: Data = { views: {}, stars: {} };
 
-  CREATE TABLE IF NOT EXISTS blog_stars (
-    blog_id    TEXT    NOT NULL,
-    client_id  TEXT    NOT NULL,
-    created_at INTEGER NOT NULL,
-    PRIMARY KEY (blog_id, client_id)
-  );
+try {
+  if (fs.existsSync(dbPath)) {
+    const parsed = JSON.parse(fs.readFileSync(dbPath, "utf8"));
+    data = {
+      views:
+        parsed?.views && typeof parsed.views === "object" ? parsed.views : {},
+      stars:
+        parsed?.stars && typeof parsed.stars === "object" ? parsed.stars : {},
+    };
+  }
+} catch (err) {
+  console.error("[db] could not read stats file, starting fresh:", err);
+}
 
-  CREATE INDEX IF NOT EXISTS idx_blog_stars_blog ON blog_stars (blog_id);
-`);
+// Synchronous atomic write (tmp + rename) after each mutation. Write volume is
+// tiny for a blog, and this guarantees nothing is lost on restart.
+function persist() {
+  try {
+    const tmp = `${dbPath}.tmp`;
+    fs.writeFileSync(tmp, JSON.stringify(data));
+    fs.renameSync(tmp, dbPath);
+  } catch (err) {
+    console.error("[db] save failed:", err);
+  }
+}
 
-console.log(`[db] sqlite ready at ${dbPath}`);
+export function getViews(slug: string): number {
+  return data.views[slug] || 0;
+}
+
+export function incViews(slug: string): number {
+  data.views[slug] = (data.views[slug] || 0) + 1;
+  persist();
+  return data.views[slug];
+}
+
+export function getStars(slug: string): number {
+  return data.stars[slug]?.length || 0;
+}
+
+export function hasStar(slug: string, clientId: string): boolean {
+  return !!data.stars[slug]?.includes(clientId);
+}
+
+/** Toggle a client's star; returns the new starred state. */
+export function toggleStar(slug: string, clientId: string): boolean {
+  const list = data.stars[slug] || (data.stars[slug] = []);
+  const i = list.indexOf(clientId);
+  if (i >= 0) {
+    list.splice(i, 1);
+    persist();
+    return false;
+  }
+  list.push(clientId);
+  persist();
+  return true;
+}
+
+console.log(`[db] json store ready at ${dbPath}`);

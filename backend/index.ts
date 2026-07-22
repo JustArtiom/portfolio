@@ -1,6 +1,7 @@
 import "dotenv/config";
 import express from "express";
 import contact from "./routes/contact";
+import blog from "./routes/blog";
 
 const app = express();
 
@@ -16,6 +17,7 @@ app.get(`/api`, (_, res) => {
 });
 
 app.use("/api/contact", contact);
+app.use("/api/blogs", blog);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { blogs, type BlogSlug } from "@/constants";
 import { getBlogContent } from "./blogs";
+import BlogStats from "@/components/BlogStats";
 
 export default function BlogPost() {
   const { slug } = useParams();
@@ -35,6 +36,8 @@ export default function BlogPost() {
           </p>
         </div>
       )}
+
+      {Content && slug && <BlogStats slug={slug} />}
     </div>
   );
 }

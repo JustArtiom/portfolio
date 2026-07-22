@@ -1,3 +1,8 @@
 node_modules
 dist_*
 .env
+# local stats db (server keeps its own via clean_ignore)
+data/
+*.db
+*.db-shm
+*.db-wal

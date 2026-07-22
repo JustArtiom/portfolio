@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { blogs } from "@/constants";
 import { getBlogContent } from "./blogs";
 import { staggerChild, staggerOnMount } from "@/utils/motion";
+import { useBlogStatsMap } from "@/utils/useBlogStats";
+import StatBadge from "@/components/StatBadge";
 
 function formatDate(iso: string) {
   return new Date(iso).toLocaleDateString("en-GB", {
@@ -15,8 +17,11 @@ function formatDate(iso: string) {
 const entries = Object.entries(blogs).sort(([, a], [, b]) =>
   a.date < b.date ? 1 : -1
 );
+const slugs = entries.map(([slug]) => slug);
 
 export default function Blog() {
+  const statsMap = useBlogStatsMap(slugs);
+
   return (
     <motion.section
       className="max-w-page mx-auto px-5 md:px-10 pt-20 pb-24"
@@ -62,6 +67,12 @@ export default function Blog() {
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-3 font-mono text-xs text-muted mb-2">
                   <time dateTime={post.date}>{formatDate(post.date)}</time>
+                  {ready && statsMap[slug] && (
+                    <>
+                      <span className="text-faint">·</span>
+                      <StatBadge stats={statsMap[slug]} />
+                    </>
+                  )}
                   {!ready && (
                     <>
                       <span className="text-faint">·</span>

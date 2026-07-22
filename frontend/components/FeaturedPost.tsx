@@ -2,6 +2,8 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { blogs } from "@/constants";
 import { motionProps } from "@/utils/motion";
+import { useBlogStatsMap } from "@/utils/useBlogStats";
+import StatBadge from "@/components/StatBadge";
 
 // Most recent blog entry.
 const latest = Object.entries(blogs).sort(([, a], [, b]) =>
@@ -16,8 +18,10 @@ function monthYear(iso: string) {
 }
 
 export default function FeaturedPost() {
-  if (!latest) return null;
-  const [slug, post] = latest;
+  const slug = latest?.[0];
+  const statsMap = useBlogStatsMap(slug ? [slug] : []);
+  if (!latest || !slug) return null;
+  const post = latest[1];
 
   return (
     <section className="max-w-page mx-auto px-5 md:px-10 pb-20 md:pb-28">
@@ -57,12 +61,15 @@ export default function FeaturedPost() {
               {post.description}
             </p>
 
-            <span className="inline-flex items-center gap-1.5 text-sm font-medium mt-1">
-              Read the post
-              <span className="transition-transform group-hover:translate-x-1">
-                →
+            <div className="flex items-center justify-between gap-4 mt-1">
+              <span className="inline-flex items-center gap-1.5 text-sm font-medium">
+                Read the post
+                <span className="transition-transform group-hover:translate-x-1">
+                  →
+                </span>
               </span>
-            </span>
+              <StatBadge stats={statsMap[slug]} />
+            </div>
           </div>
         </Link>
       </motion.div>

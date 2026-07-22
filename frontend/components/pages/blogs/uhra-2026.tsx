@@ -1,5 +1,14 @@
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import {
+  FaLinkedin,
+  FaInstagram,
+  FaYoutube,
+  FaGithub,
+  FaXTwitter,
+  FaGlobe,
+} from "react-icons/fa6";
+import type { IconType } from "react-icons";
 import { blogs } from "@/constants";
 import RacingScene from "@/components/three/RacingScene";
 import { useTimedProgress } from "@/components/three/useTimedProgress";
@@ -180,6 +189,186 @@ function LoadingScreen() {
   );
 }
 
+// ---------------------------------------------------------------------------
+// Team / contributors. Edit this to list the real people. Each member has a
+// name, a short description, and optional socials.
+// ---------------------------------------------------------------------------
+type SocialKey =
+  | "linkedin"
+  | "instagram"
+  | "youtube"
+  | "github"
+  | "x"
+  | "website";
+
+interface Member {
+  name: string;
+  description?: string;
+  socials?: Partial<Record<SocialKey, string>>;
+}
+
+interface TeamGroup {
+  label: string;
+  members: Member[];
+}
+
+const SOCIALS: { key: SocialKey; icon: IconType; label: string }[] = [
+  { key: "linkedin", icon: FaLinkedin, label: "LinkedIn" },
+  { key: "instagram", icon: FaInstagram, label: "Instagram" },
+  { key: "youtube", icon: FaYoutube, label: "YouTube" },
+  { key: "github", icon: FaGithub, label: "GitHub" },
+  { key: "x", icon: FaXTwitter, label: "X" },
+  { key: "website", icon: FaGlobe, label: "Website" },
+];
+
+const team: TeamGroup[] = [
+  {
+    label: "Team lead",
+    members: [
+      {
+        name: "Benjamin Joel",
+        description:
+          "Our fearless leader. Kept the team on track and the car on the wheels.",
+        socials: {
+          linkedin:
+            "https://www.linkedin.com/in/benjamin-joel3herts?utm_source=artiom.me",
+        },
+      },
+    ],
+  },
+  {
+    label: "ASR",
+    members: [
+      {
+        name: "Fred Jordan bland",
+        description:
+          "Ensured everyone is safe, gave orders, head of electrical and presses big red button",
+        socials: {
+          linkedin:
+            "https://www.linkedin.com/in/fred-jordan-bland?utm_source=artiom.me",
+        },
+      },
+    ],
+  },
+  {
+    label: "Developers",
+    members: [
+      {
+        name: "Artiom Cebotari",
+        description:
+          "Lead Developer, Involved in Localization, planning and control",
+        socials: {
+          linkedin:
+            "https://www.linkedin.com/in/artiom-cebotari?utm_source=artiom.me",
+          github: "https://github.com/JustArtiom?utm_source=artiom.me",
+          instagram: "https://www.instagram.com/im_artiom?utm_source=artiom.me",
+        },
+      },
+      {
+        name: "Sanchit Acharya",
+        description:
+          "Developer, specialized in acceleration events and code debugging.",
+        socials: {
+          linkedin:
+            "https://www.linkedin.com/in/acharyasanchit?utm_source=artiom.me",
+        },
+      },
+      {
+        name: "Issac (Khant Zwe Naing)",
+        description:
+          "Our Docker whisperer. Built the dev environment and spent way too many nights twisting camera and LiDAR data into submission",
+        socials: {
+          linkedin:
+            "https://www.linkedin.com/in/issackhant?utm_source=artiom.me",
+          github: "https://github.com/jadstrike",
+        },
+      },
+    ],
+  },
+];
+
+function MemberSocials({
+  socials,
+  className = "",
+}: {
+  socials: Member["socials"];
+  className?: string;
+}) {
+  const links = SOCIALS.filter((s) => socials?.[s.key]);
+  if (!links.length) return null;
+  return (
+    <div className={"flex items-center gap-3 " + className}>
+      {links.map((s) => {
+        const Icon = s.icon;
+        return (
+          <a
+            key={s.key}
+            href={socials![s.key]}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={s.label}
+            className="text-muted hover:text-accent transition-colors"
+          >
+            <Icon className="w-[18px] h-[18px]" />
+          </a>
+        );
+      })}
+    </div>
+  );
+}
+
+function Team({ num }: { num: string }) {
+  if (!team.length) return null;
+  return (
+    <div className="mt-24 md:mt-32">
+      <p className="font-mono text-xs uppercase tracking-wider text-muted mb-5">
+        <span className="text-accent">{num}</span> · Team
+      </p>
+      <h2 className="text-[clamp(28px,4vw,44px)] leading-[1.1] tracking-[-0.03em] font-medium text-balance mb-10">
+        The people behind it.
+      </h2>
+
+      <div className="flex flex-col gap-12">
+        {team.map((group) => (
+          <div key={group.label}>
+            <p className="font-mono text-xs uppercase tracking-wider text-accent mb-2">
+              {group.label}
+            </p>
+            <div className="border-b border-line">
+              {group.members.map((m, i) => (
+                <div
+                  key={i}
+                  className="flex flex-col sm:flex-row sm:items-center gap-1.5 sm:gap-6 py-4 border-t border-line px-4"
+                >
+                  <h3 className="font-medium text-ink sm:w-52 shrink-0">
+                    {m.name}
+                  </h3>
+                  {m.description && (
+                    <p className="text-sm text-ink-2 leading-relaxed text-pretty flex-1">
+                      {m.description}
+                    </p>
+                  )}
+                  <MemberSocials
+                    socials={m.socials}
+                    className="mt-1 sm:mt-0 sm:ml-auto shrink-0"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <p className="mt-12 text-sm text-muted max-w-[62ch] text-pretty">
+        This is only part of the team. A few preferred to stay off the page,
+        and that&rsquo;s completely fair. None of this happened without the whole
+        crew{" "}
+        <span className="text-accent">&hearts;</span>
+      </p>
+    </div>
+  );
+}
+
 export default function Uhra2026() {
   const gallery = blogs["uhra-2026"].gallery ?? [];
   const [ready, setReady] = useState(false);
@@ -297,7 +486,7 @@ export default function Uhra2026() {
       </div>
 
       {/* Article — the 3D stage has scrolled away by here. */}
-      <div className="max-w-page mx-auto px-5 md:px-10 pb-28">
+      <div className="max-w-page mx-auto px-6 md:px-12 lg:px-20 pb-28">
         <div className="max-w-[680px] mx-auto flex flex-col gap-24 pt-8 md:pt-16">
           <ArticleSection
             num="01"
@@ -378,6 +567,29 @@ export default function Uhra2026() {
 
           <ArticleSection
             num="04"
+            eyebrow="Acceleration"
+            title="Flat out down the straight."
+          >
+            <p>
+              Acceleration is the simplest event to describe: a straight-line
+              sprint, as fast as the car dares, with no cones to thread through.
+              Point it, send it, and don&rsquo;t lift.
+            </p>
+            <p>
+              We got the car down the strip and over the line. There was a
+              little swerve right at the end, enough to make us hold our breath,
+              but it stayed on and finished the run. Sanchit was the one who
+              worked on this one.
+            </p>
+            <VideoFigure
+              src="/assets/blogs/uhra-2026/acceleration.mp4"
+              poster="/assets/blogs/uhra-2026/acceleration-poster.jpg"
+              caption="Off the line at Silverstone."
+            />
+          </ArticleSection>
+
+          <ArticleSection
+            num="05"
             eyebrow="Localization"
             title="The hardest question: where am I?"
           >
@@ -411,7 +623,7 @@ export default function Uhra2026() {
           </ArticleSection>
 
           <ArticleSection
-            num="05"
+            num="06"
             eyebrow="The track day"
             title="A clean lap, then straight through the cones."
           >
@@ -443,7 +655,7 @@ export default function Uhra2026() {
           </ArticleSection>
 
           <ArticleSection
-            num="06"
+            num="07"
             eyebrow="What's next"
             title="A long way to go, and worth it."
           >
@@ -460,10 +672,12 @@ export default function Uhra2026() {
           </ArticleSection>
         </div>
 
+        <Team num="08" />
+
         {gallery.length > 0 && (
           <div className="mt-24 md:mt-32">
             <p className="font-mono text-xs uppercase tracking-wider text-muted mb-5">
-              <span className="text-accent">07</span> · Gallery
+              <span className="text-accent">09</span> · Gallery
             </p>
             <h2 className="text-[clamp(28px,4vw,44px)] leading-[1.1] tracking-[-0.03em] font-medium text-balance mb-8">
               From the garage and the track.

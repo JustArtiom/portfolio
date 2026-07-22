@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { blogs, type BlogSlug } from "@/constants";
 import { getBlogContent } from "./blogs";
@@ -35,7 +35,9 @@ export default function BlogPost() {
       </div>
 
       {Content ? (
-        <Content />
+        <Suspense fallback={<div className="min-h-[70dvh]" />}>
+          <Content />
+        </Suspense>
       ) : (
         <div className="max-w-page mx-auto px-5 md:px-10 pt-10 min-h-[60vh]">
           <p className="font-mono text-sm text-muted">

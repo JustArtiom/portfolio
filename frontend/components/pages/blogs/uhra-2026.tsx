@@ -12,7 +12,7 @@ const CAR_ANIMATION = 1000;
 const MOUNT_ANIMATION = 500;
 
 // Resting offset of the car stage (before it centers).
-const REST_X = 25; // %
+const REST_X = 0; // %
 const REST_Y = 10; // %
 
 const UHRA_LOGO = "/assets/img/UHRA_logo.png";

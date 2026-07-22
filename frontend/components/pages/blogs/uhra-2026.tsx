@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { blogs } from "@/constants";
 import RacingScene from "@/components/three/RacingScene";
 import { useTimedProgress } from "@/components/three/useTimedProgress";
@@ -15,8 +16,8 @@ const MOUNT_ANIMATION = 500;
 const REST_X = 0; // %
 const REST_Y = 10; // %
 
-const UHRA_LOGO = "/assets/img/UHRA_logo.png";
-const FS_LOGO = "/assets/img/Formula_student_logo.png";
+const UHRA_LOGO = "/assets/img/UHRA_logo.webp";
+const FS_LOGO = "/assets/img/Formula_student_logo.webp";
 const GALLERY_ROOT = "/assets/blogs/uhra-2026/gallery";
 
 function ArticleSection({
@@ -159,6 +160,26 @@ function Gallery({ root, items }: { root: string; items: string[] }) {
   );
 }
 
+/** Blank screen with an indeterminate loading bar, shown until the scene is ready. */
+function LoadingScreen() {
+  return (
+    <motion.div
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-bg"
+      initial={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.6, ease: "easeInOut" }}
+    >
+      <div className="w-48 h-[3px] rounded-full bg-line overflow-hidden">
+        <motion.div
+          className="h-full w-1/3 rounded-full bg-accent"
+          animate={{ x: ["-120%", "360%"] }}
+          transition={{ duration: 1.1, repeat: Infinity, ease: "easeInOut" }}
+        />
+      </div>
+    </motion.div>
+  );
+}
+
 export default function Uhra2026() {
   const gallery = blogs["uhra-2026"].gallery ?? [];
   const [ready, setReady] = useState(false);
@@ -180,6 +201,8 @@ export default function Uhra2026() {
 
   return (
     <div>
+      <AnimatePresence>{!ready && <LoadingScreen />}</AnimatePresence>
+
       {/* 3D stage zone — the car stays pinned across the welcome, sensor, and
           centering sections, then scrolls away. */}
       <div className="relative">

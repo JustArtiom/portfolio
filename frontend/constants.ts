@@ -20,7 +20,7 @@ export const site = {
   domain: "artiom.me",
   birthDate: "2005-06-01",
   careerStart: "2022-07-01",
-  version: "v2026.04",
+  version: "v2026.07",
 };
 
 export const details = [

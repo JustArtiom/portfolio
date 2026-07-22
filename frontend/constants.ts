@@ -71,7 +71,13 @@ export const skillGroups: { label: string; items: Skill[] }[] = [
   },
   {
     label: "Also use",
-    items: [skills.python, skills.go, skills.java, skills.electron, skills.expo],
+    items: [
+      skills.python,
+      skills.go,
+      skills.java,
+      skills.electron,
+      skills.expo,
+    ],
   },
   {
     label: "Tools",
@@ -314,7 +320,43 @@ export const socials = [
 
 export const nowDoing = [
   { key: "Building", text: "internal tools and automations at Wakeflow" },
-  { key: "Tinkering", text: "with Bluetooth, Electron, and small Go tools after work" },
+  {
+    key: "Tinkering",
+    text: "with Bluetooth, Electron, and small Go tools after work",
+  },
   { key: "Learning", text: "distributed systems and Rust, bit by bit" },
   { key: "Drinking", text: "too much coffee, as usual" },
 ];
+
+export interface BlogMeta {
+  title: string;
+  description: string;
+  date: string;
+  banner: string;
+  /** Image or video paths (public folder). `.mp4`/`.webm` render as video. */
+  gallery?: string[];
+}
+
+export const blogs = {
+  "uhra-2026": {
+    title: "Formula Student - UH Racing Autonomous 2026",
+    description:
+      "A deep dive into the UH Racing team's efforts to develop an autonomous vehicle for the Formula Student 2026 competition...",
+    date: "2026-06-21",
+    banner: "/assets/img/UHRA_and_FS.png",
+    gallery: [
+      "1.webp",
+      "2.webp",
+      "3.webp",
+      "4.webp",
+      "5.webp",
+      "6.webp",
+      "7.webp",
+      "8.webp",
+      "9.webp",
+      "10.webp",
+    ],
+  },
+} satisfies Record<string, BlogMeta>;
+
+export type BlogSlug = keyof typeof blogs;

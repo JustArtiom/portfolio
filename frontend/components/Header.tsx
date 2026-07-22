@@ -12,6 +12,7 @@ const LINKS: readonly NavLink[] = [
   { id: "work", label: "Work", num: "02" },
   { id: "projects", label: "Projects", num: "03" },
   { id: "contact", label: "Contact", num: "04" },
+  { id: "blog", label: "Blog", num: "05" },
 ];
 
 type Props = {

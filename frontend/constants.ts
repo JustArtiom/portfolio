@@ -308,8 +308,8 @@ export const socials = [
   },
   {
     label: "LinkedIn",
-    handle: "artiom",
-    href: "https://linkedin.com/",
+    handle: "artiom-cebotari",
+    href: "https://www.linkedin.com/in/artiom-cebotari?utm_source=artiom.me",
   },
   {
     label: "Email",

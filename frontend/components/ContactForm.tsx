@@ -2,7 +2,6 @@ import { useState, type FormEvent } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import axios from "axios";
 import { TextField, TextareaField } from "./ui/Field";
-import MetaLabel from "./ui/MetaLabel";
 import SubmitButton from "./SubmitButton";
 import { site } from "@/constants";
 import { motionProps } from "@/utils/motion";
@@ -74,13 +73,10 @@ export default function ContactForm() {
       {...motionProps({ side: "right", distance: 40 })}
       className="border border-line rounded-lg glass p-7 flex flex-col gap-3.5"
     >
-      <div className="flex items-center gap-2.5 pb-3.5 border-b border-line mb-1">
-        <motion.span
-          className="w-2 h-2 rounded-full bg-accent shadow-[0_0_0_3px_color-mix(in_oklab,var(--color-accent)_18%,transparent)]"
-          animate={{ scale: [1, 1.3, 1] }}
-          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-        />
-        <MetaLabel>Send a message</MetaLabel>
+      <div className="pb-3.5 border-b border-line mb-1">
+        <h3 className="text-lg font-semibold tracking-[-0.01em] text-ink">
+          Send a message
+        </h3>
       </div>
 
       <TextField

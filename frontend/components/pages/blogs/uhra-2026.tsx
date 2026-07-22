@@ -215,7 +215,6 @@ function Gallery({ root, items }: { root: string; items: string[] }) {
   );
 }
 
-
 // ---------------------------------------------------------------------------
 // Team / contributors. Edit this to list the real people. Each member has a
 // name, a short description, and optional socials.
@@ -261,6 +260,15 @@ const team: TeamGroup[] = [
             "https://www.linkedin.com/in/benjamin-joel3herts?utm_source=artiom.me",
         },
       },
+      {
+        name: "Reem Ibrahim",
+        description:
+          "Giving ideas, solutions and support to the team, and keeping us all sane.",
+        socials: {
+          linkedin:
+            "https://www.linkedin.com/in/reem-ibrahim-62850727b?utm_source=artiom.me",
+        },
+      },
     ],
   },
   {
@@ -285,10 +293,10 @@ const team: TeamGroup[] = [
         description:
           "Lead Developer, Involved in Localization, planning and control",
         socials: {
-          linkedin:
-            "https://www.linkedin.com/in/artiom-cebotari?utm_source=artiom.me",
           github: "https://github.com/JustArtiom?utm_source=artiom.me",
           instagram: "https://www.instagram.com/im_artiom?utm_source=artiom.me",
+          linkedin:
+            "https://www.linkedin.com/in/artiom-cebotari?utm_source=artiom.me",
         },
       },
       {
@@ -403,10 +411,9 @@ function Team({ num }: { num: string }) {
         {...motionProps({ side: "bottom", distance: 16 })}
         className="mt-12 text-sm text-muted max-w-[62ch] text-pretty"
       >
-        This is only part of the team. A few preferred to stay off the page,
-        and that&rsquo;s completely fair. None of this happened without the whole
-        crew{" "}
-        <span className="text-accent">&hearts;</span>
+        This is only part of the team. A few preferred to stay off the page, and
+        that&rsquo;s completely fair. None of this happened without the whole
+        crew <span className="text-accent">&hearts;</span>
       </motion.p>
     </div>
   );
@@ -447,7 +454,7 @@ export default function Uhra2026() {
 
   // Halt the WebGL loop when the stage scrolls out of view (with a buffer).
   const [stageRef, stageOnScreen] = useOnScreen<HTMLDivElement>(
-    "400px 0px 400px 0px"
+    "400px 0px 400px 0px",
   );
 
   return (

@@ -81,8 +81,8 @@ function useTheme(): ["light" | "dark", () => void] {
 function ScrollProgress() {
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
-    stiffness: 120,
-    damping: 20,
+    stiffness: 140,
+    damping: 30,
     restDelta: 0.001,
   });
   return (

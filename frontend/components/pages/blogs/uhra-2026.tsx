@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   FaLinkedin,
@@ -15,6 +15,8 @@ import { useTimedProgress } from "@/components/three/useTimedProgress";
 import { smoothstep } from "@/components/three/sceneConfig";
 import { useInView } from "@/utils/useInView";
 import { useScrollProgress } from "@/utils/useScrollProgress";
+import { useOnScreen } from "@/utils/useOnScreen";
+import { useAutoPlayOnView } from "@/utils/useAutoPlayOnView";
 
 // Car intro plays over 1s once the models are loaded.
 const CAR_ANIMATION = 1000;
@@ -55,32 +57,63 @@ function ArticleSection({
   );
 }
 
+/**
+ * Muted looping video that only plays while on screen (pauses off-screen).
+ * Pass `aspect` (e.g. "16 / 9") to reserve its space so it doesn't resize when
+ * metadata loads — which would otherwise shift the page and jitter the scroll
+ * progress bar.
+ */
+function AutoVideo({
+  src,
+  poster,
+  controls = false,
+  aspect,
+}: {
+  src: string;
+  poster?: string;
+  controls?: boolean;
+  aspect?: string;
+}) {
+  const ref = useAutoPlayOnView<HTMLVideoElement>();
+  return (
+    <video
+      ref={ref}
+      className={"w-full block object-cover " + (aspect ? "" : "h-auto")}
+      style={aspect ? { aspectRatio: aspect } : undefined}
+      muted
+      loop
+      playsInline
+      controls={controls}
+      preload="metadata"
+      poster={poster}
+    >
+      <source src={src} type="video/mp4" />
+    </video>
+  );
+}
+
 function VideoFigure({
   src,
   poster,
   caption,
   controls = false,
+  aspect,
 }: {
   src: string;
   poster?: string;
   caption: string;
   controls?: boolean;
+  aspect?: string;
 }) {
   return (
     <figure>
       <div className="rounded-glass border border-line overflow-hidden bg-neutral-100">
-        <video
-          className="w-full h-auto block"
-          autoPlay
-          muted
-          loop
-          playsInline
-          controls={controls}
-          preload="metadata"
+        <AutoVideo
+          src={src}
           poster={poster}
-        >
-          <source src={src} type="video/mp4" />
-        </video>
+          controls={controls}
+          aspect={aspect}
+        />
       </div>
       <figcaption className="mt-3 font-mono text-xs text-muted leading-relaxed">
         {caption}
@@ -148,15 +181,7 @@ function Gallery({ root, items }: { root: string; items: string[] }) {
           className="mb-4 break-inside-avoid overflow-hidden rounded-glass border border-line bg-neutral-100"
         >
           {isVideo(file) ? (
-            <video
-              className="w-full h-auto block"
-              src={`${root}/original/${file}`}
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="metadata"
-            />
+            <AutoVideo src={`${root}/original/${file}`} />
           ) : (
             <LazyImage
               src={`${root}/original/${file}`}
@@ -372,6 +397,16 @@ function Team({ num }: { num: string }) {
 export default function Uhra2026() {
   const gallery = blogs["uhra-2026"].gallery ?? [];
   const [ready, setReady] = useState(false);
+
+  // Lock page scroll while the loading screen covers the page.
+  useEffect(() => {
+    if (ready) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, [ready]);
   const carProgress = useTimedProgress(CAR_ANIMATION, ready);
 
   // Mount animation: plays once the sensor section reaches mid-screen.
@@ -388,13 +423,18 @@ export default function Uhra2026() {
     REST_Y * (1 - c)
   }%)`;
 
+  // Halt the WebGL loop when the stage scrolls out of view (with a buffer).
+  const [stageRef, stageOnScreen] = useOnScreen<HTMLDivElement>(
+    "400px 0px 400px 0px"
+  );
+
   return (
     <div>
       <AnimatePresence>{!ready && <LoadingScreen />}</AnimatePresence>
 
       {/* 3D stage zone — the car stays pinned across the welcome, sensor, and
           centering sections, then scrolls away. */}
-      <div className="relative">
+      <div ref={stageRef} className="relative">
         {/* Sticky full-screen canvas. */}
         <div className="sticky top-0 h-dvh w-full overflow-hidden pointer-events-none">
           <div
@@ -405,6 +445,7 @@ export default function Uhra2026() {
               carProgress={carProgress}
               mountProgress={mountProgress}
               centerProgress={centerProgress}
+              active={stageOnScreen}
               onReady={() => setReady(true)}
             />
           </div>
@@ -584,6 +625,7 @@ export default function Uhra2026() {
             <VideoFigure
               src="/assets/blogs/uhra-2026/acceleration.mp4"
               poster="/assets/blogs/uhra-2026/acceleration-poster.jpg"
+              aspect="1 / 1"
               caption="Off the line at Silverstone."
             />
           </ArticleSection>
@@ -618,6 +660,7 @@ export default function Uhra2026() {
             <VideoFigure
               src="/assets/blogs/uhra-2026/localization.mp4"
               poster="/assets/blogs/uhra-2026/localization-poster.jpg"
+              aspect="1280 / 782"
               caption="The localization stack running on a Skid Pad log. Left: EKF-SLAM building the cone map and tracking the car. Top right: the ZED camera watching the real cones go by. Bottom right: the depth it works from."
             />
           </ArticleSection>
@@ -649,6 +692,7 @@ export default function Uhra2026() {
             <VideoFigure
               src="/assets/blogs/uhra-2026/trackdrive.mp4"
               poster="/assets/blogs/uhra-2026/trackdrive-poster.jpg"
+              aspect="16 / 9"
               caption="The car out on track, driving itself between the cones. Sped up 2x, and nobody's at the wheel."
               controls
             />

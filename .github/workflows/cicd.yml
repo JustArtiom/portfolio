@@ -31,6 +31,7 @@ jobs:
           api_key: ${{ secrets.PTERO_API_KEY }}
           server_id: ${{ secrets.PTERO_BACKEND_SERVER_ID }}
           clean: true
+          clean_ignore: data
           run: |
             npm install
             npm run build:backend

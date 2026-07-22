@@ -1,4 +1,4 @@
-import { Suspense } from "react";
+import { Suspense, useMemo } from "react";
 import { Canvas } from "@react-three/fiber";
 import SceneContents from "./SceneContents";
 import { defaultSceneConfig } from "./sceneConfig";
@@ -12,6 +12,8 @@ interface Props {
   centerProgress: number;
   /** When false, the render loop stops entirely (scene is off-screen). */
   active?: boolean;
+  /** Overrides the model color (e.g. per theme for text legibility). */
+  materialColor?: string;
   /** Fires once the models have loaded. */
   onReady?: () => void;
 }
@@ -26,8 +28,17 @@ export default function RacingScene({
   mountProgress,
   centerProgress,
   active = true,
+  materialColor,
   onReady,
 }: Props) {
+  const materialProps = useMemo(
+    () => ({
+      ...defaultSceneConfig.material,
+      color: materialColor ?? defaultSceneConfig.material.color,
+    }),
+    [materialColor]
+  );
+
   return (
     <div className="w-full h-full">
       <Canvas
@@ -41,7 +52,7 @@ export default function RacingScene({
             mountProgress={mountProgress}
             centerProgress={centerProgress}
             config={defaultSceneConfig}
-            materialProps={defaultSceneConfig.material}
+            materialProps={materialProps}
             onReady={onReady}
           />
         </Suspense>

@@ -10,6 +10,7 @@ import {
 } from "react-icons/fa6";
 import type { IconType } from "react-icons";
 import { blogs } from "@/constants";
+import BlogLoader from "@/components/BlogLoader";
 import RacingScene from "@/components/three/RacingScene";
 import { useTimedProgress } from "@/components/three/useTimedProgress";
 import { smoothstep } from "@/components/three/sceneConfig";
@@ -17,6 +18,13 @@ import { useInView } from "@/utils/useInView";
 import { useScrollProgress } from "@/utils/useScrollProgress";
 import { useOnScreen } from "@/utils/useOnScreen";
 import { useAutoPlayOnView } from "@/utils/useAutoPlayOnView";
+import { useIsDark } from "@/utils/useIsDark";
+import {
+  motionProps,
+  staggerChild,
+  staggerContainer,
+  staggerOnScroll,
+} from "@/utils/motion";
 
 // Car intro plays over 1s once the models are loaded.
 const CAR_ANIMATION = 1000;
@@ -44,15 +52,24 @@ function ArticleSection({
 }) {
   return (
     <section>
-      <p className="font-mono text-xs uppercase tracking-wider text-muted mb-5">
+      <motion.p
+        {...motionProps({ side: "bottom", distance: 16 })}
+        className="font-mono text-xs uppercase tracking-wider text-muted mb-5"
+      >
         <span className="text-accent">{num}</span> · {eyebrow}
-      </p>
-      <h2 className="text-[clamp(28px,4vw,44px)] leading-[1.1] tracking-[-0.03em] font-medium text-balance mb-6">
+      </motion.p>
+      <motion.h2
+        {...motionProps({ side: "bottom", distance: 26, delay: 0.06 })}
+        className="text-[clamp(28px,4vw,44px)] leading-[1.1] tracking-[-0.03em] font-medium text-balance mb-6"
+      >
         {title}
-      </h2>
-      <div className="flex flex-col gap-5 text-lg leading-[1.72] text-ink-2 text-pretty">
+      </motion.h2>
+      <motion.div
+        {...motionProps({ side: "bottom", distance: 20, delay: 0.12 })}
+        className="flex flex-col gap-5 text-lg leading-[1.72] text-ink-2 text-pretty"
+      >
         {children}
-      </div>
+      </motion.div>
     </section>
   );
 }
@@ -176,8 +193,12 @@ function Gallery({ root, items }: { root: string; items: string[] }) {
   return (
     <div className="columns-1 sm:columns-2 lg:columns-3 gap-4">
       {items.map((file, i) => (
-        <div
+        <motion.div
           key={i}
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.15 }}
+          transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
           className="mb-4 break-inside-avoid overflow-hidden rounded-glass border border-line bg-neutral-100"
         >
           {isVideo(file) ? (
@@ -188,31 +209,12 @@ function Gallery({ root, items }: { root: string; items: string[] }) {
               preview={`${root}/preview/${file}`}
             />
           )}
-        </div>
+        </motion.div>
       ))}
     </div>
   );
 }
 
-/** Blank screen with an indeterminate loading bar, shown until the scene is ready. */
-function LoadingScreen() {
-  return (
-    <motion.div
-      className="fixed inset-0 z-[100] flex items-center justify-center bg-bg"
-      initial={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.6, ease: "easeInOut" }}
-    >
-      <div className="w-48 h-[3px] rounded-full bg-line overflow-hidden">
-        <motion.div
-          className="h-full w-1/3 rounded-full bg-accent"
-          animate={{ x: ["-120%", "360%"] }}
-          transition={{ duration: 1.1, repeat: Infinity, ease: "easeInOut" }}
-        />
-      </div>
-    </motion.div>
-  );
-}
 
 // ---------------------------------------------------------------------------
 // Team / contributors. Edit this to list the real people. Each member has a
@@ -346,23 +348,36 @@ function Team({ num }: { num: string }) {
   if (!team.length) return null;
   return (
     <div className="mt-24 md:mt-32">
-      <p className="font-mono text-xs uppercase tracking-wider text-muted mb-5">
+      <motion.p
+        {...motionProps({ side: "bottom", distance: 16 })}
+        className="font-mono text-xs uppercase tracking-wider text-muted mb-5"
+      >
         <span className="text-accent">{num}</span> · Team
-      </p>
-      <h2 className="text-[clamp(28px,4vw,44px)] leading-[1.1] tracking-[-0.03em] font-medium text-balance mb-10">
+      </motion.p>
+      <motion.h2
+        {...motionProps({ side: "bottom", distance: 26, delay: 0.06 })}
+        className="text-[clamp(28px,4vw,44px)] leading-[1.1] tracking-[-0.03em] font-medium text-balance mb-10"
+      >
         The people behind it.
-      </h2>
+      </motion.h2>
 
       <div className="flex flex-col gap-12">
         {team.map((group) => (
           <div key={group.label}>
-            <p className="font-mono text-xs uppercase tracking-wider text-accent mb-2">
+            <motion.p
+              {...motionProps({ side: "bottom", distance: 14 })}
+              className="font-mono text-xs uppercase tracking-wider text-accent mb-2"
+            >
               {group.label}
-            </p>
-            <div className="border-b border-line">
+            </motion.p>
+            <motion.div
+              {...staggerOnScroll(0.07)}
+              className="border-b border-line"
+            >
               {group.members.map((m, i) => (
-                <div
+                <motion.div
                   key={i}
+                  variants={staggerChild({ side: "bottom", distance: 16 })}
                   className="flex flex-col sm:flex-row sm:items-center gap-1.5 sm:gap-6 py-4 border-t border-line px-4"
                 >
                   <h3 className="font-medium text-ink sm:w-52 shrink-0">
@@ -377,19 +392,22 @@ function Team({ num }: { num: string }) {
                     socials={m.socials}
                     className="mt-1 sm:mt-0 sm:ml-auto shrink-0"
                   />
-                </div>
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
           </div>
         ))}
       </div>
 
-      <p className="mt-12 text-sm text-muted max-w-[62ch] text-pretty">
+      <motion.p
+        {...motionProps({ side: "bottom", distance: 16 })}
+        className="mt-12 text-sm text-muted max-w-[62ch] text-pretty"
+      >
         This is only part of the team. A few preferred to stay off the page,
         and that&rsquo;s completely fair. None of this happened without the whole
         crew{" "}
         <span className="text-accent">&hearts;</span>
-      </p>
+      </motion.p>
     </div>
   );
 }
@@ -407,6 +425,10 @@ export default function Uhra2026() {
       document.body.style.overflow = prev;
     };
   }, [ready]);
+
+  // Model color adapts to theme so the text stays readable where it overlaps.
+  const isDark = useIsDark();
+  const modelColor = isDark ? "#54575c" : "#ffffff";
   const carProgress = useTimedProgress(CAR_ANIMATION, ready);
 
   // Mount animation: plays once the sensor section reaches mid-screen.
@@ -430,7 +452,7 @@ export default function Uhra2026() {
 
   return (
     <div>
-      <AnimatePresence>{!ready && <LoadingScreen />}</AnimatePresence>
+      <AnimatePresence>{!ready && <BlogLoader />}</AnimatePresence>
 
       {/* 3D stage zone — the car stays pinned across the welcome, sensor, and
           centering sections, then scrolls away. */}
@@ -446,6 +468,7 @@ export default function Uhra2026() {
               mountProgress={mountProgress}
               centerProgress={centerProgress}
               active={stageOnScreen}
+              materialColor={modelColor}
               onReady={() => setReady(true)}
             />
           </div>
@@ -456,8 +479,16 @@ export default function Uhra2026() {
           {/* Welcome */}
           <section className="min-h-[70dvh] flex items-center">
             <div className="max-w-page mx-auto w-full px-5 md:px-10">
-              <div className="max-w-xl">
-                <div className="flex items-center gap-6 mb-10">
+              <motion.div
+                className="max-w-xl"
+                variants={staggerContainer(0.12)}
+                initial="hidden"
+                animate={ready ? "shown" : "hidden"}
+              >
+                <motion.div
+                  variants={staggerChild({ side: "left", distance: 50 })}
+                  className="flex items-center gap-6 mb-10"
+                >
                   <img
                     src={FS_LOGO}
                     alt="Formula Student — Institution of Mechanical Engineers"
@@ -468,17 +499,23 @@ export default function Uhra2026() {
                     alt="UH Racing Autonomous"
                     className="h-9 md:h-10 w-auto"
                   />
-                </div>
-                <h1 className="text-[clamp(40px,6vw,80px)] leading-[1.02] tracking-[-0.035em] font-medium text-balance mb-6">
+                </motion.div>
+                <motion.h1
+                  variants={staggerChild({ side: "left", distance: 50 })}
+                  className="text-[clamp(40px,6vw,80px)] leading-[1.02] tracking-[-0.035em] font-medium text-balance mb-6"
+                >
                   Driving the future of{" "}
                   <span className="text-accent">autonomous motorsport</span>.
-                </h1>
-                <p className="text-xl leading-[1.55] text-ink-2 max-w-[46ch] text-pretty">
+                </motion.h1>
+                <motion.p
+                  variants={staggerChild({ side: "left", distance: 50 })}
+                  className="text-xl leading-[1.55] text-ink-2 max-w-[46ch] text-pretty"
+                >
                   How we built the software that drives a fully driverless
                   Formula Student race car, all the way from the raw sensor data
                   down to the wheel.
-                </p>
-              </div>
+                </motion.p>
+              </motion.div>
             </div>
           </section>
 
@@ -488,20 +525,32 @@ export default function Uhra2026() {
             className="min-h-[70dvh] flex items-center"
           >
             <div className="max-w-page mx-auto w-full px-5 md:px-10">
-              <div className="max-w-xl">
-                <span className="font-mono text-xs uppercase tracking-wider text-accent">
+              <motion.div className="max-w-xl" {...staggerOnScroll(0.09)}>
+                <motion.p
+                  variants={staggerChild({ side: "left", distance: 40 })}
+                  className="font-mono text-xs uppercase tracking-wider text-accent"
+                >
                   The hardware
-                </span>
-                <h2 className="text-[clamp(32px,4.5vw,56px)] leading-[1.05] tracking-[-0.03em] font-medium mt-4 mb-6 text-balance">
+                </motion.p>
+                <motion.h2
+                  variants={staggerChild({ side: "left", distance: 40 })}
+                  className="text-[clamp(32px,4.5vw,56px)] leading-[1.05] tracking-[-0.03em] font-medium mt-4 mb-6 text-balance"
+                >
                   The sensor mount
-                </h2>
-                <p className="text-lg leading-[1.65] text-ink-2 max-w-[52ch] text-pretty">
+                </motion.h2>
+                <motion.p
+                  variants={staggerChild({ side: "left", distance: 40 })}
+                  className="text-lg leading-[1.65] text-ink-2 max-w-[52ch] text-pretty"
+                >
                   With no driver in the seat, this rig is the car&rsquo;s head.
                   It carries everything the car needs to sense the track and
                   think for itself. Bolt it on, and the car can find its own way
                   around.
-                </p>
-                <ul className="mt-8 flex flex-col gap-3 font-mono text-sm">
+                </motion.p>
+                <motion.ul
+                  variants={staggerChild({ side: "left", distance: 40 })}
+                  className="mt-8 flex flex-col gap-3 font-mono text-sm"
+                >
                   {[
                     ["Compute", "NVIDIA Jetson AGX Orin"],
                     ["Vision", "ZED 2i stereo camera"],
@@ -515,8 +564,8 @@ export default function Uhra2026() {
                       <span className="text-ink-2">{v}</span>
                     </li>
                   ))}
-                </ul>
-              </div>
+                </motion.ul>
+              </motion.div>
             </div>
           </section>
 
@@ -720,12 +769,18 @@ export default function Uhra2026() {
 
         {gallery.length > 0 && (
           <div className="mt-24 md:mt-32">
-            <p className="font-mono text-xs uppercase tracking-wider text-muted mb-5">
+            <motion.p
+              {...motionProps({ side: "bottom", distance: 16 })}
+              className="font-mono text-xs uppercase tracking-wider text-muted mb-5"
+            >
               <span className="text-accent">09</span> · Gallery
-            </p>
-            <h2 className="text-[clamp(28px,4vw,44px)] leading-[1.1] tracking-[-0.03em] font-medium text-balance mb-8">
+            </motion.p>
+            <motion.h2
+              {...motionProps({ side: "bottom", distance: 26, delay: 0.06 })}
+              className="text-[clamp(28px,4vw,44px)] leading-[1.1] tracking-[-0.03em] font-medium text-balance mb-8"
+            >
               From the garage and the track.
-            </h2>
+            </motion.h2>
             <Gallery root={GALLERY_ROOT} items={gallery} />
           </div>
         )}

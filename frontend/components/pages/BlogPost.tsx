@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { blogs, type BlogSlug } from "@/constants";
 import { getBlogContent } from "./blogs";
 import BlogStats from "@/components/BlogStats";
+import BlogLoader from "@/components/BlogLoader";
 import { useBlogStats } from "@/utils/useBlogStats";
 
 export default function BlogPost() {
@@ -35,7 +36,7 @@ export default function BlogPost() {
       </div>
 
       {Content ? (
-        <Suspense fallback={<div className="min-h-[70dvh]" />}>
+        <Suspense fallback={<BlogLoader />}>
           <Content />
         </Suspense>
       ) : (

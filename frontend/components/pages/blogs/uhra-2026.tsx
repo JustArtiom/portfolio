@@ -428,7 +428,7 @@ export default function Uhra2026() {
 
   // Model color adapts to theme so the text stays readable where it overlaps.
   const isDark = useIsDark();
-  const modelColor = isDark ? "#54575c" : "#ffffff";
+  const modelColor = isDark ? "#83868c" : "#ffffff";
   const carProgress = useTimedProgress(CAR_ANIMATION, ready);
 
   // Mount animation: plays once the sensor section reaches mid-screen.

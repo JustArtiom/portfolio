@@ -14,8 +14,10 @@ export default function BlogPost() {
   // top and bottom stat bars.
   const stats = useBlogStats(Content && slug ? slug : undefined);
 
+  // Unlisted posts (no `blogs` entry) set their own title, so leave it alone.
   useEffect(() => {
-    document.title = meta ? `${meta.title} — Artiom` : "Artiom";
+    if (!meta) return;
+    document.title = `${meta.title} — Artiom`;
     return () => {
       document.title = "Artiom";
     };

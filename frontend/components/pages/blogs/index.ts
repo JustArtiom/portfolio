@@ -6,11 +6,11 @@ import { lazy, type ComponentType, type LazyExoticComponent } from "react";
 // Each post is lazy-loaded so its code (and heavy deps like three.js / R3F)
 // is a separate chunk that only downloads when the post is actually opened —
 // keeping it out of the main bundle.
-export const blogContent: Record<
-  string,
-  LazyExoticComponent<ComponentType>
-> = {
+export const blogContent: Record<string, LazyExoticComponent<ComponentType>> = {
   "uhra-2026": lazy(() => import("./uhra-2026")),
+  // Unlisted demo: intentionally absent from `blogs` in constants, so it never
+  // appears on /blog. Only reachable by URL: /blog/tmis
+  tmis: lazy(() => import("./tmis")),
 };
 
 export function getBlogContent(slug: string | undefined) {

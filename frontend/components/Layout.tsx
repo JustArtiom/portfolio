@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
-import { motion, useScroll, useSpring } from "framer-motion";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { scrollToId } from "@/utils/scroll";
@@ -50,17 +49,6 @@ function useActiveSection(enabled: boolean): SectionId {
   return active;
 }
 
-function useCursorGlow() {
-  useEffect(() => {
-    const move = (e: MouseEvent) => {
-      document.body.style.setProperty("--mx", `${e.clientX}px`);
-      document.body.style.setProperty("--my", `${e.clientY}px`);
-    };
-    window.addEventListener("mousemove", move);
-    return () => window.removeEventListener("mousemove", move);
-  }, []);
-}
-
 function useTheme(): ["light" | "dark", () => void] {
   const [theme, setTheme] = useState<"light" | "dark">(() =>
     document.documentElement.classList.contains("dark") ? "dark" : "light"
@@ -78,22 +66,6 @@ function useTheme(): ["light" | "dark", () => void] {
   return [theme, toggle];
 }
 
-function ScrollProgress() {
-  const { scrollYProgress } = useScroll();
-  const scaleX = useSpring(scrollYProgress, {
-    stiffness: 140,
-    damping: 30,
-    restDelta: 0.001,
-  });
-  return (
-    <motion.div
-      aria-hidden
-      style={{ scaleX }}
-      className="fixed top-0 left-0 right-0 h-0.5 bg-accent origin-left z-50 pointer-events-none"
-    />
-  );
-}
-
 export default function Layout() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -101,7 +73,6 @@ export default function Layout() {
 
   const sectionActive = useActiveSection(isHome);
   const [theme, toggleTheme] = useTheme();
-  useCursorGlow();
 
   const active = isHome ? sectionActive : "blog";
 
@@ -134,7 +105,6 @@ export default function Layout() {
 
   return (
     <>
-      <ScrollProgress />
       <Header
         activeSection={active}
         onNav={navTo}

@@ -1,5 +1,4 @@
 import type { ReactNode } from "react";
-import { motion, type HTMLMotionProps } from "framer-motion";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/utils/cn";
 
@@ -19,29 +18,19 @@ const chipVariants = cva(
 type ChipProps = {
   children: ReactNode;
   icon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
-  hoverable?: boolean;
   className?: string;
-} & VariantProps<typeof chipVariants> &
-  Omit<HTMLMotionProps<"span">, "children">;
+} & VariantProps<typeof chipVariants>;
 
 export default function Chip({
   children,
   icon: Icon,
   variant,
   className,
-  hoverable = true,
-  ...rest
 }: ChipProps) {
   return (
-    <motion.span
-      whileHover={
-        hoverable ? { y: -2, borderColor: "var(--color-accent)" } : undefined
-      }
-      className={cn(chipVariants({ variant }), className)}
-      {...rest}
-    >
+    <span className={cn(chipVariants({ variant }), className)}>
       {Icon && <Icon className="w-3 h-3 text-accent" />}
       {children}
-    </motion.span>
+    </span>
   );
 }

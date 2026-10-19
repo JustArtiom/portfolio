@@ -1,18 +1,24 @@
-import { BriefcaseBusiness, Calendar, Code, MapPin } from "lucide-react";
 import { FaJava } from "react-icons/fa";
 import {
   SiElectron,
   SiExpo,
+  SiExpress,
+  SiFirebase,
   SiGit,
   SiGo,
   SiGooglecloud,
   SiJavascript,
+  SiNodedotjs,
+  SiOpenai,
+  SiPostgresql,
+  SiPrisma,
   SiPython,
+  SiPytorch,
   SiReact,
+  SiRos,
   SiTensorflow,
   SiTypescript,
 } from "react-icons/si";
-import { getAgeSince } from "./utils/math";
 
 export const site = {
   name: "Artiom",
@@ -22,21 +28,6 @@ export const site = {
   careerStart: "2022-07-01",
   version: "v2026.07",
 };
-
-export const details = [
-  { icon: MapPin, label: "Location", text: "London, United Kingdom" },
-  {
-    icon: Calendar,
-    label: "Age",
-    text: `${getAgeSince(site.birthDate)} Years Old`,
-  },
-  { icon: Code, label: "Role", text: "Full-Stack Developer" },
-  {
-    icon: BriefcaseBusiness,
-    label: "Experience",
-    text: `${getAgeSince(site.careerStart)}+ Years`,
-  },
-];
 
 export interface Skill {
   name: string;
@@ -55,35 +46,56 @@ export const skills: Record<string, Skill> = {
   tensorflow: { name: "TensorFlow", icon: SiTensorflow },
   git: { name: "Git", icon: SiGit },
   googleCloud: { name: "Google Cloud", icon: SiGooglecloud },
+  node: { name: "Node.js", icon: SiNodedotjs },
+  postgres: { name: "PostgreSQL", icon: SiPostgresql },
+  openai: { name: "OpenAI", icon: SiOpenai },
+  express: { name: "Express", icon: SiExpress },
+  prisma: { name: "Prisma", icon: SiPrisma },
+  firebase: { name: "Firebase", icon: SiFirebase },
+  reactNative: { name: "React Native", icon: SiReact },
+  ros: { name: "ROS 2", icon: SiRos },
+  pytorch: { name: "PyTorch", icon: SiPytorch },
 };
-
-export const services = [
-  "Full-Stack Web Development",
-  "Android & iOS Mobile Apps",
-  "Automation & Scripting",
-  "AI Integration",
-];
 
 export const skillGroups: { label: string; items: Skill[] }[] = [
   {
-    label: "Core",
-    items: [skills.typescript, skills.javascript, skills.react],
+    label: "Languages",
+    items: [skills.typescript, skills.javascript, skills.python, skills.go],
   },
   {
-    label: "Also use",
+    label: "Web and mobile",
+    items: [skills.react, skills.reactNative, skills.expo, skills.electron],
+  },
+  {
+    label: "Back end and cloud",
     items: [
-      skills.python,
-      skills.go,
-      skills.java,
-      skills.electron,
-      skills.expo,
+      skills.node,
+      skills.express,
+      skills.postgres,
+      skills.prisma,
+      skills.googleCloud,
+      skills.firebase,
     ],
   },
   {
-    label: "Tools",
-    items: [skills.googleCloud, skills.git, skills.tensorflow],
+    label: "AI and robotics",
+    items: [skills.openai, skills.pytorch, skills.tensorflow, skills.ros],
   },
 ];
+
+/** A client someone was placed with while employed (e.g. agency work). */
+export interface ClientWork {
+  name: string;
+  /** One line on what the client does. */
+  about?: string;
+  website?: string;
+  from: Date;
+  to?: Date;
+  highlights?: string[];
+  skills?: Skill[];
+  /** Extra links shown as small pills, e.g. app store pages. */
+  links?: { label: string; url: string }[];
+}
 
 export interface RoadmapItem {
   title: string;
@@ -95,6 +107,8 @@ export interface RoadmapItem {
   learned?: string[];
   skills?: Skill[];
   active?: boolean;
+  /** Clients worked for during this role. Rendered newest first. */
+  clients?: ClientWork[];
 }
 
 export const roadmap: RoadmapItem[] = [
@@ -122,6 +136,72 @@ export const roadmap: RoadmapItem[] = [
       "Built automated workflows",
     ],
     active: true,
+    clients: [
+      {
+        name: "360 Private Travel",
+        about: "Private members' luxury travel platform.",
+        website: "https://360privatetravel.com/",
+        from: new Date("2025-10-23"),
+        to: new Date("2026-10-16"),
+        highlights: [
+          "Built the events module in the app and API, replacing their third-party event tool: registration, attendee choices, partner requests and approvals",
+          "Built an AI automation service with the OpenAI Agents SDK that syncs hotel and room data from hotel websites, with an approval step before changes go live",
+          "Improved security across their services: service-to-service auth with Google OIDC and narrower permissions",
+          "Optimised their network usage, saving over 26% bandwidth on both client and server side",
+        ],
+        skills: [
+          skills.typescript,
+          skills.react,
+          skills.expo,
+          skills.node,
+          skills.googleCloud,
+          skills.openai,
+        ],
+      },
+      {
+        name: "Esperantoo",
+        about: "Language learning app built around reading books.",
+        website: "https://esperantoo.com",
+        from: new Date("2026-02-06"),
+        to: new Date("2026-03-02"),
+        highlights: [
+          "Built it solo in under a month: Expo app for iOS, Android and web, plus the API",
+          "Line-by-line translations, with tap-a-word linking that still works when word order changes between languages",
+          "Splits books into chapters and pages and remembers where you left off",
+        ],
+        skills: [skills.typescript, skills.react, skills.expo, skills.node],
+        links: [
+          {
+            label: "iOS",
+            url: "https://apps.apple.com/gb/app/esperantoo/id6758854217",
+          },
+          {
+            label: "Android",
+            url: "https://play.google.com/store/apps/details?id=io.wakeflow.traduire",
+          },
+        ],
+      },
+      {
+        name: "The Interesting Life Company",
+        about: "AI assistant for UK financial advisers.",
+        website: "https://interestinglife.co.uk",
+        from: new Date("2025-07-31"),
+        to: new Date("2025-09-29"),
+        highlights: [
+          "Built it end to end, solo: React front end, Express and Prisma back end on Cloud Run",
+          "Chat with tool calls that read and update client records, draft emails and edit documents, streamed over WebSockets",
+          "Knowledge base search over the company's own documents using vector embeddings",
+          "Stripe subscriptions, Google sign-in, reCAPTCHA and an admin view",
+        ],
+        skills: [
+          skills.javascript,
+          skills.react,
+          skills.node,
+          skills.postgres,
+          skills.openai,
+        ],
+      },
+    ],
   },
   {
     title: "BSc Computer Science",
@@ -132,14 +212,13 @@ export const roadmap: RoadmapItem[] = [
     },
     location: "Hatfield, United Kingdom",
     from: new Date("2023-09-01"),
-    to: undefined,
+    to: new Date("2026-09-01"),
     achieved: ["BSc Computer Science"],
     learned: [
       "Algorithms, data structures, and software engineering",
       "Worked on research and development projects",
       "Critical thinking and problem analysis",
     ],
-    active: true,
   },
   {
     title: "Junior Full-Stack Developer",
@@ -189,81 +268,10 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    name: "Esperantoo",
-    tagline: "Reading meets language learning.",
-    description:
-      "An iOS, Android, and web app that turns reading into language learning. Read the original text with natural translations line by line, tap any word to see how it connects across languages — even when word order changes — and pick up right where you left off, with chapter and page tracked automatically.",
-    download: [
-      {
-        platform: "iOS",
-        url: "https://apps.apple.com/gb/app/esperantoo/id6758854217",
-      },
-      {
-        platform: "Android",
-        url: "https://play.google.com/store/apps/details?id=io.wakeflow.traduire",
-      },
-      {
-        platform: "Web",
-        url: "https://esperantoo.com",
-      },
-    ],
-    skills: [skills.typescript, skills.react, skills.expo],
-    year: "2025",
-    kind: "client work",
-  },
-  {
-    name: "360 Private Travel — Events module",
-    tagline: "Brought event management in-house.",
-    description:
-      "Contributed to the iOS and Android apps for a private members' luxury travel platform. Built the events module that replaced their third-party event manager, letting the team create, run, and track events without leaving their own app.",
-    src: "https://360privatetravel.com/",
-    download: [
-      {
-        platform: "Web",
-        url: "https://360privatetravel.com/",
-      },
-    ],
-    skills: [skills.typescript, skills.react, skills.expo],
-    year: "2026",
-    kind: "client work",
-  },
-  {
-    name: "TimeTrekker",
-    tagline: "Know where your hours go.",
-    description:
-      "A free, open-source tool that tracks the apps you use and turns it into clear stats and insights. For people who want to understand how they spend their time on their computer.",
-    src: "https://github.com/JustArtiom/TimeTrekker",
-    download: [
-      {
-        platform: "Windows",
-        url: "https://github.com/JustArtiom/TimeTrekker/releases/download/Prototype/timetrekker-prototype-win-x64-Installer.exe",
-      },
-    ],
-    skills: [skills.electron, skills.react, skills.typescript],
-    year: "2024",
-    kind: "open source",
-  },
-  {
-    name: "UpApp",
-    tagline: "Upload, host, share — in seconds.",
-    description:
-      "A fast file storage app. Drop a file in, get a link, share it. Built to stay out of your way.",
-    src: "https://github.com/JustArtiom/UpApp",
-    download: [
-      {
-        platform: "Windows",
-        url: "https://github.com/JustArtiom/UpApp/releases/download/v0.0.1-alpha/upapp-0.0.1-alpha.Setup.exe",
-      },
-    ],
-    skills: [skills.electron, skills.react, skills.typescript, skills.go],
-    year: "2024",
-    kind: "open source",
-  },
-  {
     name: "GoHueBLE",
     tagline: "Scripts for your lightbulbs.",
     description:
-      "A Go tool that talks to Philips Hue lights over Bluetooth. Turn them on, dim them, or change colour from the terminal — no hub needed.",
+      "A Go tool that controls Philips Hue bulbs straight over Bluetooth, no Hue Bridge needed. I reverse engineered the bulbs' custom Bluetooth characteristics and colour format, so you can switch them on, dim them or change colour from the terminal.",
     src: "https://github.com/JustArtiom/GoHueBLE",
     download: [
       {
@@ -279,25 +287,6 @@ export const projects: Project[] = [
     year: "2024",
     kind: "open source",
   },
-  {
-    name: "TILC Agent",
-    tagline: "An AI helper for insurance advisers.",
-    description:
-      "An AI tool that helps UK financial advisers answer questions about Life Insurance, Critical Illness, and Income Protection cover.",
-    skills: [skills.javascript, skills.react],
-    year: "2025",
-    kind: "client work",
-  },
-  {
-    name: "Text Classifier",
-    tagline: "Sorts text into categories, live in your browser.",
-    description:
-      "A web app that uses TensorFlow to sort text into preset categories as you type. Small, fast, and surprisingly useful.",
-    src: "https://github.com/JustArtiom/text-classifier-AI",
-    skills: [skills.python, skills.tensorflow],
-    year: "2023",
-    kind: "research",
-  },
 ];
 
 export const socials = [
@@ -311,21 +300,6 @@ export const socials = [
     handle: "artiom-cebotari",
     href: "https://www.linkedin.com/in/artiom-cebotari?utm_source=artiom.me",
   },
-  {
-    label: "Email",
-    handle: site.email,
-    href: `mailto:${site.email}`,
-  },
-];
-
-export const nowDoing = [
-  { key: "Building", text: "internal tools and automations at Wakeflow" },
-  {
-    key: "Tinkering",
-    text: "with Bluetooth, Electron, and small Go tools after work",
-  },
-  { key: "Learning", text: "distributed systems and Rust, bit by bit" },
-  { key: "Drinking", text: "too much coffee, as usual" },
 ];
 
 export interface BlogMeta {

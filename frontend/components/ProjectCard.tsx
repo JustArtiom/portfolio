@@ -2,28 +2,20 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import Chip from "./ui/Chip";
 import MetaLabel from "./ui/MetaLabel";
+import { cn } from "@/utils/cn";
 import type { Project } from "@/constants";
+import { reveal } from "@/utils/motion";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
-export default function ProjectCard({
-  project,
-  index,
-}: {
-  project: Project;
-  index: number;
-}) {
+export default function ProjectCard({ project }: { project: Project }) {
   const [hover, setHover] = useState(false);
-  const num = String(index + 1).padStart(2, "0");
 
   return (
     <motion.article
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.6, delay: index * 0.06, ease: EASE }}
+      {...reveal}
       className="grid grid-cols-1 md:grid-cols-[96px_1fr] gap-3 md:gap-6 px-4 md:px-6 py-7 md:py-9 border-t border-line relative rounded-xl transition-colors last:border-b overflow-hidden"
     >
       <motion.span
@@ -46,15 +38,6 @@ export default function ProjectCard({
       />
 
       <div className="pt-1.5 flex md:flex-col gap-2 md:gap-1 items-baseline md:items-start relative">
-        <motion.span
-          className="text-sm text-ink font-medium font-mono"
-          animate={{
-            color: hover ? "var(--color-accent)" : "var(--color-ink)",
-          }}
-          transition={{ duration: 0.3 }}
-        >
-          {num}
-        </motion.span>
         <MetaLabel>{project.year}</MetaLabel>
         <span className="md:hidden text-faint">·</span>
         <MetaLabel className="md:hidden">{project.kind}</MetaLabel>
@@ -75,15 +58,12 @@ export default function ProjectCard({
                 target="_blank"
                 rel="noreferrer"
                 aria-label={`Source for ${project.name}`}
-                animate={{
-                  x: hover ? 3 : 0,
-                  y: hover ? -3 : 0,
-                  color: hover
-                    ? "var(--color-accent)"
-                    : "var(--color-muted)",
-                }}
+                animate={{ x: hover ? 3 : 0, y: hover ? -3 : 0 }}
                 transition={{ duration: 0.3 }}
-                className="text-lg inline-block"
+                className={cn(
+                  "text-lg inline-block transition-colors duration-300",
+                  hover ? "text-accent" : "text-muted"
+                )}
               >
                 ↗
               </motion.a>
@@ -102,19 +82,8 @@ export default function ProjectCard({
 
         <div className="flex items-center gap-8 flex-wrap">
           <div className="flex gap-1.5 flex-wrap">
-            {project.skills.map((s, i) => (
-              <Chip
-                key={s.name}
-                icon={s.icon}
-                variant="mono"
-                initial={{ opacity: 0, y: 8 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{
-                  duration: 0.35,
-                  delay: index * 0.05 + i * 0.04,
-                }}
-              >
+            {project.skills.map((s) => (
+              <Chip key={s.name} icon={s.icon} variant="mono">
                 {s.name}
               </Chip>
             ))}

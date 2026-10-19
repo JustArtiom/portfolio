@@ -5,9 +5,7 @@
 @theme {
   /* Typography */
   --font-sans: "Geist", ui-sans-serif, system-ui, sans-serif;
-  --font-serif: "Instrument Serif", Georgia, serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
-  --font-hand: "Caveat", "Instrument Serif", cursive;
 
   /* Accent — red oklch */
   --color-accent: oklch(0.58 0.22 25);
@@ -36,17 +34,6 @@
   @keyframes blink {
     50% {
       opacity: 0;
-    }
-  }
-
-  --animate-now-breath: nowBreath 2.2s ease-in-out infinite;
-  @keyframes nowBreath {
-    0%,
-    100% {
-      box-shadow: 0 0 0 0 oklch(0.65 0.17 145 / 0.6);
-    }
-    50% {
-      box-shadow: 0 0 0 6px oklch(0.65 0.17 145 / 0);
     }
   }
 }
@@ -98,22 +85,6 @@
     padding: 0;
     overflow-x: hidden;
     position: relative;
-    --mx: 50vw;
-    --my: 50vh;
-  }
-
-  body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 0;
-    background: radial-gradient(
-      520px circle at var(--mx) var(--my),
-      color-mix(in oklab, var(--color-accent) 12%, transparent),
-      transparent 60%
-    );
-    transition: opacity 0.3s;
   }
 
   #root {
@@ -137,15 +108,6 @@
 }
 
 @layer utilities {
-  /* Handwritten accent for <em> inside prose */
-  .prose-em em {
-    font-family: var(--font-hand);
-    font-style: normal;
-    font-weight: 600;
-    letter-spacing: 0;
-    margin-left: 0.08em;
-  }
-
   .glass {
     background: var(--color-glass);
     backdrop-filter: saturate(160%) blur(14px);

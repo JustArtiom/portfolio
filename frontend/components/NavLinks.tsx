@@ -1,6 +1,6 @@
 import { cn } from "@/utils/cn";
 
-export type NavLink = { id: string; label: string; num: string };
+export type NavLink = { id: string; label: string };
 
 type Props = {
   links: readonly NavLink[];
@@ -34,7 +34,7 @@ export default function NavLinks({
                 onNav(l.id);
               }}
               className={cn(
-                "inline-flex items-baseline gap-1.5 transition-colors",
+                "inline-flex items-baseline transition-colors",
                 vertical
                   ? "px-3 py-3 rounded-lg text-[15px]"
                   : "px-3.5 py-2 rounded-full text-sm",
@@ -45,14 +45,6 @@ export default function NavLinks({
                   : "text-muted hover:text-ink" + (vertical ? "" : " hover:bg-bg-2")
               )}
             >
-              <span
-                className={cn(
-                  "font-mono text-[11px]",
-                  active ? "text-accent" : "text-faint"
-                )}
-              >
-                {l.num}
-              </span>
               {l.label}
             </a>
           </li>

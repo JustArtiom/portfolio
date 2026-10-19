@@ -123,3 +123,14 @@ export function staggerOnMount(stagger = 0.08, delayChildren = 0) {
     variants: staggerContainer(stagger, delayChildren),
   };
 }
+
+/**
+ * One subtle reveal per block: short move, quick, and it fires just
+ * before the block reaches the viewport so text is readable on arrival.
+ */
+export const reveal = {
+  initial: { opacity: 0, y: 12 },
+  whileInView: { opacity: 1, y: 0 },
+  transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] },
+  viewport: { once: true, margin: "0px 0px 40px 0px" },
+} as const;

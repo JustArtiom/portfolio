@@ -14,11 +14,9 @@ export default function EmailPlate() {
   };
 
   return (
-    <motion.button
+    <button
       onClick={copy}
-      whileHover={{ y: -2, borderColor: "var(--color-accent)" }}
-      whileTap={{ scale: 0.97 }}
-      className="inline-flex items-center gap-3.5 px-5 py-3.5 border border-line rounded-md glass text-ink mb-8 cursor-pointer"
+      className="inline-flex items-center gap-3.5 px-5 py-3.5 border border-line rounded-md glass text-ink mb-8 cursor-pointer transition-[border-color,transform] duration-200 hover:border-accent hover:-translate-y-0.5 active:scale-[0.97]"
     >
       <span className="text-accent inline-flex w-5 h-5">
         <Mail className="w-full h-full" strokeWidth={1.6} />
@@ -38,6 +36,6 @@ export default function EmailPlate() {
           </motion.span>
         </AnimatePresence>
       </span>
-    </motion.button>
+    </button>
   );
 }

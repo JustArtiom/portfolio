@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { MotionConfig } from "framer-motion";
 import Hero from "@/components/Hero";
 import FeaturedPost from "@/components/FeaturedPost";
 import About from "@/components/About";
@@ -19,14 +20,15 @@ export default function Home() {
     return () => cancelAnimationFrame(raf);
   }, [location.hash, location.key]);
 
+  // Respect the OS "reduce motion" setting: blocks fade, no movement.
   return (
-    <>
+    <MotionConfig reducedMotion="user">
       <Hero />
       <FeaturedPost />
       <About />
       <Work />
       <Projects />
       <Contact />
-    </>
+    </MotionConfig>
   );
 }

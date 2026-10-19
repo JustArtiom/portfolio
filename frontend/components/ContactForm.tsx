@@ -4,8 +4,8 @@ import axios from "axios";
 import { TextField, TextareaField } from "./ui/Field";
 import SubmitButton from "./SubmitButton";
 import { site } from "@/constants";
-import { motionProps } from "@/utils/motion";
 import { cn } from "@/utils/cn";
+import { reveal } from "@/utils/motion";
 
 export type ContactStatus = "idle" | "sending" | "sent" | "error";
 
@@ -68,9 +68,9 @@ export default function ContactForm() {
 
   return (
     <motion.form
+      {...reveal}
       onSubmit={submit}
       noValidate
-      {...motionProps({ side: "right", distance: 40 })}
       className="border border-line rounded-lg glass p-7 flex flex-col gap-3.5"
     >
       <div className="pb-3.5 border-b border-line mb-1">

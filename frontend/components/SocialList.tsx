@@ -1,19 +1,11 @@
-import { motion } from "framer-motion";
 import { socials } from "@/constants";
 import MetaLabel from "./ui/MetaLabel";
 
 export default function SocialList() {
   return (
     <ul className="list-none m-0 p-0 border-t border-line">
-      {socials.map((s, i) => (
-        <motion.li
-          key={s.label}
-          initial={{ opacity: 0, x: -16 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4, delay: 0.4 + i * 0.08 }}
-          className="border-b border-line"
-        >
+      {socials.map((s) => (
+        <li key={s.label} className="border-b border-line">
           <a
             href={s.href}
             target="_blank"
@@ -26,7 +18,7 @@ export default function SocialList() {
               ↗
             </span>
           </a>
-        </motion.li>
+        </li>
       ))}
     </ul>
   );

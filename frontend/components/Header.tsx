@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
 import Logo from "@/assets/svg/logo.svg";
 import { cn } from "@/utils/cn";
 import { yearsSince } from "@/utils/math";
@@ -8,11 +7,11 @@ import NavLinks, { type NavLink } from "./NavLinks";
 import ThemeToggle from "./ThemeToggle";
 
 const LINKS: readonly NavLink[] = [
-  { id: "about", label: "About", num: "01" },
-  { id: "work", label: "Work", num: "02" },
-  { id: "projects", label: "Projects", num: "03" },
-  { id: "contact", label: "Contact", num: "04" },
-  { id: "blog", label: "Blog", num: "05" },
+  { id: "about", label: "About" },
+  { id: "work", label: "Experience" },
+  { id: "projects", label: "Projects" },
+  { id: "contact", label: "Contact" },
+  { id: "blog", label: "Blog" },
 ];
 
 type Props = {
@@ -99,10 +98,7 @@ export default function Header({
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <motion.header
-      initial={{ y: -40, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+    <header
       className="sticky top-0 z-40 border-b border-line-2 bg-[color-mix(in_oklab,var(--color-bg)_80%,transparent)] backdrop-blur-md backdrop-saturate-150"
     >
       <div className="max-w-page mx-auto flex items-center justify-between gap-6 px-5 py-4 md:px-10">
@@ -156,6 +152,6 @@ export default function Header({
           />
         </nav>
       </div>
-    </motion.header>
+    </header>
   );
 }

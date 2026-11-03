@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion, useAnimationControls } from "framer-motion";
 import { Moon, Sun } from "lucide-react";
 import { cn } from "@/utils/cn";
 
@@ -9,10 +9,23 @@ type Props = {
 };
 
 export default function ThemeToggle({ theme, onToggle, className }: Props) {
+  // Spin only on click. The icon itself is picked by CSS (`dark:`), so it's
+  // right from first paint and doesn't animate when the theme syncs on load.
+  const iconControls = useAnimationControls();
+
+  const handleClick = () => {
+    onToggle();
+    void iconControls.start({
+      rotate: [-90, 0],
+      opacity: [0, 1],
+      transition: { duration: 0.3 },
+    });
+  };
+
   return (
     <motion.button
       type="button"
-      onClick={onToggle}
+      onClick={handleClick}
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.9, rotate: -30 }}
       aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
@@ -22,18 +35,9 @@ export default function ThemeToggle({ theme, onToggle, className }: Props) {
         className
       )}
     >
-      <motion.span
-        key={theme}
-        initial={{ rotate: -90, opacity: 0 }}
-        animate={{ rotate: 0, opacity: 1 }}
-        transition={{ duration: 0.3 }}
-        className="inline-flex"
-      >
-        {theme === "dark" ? (
-          <Moon className="w-4 h-4" />
-        ) : (
-          <Sun className="w-4 h-4" />
-        )}
+      <motion.span animate={iconControls} className="inline-flex">
+        <Sun className="w-4 h-4 dark:hidden" />
+        <Moon className="w-4 h-4 hidden dark:block" />
       </motion.span>
     </motion.button>
   );

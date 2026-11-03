@@ -8,7 +8,7 @@ import tseslint from "typescript-eslint";
 import prettier from "eslint-config-prettier";
 
 export default defineConfig([
-  { ignores: [`**/dist_*/**`] },
+  { ignores: [`**/dist_*/**`, `.react-router/**`] },
   js.configs.recommended,
   tseslint.configs.recommended,
   prettier,
@@ -54,7 +54,11 @@ export default defineConfig([
       "react-hooks/exhaustive-deps": `warn`,
       "react-refresh/only-export-components": [
         `warn`,
-        { allowConstantExport: true },
+        {
+          allowConstantExport: true,
+          // React Router route module exports
+          allowExportNames: [`meta`, `links`, `Layout`, `ErrorBoundary`],
+        },
       ],
     },
     languageOptions: {

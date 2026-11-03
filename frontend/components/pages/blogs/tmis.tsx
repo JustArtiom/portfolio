@@ -3,10 +3,11 @@ import { motion } from "framer-motion";
 import { Mic, Music, Pause, Play } from "lucide-react";
 import { cn } from "@/utils/cn";
 import { staggerChild, staggerOnMount } from "@/utils/motion";
+import { unlistedBlogs } from "@/constants";
 
 // Unlisted demo post. It's deliberately NOT in `blogs` (constants) so it never
 // shows up on /blog — it's only reachable by URL: /blog/tmis
-const TITLE = "The most inefficient speaker";
+const TITLE = unlistedBlogs.tmis.title;
 const ROOT = "/assets/blogs/tmis";
 
 // The source recording has two audio tracks (microphone + MIDI). Browsers can't
@@ -372,14 +373,6 @@ function DualTrackPlayer() {
 }
 
 export default function Tmis() {
-  // Not in `blogs`, so BlogPost can't set the title for us.
-  useEffect(() => {
-    document.title = `${TITLE} — Artiom`;
-    return () => {
-      document.title = "Artiom";
-    };
-  }, []);
-
   return (
     <div className="max-w-page mx-auto px-5 md:px-10 pb-28">
       <motion.div

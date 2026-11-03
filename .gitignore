@@ -1,5 +1,6 @@
 node_modules
 dist_*
+.react-router/
 .env
 # local stats db (server keeps its own via clean_ignore)
 data/

@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "rootDir": "./frontend",
-    "outDir": "./dist_frontend",
+    /* Lets `./+types/<route>` imports resolve to React Router's generated types */
+    "rootDirs": [".", "./.react-router/types"],
 
     /* Path aliases */
     "baseUrl": "./frontend",
@@ -30,5 +30,5 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["frontend", "frontend/**/*.d.ts"]
+  "include": ["frontend", "frontend/**/*.d.ts", ".react-router/types/**/*"]
 }

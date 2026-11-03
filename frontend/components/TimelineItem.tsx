@@ -1,13 +1,13 @@
-import dateFormat from "dateformat";
 import { motion } from "framer-motion";
 import Chip from "./ui/Chip";
 import { cn } from "@/utils/cn";
+import { formatMonthYear } from "@/utils/date";
 import { reveal } from "@/utils/motion";
 import type { ClientWork, RoadmapItem, Skill } from "@/constants";
 
 function dateRange(from: Date, to?: Date) {
-  const end = to ? dateFormat(to, "mmm yyyy") : "Present";
-  return `${dateFormat(from, "mmm yyyy")} - ${end}`;
+  const end = to ? formatMonthYear(to) : "Present";
+  return `${formatMonthYear(from)} - ${end}`;
 }
 
 function OrgLink({ name, website }: { name: string; website?: string }) {

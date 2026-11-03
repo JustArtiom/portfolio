@@ -334,3 +334,12 @@ export const blogs = {
 } satisfies Record<string, BlogMeta>;
 
 export type BlogSlug = keyof typeof blogs;
+
+/** Posts only reachable by URL; never listed on /blog. */
+export const unlistedBlogs = {
+  tmis: {
+    title: "The most inefficient speaker",
+    description:
+      "Four stepper motors, a driver board, and a MIDI file. Every note becomes a step frequency, every motor becomes a voice.",
+  },
+} satisfies Record<string, Pick<BlogMeta, "title" | "description">>;

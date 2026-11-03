@@ -1,23 +1,26 @@
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { blogs } from "@/constants";
+import { pageMeta } from "@/seo";
+import { formatDayMonthYear } from "@/utils/date";
 import { getBlogContent } from "./blogs";
 import { staggerChild, staggerOnMount } from "@/utils/motion";
 import { useBlogStatsMap } from "@/utils/useBlogStats";
 import StatBadge from "@/components/StatBadge";
 
-function formatDate(iso: string) {
-  return new Date(iso).toLocaleDateString("en-GB", {
-    day: "numeric",
-    month: "short",
-    year: "numeric",
-  });
-}
-
 const entries = Object.entries(blogs).sort(([, a], [, b]) =>
   a.date < b.date ? 1 : -1
 );
 const slugs = entries.map(([slug]) => slug);
+
+export function meta() {
+  return pageMeta({
+    title: "Blog — Artiom",
+    description:
+      "Notes and write-ups on things I've built, broken, or changed my mind on.",
+    path: "/blog",
+  });
+}
 
 export default function Blog() {
   const statsMap = useBlogStatsMap(slugs);
@@ -66,7 +69,7 @@ export default function Blog() {
 
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-3 font-mono text-xs text-muted mb-2">
-                  <time dateTime={post.date}>{formatDate(post.date)}</time>
+                  <time dateTime={post.date}>{formatDayMonthYear(post.date)}</time>
                   {ready && statsMap[slug] && (
                     <>
                       <span className="text-faint">·</span>

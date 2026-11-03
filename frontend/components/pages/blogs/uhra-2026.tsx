@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   FaLinkedin,
@@ -11,7 +11,6 @@ import {
 import type { IconType } from "react-icons";
 import { blogs } from "@/constants";
 import BlogLoader from "@/components/BlogLoader";
-import RacingScene from "@/components/three/RacingScene";
 import { useTimedProgress } from "@/components/three/useTimedProgress";
 import { smoothstep } from "@/components/three/sceneConfig";
 import { useInView } from "@/utils/useInView";
@@ -19,12 +18,17 @@ import { useScrollProgress } from "@/utils/useScrollProgress";
 import { useOnScreen } from "@/utils/useOnScreen";
 import { useAutoPlayOnView } from "@/utils/useAutoPlayOnView";
 import { useIsDark } from "@/utils/useIsDark";
+import { useHydrated } from "@/utils/useHydrated";
 import {
   motionProps,
   staggerChild,
   staggerContainer,
   staggerOnScroll,
 } from "@/utils/motion";
+
+// Browser-only: the scene preloads its models on import, which can't run
+// during the build-time render. Mounted after hydration (see `hydrated`).
+const RacingScene = lazy(() => import("@/components/three/RacingScene"));
 
 // Car intro plays over 1s once the models are loaded.
 const CAR_ANIMATION = 1000;
@@ -157,6 +161,15 @@ function LazyImage({
   alt?: string;
 }) {
   const [loaded, setLoaded] = useState(false);
+  const fullRef = useRef<HTMLImageElement>(null);
+
+  // The <img> is in the prerendered HTML, so it can finish loading before
+  // hydration attaches onLoad — catch that case or it stays hidden forever.
+  useEffect(() => {
+    const img = fullRef.current;
+    if (img?.complete && img.naturalWidth > 0) setLoaded(true);
+  }, []);
+
   return (
     <div className="relative overflow-hidden">
       <img
@@ -169,6 +182,7 @@ function LazyImage({
         }
       />
       <img
+        ref={fullRef}
         src={src}
         alt={alt}
         loading="lazy"
@@ -436,6 +450,7 @@ export default function Uhra2026() {
   // Model color adapts to theme so the text stays readable where it overlaps.
   const isDark = useIsDark();
   const modelColor = isDark ? "#a7a7a7" : "#ffffff";
+  const hydrated = useHydrated();
   const carProgress = useTimedProgress(CAR_ANIMATION, ready);
 
   // Mount animation: plays once the sensor section reaches mid-screen.
@@ -470,14 +485,18 @@ export default function Uhra2026() {
             className="absolute inset-0"
             style={{ transform: stageTransform }}
           >
-            <RacingScene
-              carProgress={carProgress}
-              mountProgress={mountProgress}
-              centerProgress={centerProgress}
-              active={stageOnScreen}
-              materialColor={modelColor}
-              onReady={() => setReady(true)}
-            />
+            {hydrated && (
+              <Suspense fallback={null}>
+                <RacingScene
+                  carProgress={carProgress}
+                  mountProgress={mountProgress}
+                  centerProgress={centerProgress}
+                  active={stageOnScreen}
+                  materialColor={modelColor}
+                  onReady={() => setReady(true)}
+                />
+              </Suspense>
+            )}
           </div>
         </div>
 

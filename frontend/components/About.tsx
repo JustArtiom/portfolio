@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import Section from "./ui/Section";
 import { skillGroups } from "@/constants";
 import { reveal } from "@/utils/motion";

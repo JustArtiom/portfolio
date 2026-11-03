@@ -1,8 +1,10 @@
-import { useCallback, useEffect, useState } from "react";
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { Outlet, useLocation, useNavigate } from "react-router";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { scrollToId } from "@/utils/scroll";
+import { THEME_STORAGE_KEY } from "@/utils/theme";
+import { useIsDark } from "@/utils/useIsDark";
 
 const sectionIds = ["about", "work", "projects", "contact"] as const;
 type SectionId = (typeof sectionIds)[number];
@@ -49,21 +51,17 @@ function useActiveSection(enabled: boolean): SectionId {
   return active;
 }
 
+// The `dark` class on <html> is the source of truth; useIsDark follows it.
 function useTheme(): ["light" | "dark", () => void] {
-  const [theme, setTheme] = useState<"light" | "dark">(() =>
-    document.documentElement.classList.contains("dark") ? "dark" : "light"
-  );
+  const isDark = useIsDark();
 
   const toggle = useCallback(() => {
-    setTheme((prev) => {
-      const next = prev === "dark" ? "light" : "dark";
-      document.documentElement.classList.toggle("dark", next === "dark");
-      localStorage.setItem("portfolio-theme", next);
-      return next;
-    });
+    const nextDark = !document.documentElement.classList.contains("dark");
+    document.documentElement.classList.toggle("dark", nextDark);
+    localStorage.setItem(THEME_STORAGE_KEY, nextDark ? "dark" : "light");
   }, []);
 
-  return [theme, toggle];
+  return [isDark ? "dark" : "light", toggle];
 }
 
 export default function Layout() {
@@ -77,7 +75,14 @@ export default function Layout() {
   const active = isHome ? sectionActive : "blog";
 
   // Reset scroll on route change (unless a hash target will handle it).
+  // Skipped on first load: the prerendered page is scrollable before JS
+  // arrives, so resetting on hydration would yank visitors back to the top.
+  const isFirstLoad = useRef(true);
   useEffect(() => {
+    if (isFirstLoad.current) {
+      isFirstLoad.current = false;
+      return;
+    }
     if (!location.hash) window.scrollTo(0, 0);
   }, [location.pathname, location.hash]);
 

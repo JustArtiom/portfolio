@@ -2,11 +2,9 @@ import { useEffect, useState } from "react";
 
 /** Tracks whether the site is in dark mode (the `dark` class on <html>). */
 export function useIsDark(): boolean {
-  const [dark, setDark] = useState(
-    () =>
-      typeof document !== "undefined" &&
-      document.documentElement.classList.contains("dark")
-  );
+  // Always start light so the first browser render matches the prerendered
+  // HTML; the effect corrects it right after hydration.
+  const [dark, setDark] = useState(false);
 
   useEffect(() => {
     const el = document.documentElement;

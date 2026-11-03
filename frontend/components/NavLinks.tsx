@@ -1,6 +1,21 @@
+import type { MouseEvent } from "react";
 import { cn } from "@/utils/cn";
 
-export type NavLink = { id: string; label: string };
+/** `href` is the real URL, used by crawlers, new-tab clicks and pre-hydration clicks. */
+export type NavLink = { id: string; label: string; href: string };
+
+const PRIMARY_BUTTON = 0;
+
+// Modified clicks (new tab/window, download) should get the browser's default.
+function isPlainLeftClick(e: MouseEvent): boolean {
+  return (
+    e.button === PRIMARY_BUTTON &&
+    !e.metaKey &&
+    !e.ctrlKey &&
+    !e.shiftKey &&
+    !e.altKey
+  );
+}
 
 type Props = {
   links: readonly NavLink[];
@@ -28,8 +43,9 @@ export default function NavLinks({
         return (
           <li key={l.id}>
             <a
-              href={`#${l.id}`}
+              href={l.href}
               onClick={(e) => {
+                if (!isPlainLeftClick(e)) return;
                 e.preventDefault();
                 onNav(l.id);
               }}

@@ -2,16 +2,17 @@ import { useEffect, useState } from "react";
 import Logo from "@/assets/svg/logo.svg";
 import { cn } from "@/utils/cn";
 import { yearsSince } from "@/utils/math";
+import { useHydrated } from "@/utils/useHydrated";
 import { site } from "@/constants";
 import NavLinks, { type NavLink } from "./NavLinks";
 import ThemeToggle from "./ThemeToggle";
 
 const LINKS: readonly NavLink[] = [
-  { id: "about", label: "About" },
-  { id: "work", label: "Experience" },
-  { id: "projects", label: "Projects" },
-  { id: "contact", label: "Contact" },
-  { id: "blog", label: "Blog" },
+  { id: "about", label: "About", href: "/#about" },
+  { id: "work", label: "Experience", href: "/#work" },
+  { id: "projects", label: "Projects", href: "/#projects" },
+  { id: "contact", label: "Contact", href: "/#contact" },
+  { id: "blog", label: "Blog", href: "/blog" },
 ];
 
 type Props = {
@@ -21,7 +22,11 @@ type Props = {
   onToggleTheme: () => void;
 };
 
+// Shown until hydration: a live value baked in at build time would be stale.
+const TICKER_PLACEHOLDER = "–";
+
 function TickerMeta() {
+  const hydrated = useHydrated();
   const [age, setAge] = useState(() => yearsSince(site.birthDate));
   const [exp, setExp] = useState(() => yearsSince(site.careerStart));
 
@@ -36,12 +41,12 @@ function TickerMeta() {
   return (
     <span className="hidden md:inline-flex items-baseline gap-1.5 pl-3 ml-1 border-l border-line font-mono text-[11px] text-muted">
       <span className="inline-block min-w-[8ch] tabular-nums text-ink-2">
-        {age.toFixed(6)}
+        {hydrated ? age.toFixed(6) : TICKER_PLACEHOLDER}
       </span>
       <span className="text-faint">yrs</span>
       <span className="text-faint">·</span>
       <span className="inline-block min-w-[8ch] tabular-nums text-ink-2">
-        {exp.toFixed(6)}
+        {hydrated ? exp.toFixed(6) : TICKER_PLACEHOLDER}
       </span>
       <span className="text-faint">exp</span>
     </span>

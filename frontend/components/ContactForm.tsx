@@ -25,6 +25,17 @@ function collectClientMeta() {
   }
 }
 
+/**
+ * Our backend replies with `{ error: string }`, but proxies/CDNs in front of it
+ * can return any shape — only trust a non-empty string, since rendering an
+ * object would crash React.
+ */
+function serverErrorMessage(err: unknown): string | null {
+  if (!axios.isAxiosError<{ error?: unknown }>(err)) return null;
+  const error = err.response?.data?.error;
+  return typeof error === "string" && error.trim() ? error : null;
+}
+
 export default function ContactForm() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [status, setStatus] = useState<ContactStatus>("idle");
@@ -58,11 +69,10 @@ export default function ContactForm() {
       setForm({ name: "", email: "", message: "" });
     } catch (err) {
       setStatus("error");
-      const msg =
-        axios.isAxiosError(err) && err.response?.data?.error
-          ? err.response.data.error
-          : `Couldn't send. Please email me directly — ${site.email}`;
-      setErrorMsg(msg);
+      setErrorMsg(
+        serverErrorMessage(err) ??
+          `Couldn't send. Please email me directly — ${site.email}`
+      );
     }
   };
 

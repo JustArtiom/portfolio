@@ -49,7 +49,7 @@ jobs:
           url: ${{ secrets.PTERO_URL }}
           api_key: ${{ secrets.PTERO_API_KEY }}
           server_id: ${{ secrets.PTERO_FRONTEND_SERVER_ID }}
-          base_path: ./dist_frontend
+          base_path: ./dist_frontend/client
           destination_path: ./www
           restart: false
           clean: true

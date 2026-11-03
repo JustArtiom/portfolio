@@ -1,7 +1,8 @@
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { blogs } from "@/constants";
 import { reveal } from "@/utils/motion";
+import { formatMonthYear } from "@/utils/date";
 import { useBlogStatsMap } from "@/utils/useBlogStats";
 import StatBadge from "@/components/StatBadge";
 
@@ -9,13 +10,6 @@ import StatBadge from "@/components/StatBadge";
 const latest = Object.entries(blogs).sort(([, a], [, b]) =>
   a.date < b.date ? 1 : -1
 )[0];
-
-function monthYear(iso: string) {
-  return new Date(iso).toLocaleDateString("en-GB", {
-    month: "short",
-    year: "numeric",
-  });
-}
 
 export default function FeaturedPost() {
   const slug = latest?.[0];
@@ -46,7 +40,7 @@ export default function FeaturedPost() {
             Latest write-up
             <span className="text-faint">·</span>
             <span className="text-faint normal-case tracking-normal">
-              {monthYear(post.date)}
+              {formatMonthYear(post.date)}
             </span>
           </span>
 

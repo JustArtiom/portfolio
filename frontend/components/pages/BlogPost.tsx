@@ -1,27 +1,34 @@
-import { Suspense, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
-import { blogs, type BlogSlug } from "@/constants";
+import { Suspense } from "react";
+import { Link, useParams } from "react-router";
+import type { Route } from "./+types/BlogPost";
+import { blogs, unlistedBlogs } from "@/constants";
+import { pageMeta } from "@/seo";
 import { getBlogContent } from "./blogs";
 import BlogStats from "@/components/BlogStats";
 import BlogLoader from "@/components/BlogLoader";
 import { useBlogStats } from "@/utils/useBlogStats";
 
+const postMeta: Record<string, { title: string; description: string }> = {
+  ...blogs,
+  ...unlistedBlogs,
+};
+
+export function meta({ params }: Route.MetaArgs) {
+  const post = postMeta[params.slug];
+  if (!post) return [{ title: "Not published yet — Artiom" }];
+  return pageMeta({
+    title: `${post.title} — Artiom`,
+    description: post.description,
+    path: `/blog/${params.slug}`,
+  });
+}
+
 export default function BlogPost() {
   const { slug } = useParams();
   const Content = getBlogContent(slug);
-  const meta = slug && slug in blogs ? blogs[slug as BlogSlug] : undefined;
   // One hook instance for the whole post (so a view counts once), shared by the
   // top and bottom stat bars.
   const stats = useBlogStats(Content && slug ? slug : undefined);
-
-  // Unlisted posts (no `blogs` entry) set their own title, so leave it alone.
-  useEffect(() => {
-    if (!meta) return;
-    document.title = `${meta.title} — Artiom`;
-    return () => {
-      document.title = "Artiom";
-    };
-  }, [meta]);
 
   return (
     <div className="relative">

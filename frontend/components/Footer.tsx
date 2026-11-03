@@ -1,5 +1,16 @@
 import { Heart } from "lucide-react";
 import { site } from "@/constants";
+import { useHydrated } from "@/utils/useHydrated";
+
+/**
+ * Current year, shown only after hydration: the year baked into the
+ * prerendered HTML goes stale on Jan 1 and would cause a hydration mismatch.
+ */
+function CopyrightYear() {
+  const hydrated = useHydrated();
+  if (!hydrated) return null;
+  return <>{new Date().getFullYear()} </>;
+}
 
 export default function Footer() {
   return (
@@ -16,7 +27,8 @@ export default function Footer() {
         </span>
         <span className="flex gap-2.5 items-baseline font-mono text-xs text-muted flex-wrap">
           <span>
-            © {new Date().getFullYear()} {site.name}
+            © <CopyrightYear />
+            {site.name}
           </span>
           <span className="text-faint">·</span>
           <span>{site.version}</span>

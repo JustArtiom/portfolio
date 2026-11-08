@@ -5,6 +5,11 @@ on:
     branches:
       - 'main'
 
+# Never run two deploys against the same servers at once.
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
 jobs:
   all:
     name: CI/CD workflow
@@ -14,42 +19,58 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '24'
+          cache: npm
 
       - name: Install Dependencies
-        run: npm install
+        run: npm ci
 
       - name: Lint Code
         run: npx eslint .
 
+      - name: Typecheck
+        run: npm run typecheck
+
+      # Build everything before deploying anything, so a failed build never
+      # leaves the two servers on different versions.
+      - name: Build Frontend
+        run: npm run build:frontend
+
+      # Production bundles all dependencies in (tsup.config.ts), so the Node.js
+      # egg finds no package.json, skips npm install and starts index.js.
+      - name: Build Backend
+        run: npm run build:backend
+        env:
+          NODE_ENV: production
+
+      # Lay out each server's files exactly as they sit in /home/container.
+      - name: Stage Deploy Files
+        run: |
+          mkdir -p deploy/backend deploy/frontend/www deploy/frontend/nginx
+          cp -R dist_backend/. deploy/backend/
+          cp -R dist_frontend/client/. deploy/frontend/www/
+          cp nginx/default.conf deploy/frontend/nginx/
+
+      # data/ holds stats.json; .env is always kept by the action.
       - name: Deploy Backend
         uses: JustArtiom/ptero-deploy@v1
         with:
           url: ${{ secrets.PTERO_URL }}
           api_key: ${{ secrets.PTERO_API_KEY }}
           server_id: ${{ secrets.PTERO_BACKEND_SERVER_ID }}
+          base_path: ./deploy/backend
           clean: true
           clean_ignore: data
-          run: |
-            npm install
-            npm run build:backend
-            npx pm2 start dist_backend/index.js --name "backend"
-            clear
-            npx pm2 logs backend
 
-      - name: Build Frontend
-        run: |
-          npm run build:frontend
-
+      # Restarting (not a console reload) applies nginx/default.conf and fails
+      # the deploy loudly if the config is broken.
       - name: Deploy Frontend
         uses: JustArtiom/ptero-deploy@v1
         with:
           url: ${{ secrets.PTERO_URL }}
           api_key: ${{ secrets.PTERO_API_KEY }}
           server_id: ${{ secrets.PTERO_FRONTEND_SERVER_ID }}
-          base_path: ./dist_frontend/client
-          destination_path: ./www
-          restart: false
+          base_path: ./deploy/frontend
           clean: true

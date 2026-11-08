@@ -1,14 +1,17 @@
 import { Suspense } from "react";
 import { Link, useParams } from "react-router";
 import type { Route } from "./+types/BlogPost";
-import { blogs, unlistedBlogs } from "@/constants";
-import { pageMeta } from "@/seo";
+import { blogs, unlistedBlogs, type BlogMeta } from "@/constants";
+import { DEFAULT_SOCIAL_IMAGE, pageMeta } from "@/seo";
 import { getBlogContent } from "./blogs";
 import BlogStats from "@/components/BlogStats";
 import BlogLoader from "@/components/BlogLoader";
 import { useBlogStats } from "@/utils/useBlogStats";
 
-const postMeta: Record<string, { title: string; description: string }> = {
+type PostMeta = Pick<BlogMeta, "title" | "description" | "socialImage"> &
+  Partial<Pick<BlogMeta, "date">>;
+
+const postMeta: Record<string, PostMeta> = {
   ...blogs,
   ...unlistedBlogs,
 };
@@ -20,6 +23,10 @@ export function meta({ params }: Route.MetaArgs) {
     title: `${post.title} — Artiom`,
     description: post.description,
     path: `/blog/${params.slug}`,
+    image: post.socialImage
+      ? { path: post.socialImage, alt: post.title }
+      : DEFAULT_SOCIAL_IMAGE,
+    article: { publishedTime: post.date },
   });
 }
 

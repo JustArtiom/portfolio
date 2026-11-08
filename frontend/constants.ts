@@ -307,6 +307,8 @@ export interface BlogMeta {
   description: string;
   date: string;
   banner: string;
+  /** 1200×630 link preview card (public folder); the site card if unset. */
+  socialImage?: string;
   /** Image or video paths (public folder). `.mp4`/`.webm` render as video. */
   gallery?: string[];
 }
@@ -318,6 +320,7 @@ export const blogs = {
       "A deep dive into the UH Racing team's efforts to develop an autonomous vehicle for the Formula Student 2026 competition...",
     date: "2026-06-21",
     banner: "/assets/img/UHRA_and_FS.png",
+    socialImage: "/og/uhra-2026.jpg",
     gallery: [
       "1.webp",
       "2.webp",
@@ -341,5 +344,9 @@ export const unlistedBlogs = {
     title: "The most inefficient speaker",
     description:
       "Four stepper motors, a driver board, and a MIDI file. Every note becomes a step frequency, every motor becomes a voice.",
+    socialImage: "/og/tmis.jpg",
   },
-} satisfies Record<string, Pick<BlogMeta, "title" | "description">>;
+} satisfies Record<
+  string,
+  Pick<BlogMeta, "title" | "description" | "socialImage">
+>;

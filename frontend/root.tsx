@@ -72,10 +72,8 @@ export function Layout({ children }: { children: ReactNode }) {
           content="#1a1a1a"
           media="(prefers-color-scheme: dark)"
         />
-        <meta property="og:type" content="website" />
         <meta property="og:site_name" content="Artiom" />
         <meta property="og:locale" content="en_GB" />
-        <meta name="twitter:card" content="summary" />
         <meta name="twitter:creator" content="@JustArtiom" />
         <Links />
 

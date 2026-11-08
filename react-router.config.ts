@@ -14,4 +14,12 @@ export default {
     "/blog",
     ...publishedBlogSlugs.map((slug) => `/blog/${slug}`),
   ],
+  // Opt in to v8 behaviour early so the v8 upgrade is a no-op.
+  future: {
+    v8_middleware: true,
+    v8_splitRouteModules: true,
+    v8_viteEnvironmentApi: true,
+    v8_passThroughRequests: true,
+    v8_trailingSlashAwareDataRequests: true,
+  },
 } satisfies Config;

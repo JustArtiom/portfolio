@@ -10,15 +10,19 @@ import { fileURLToPath, URL } from 'node:url'
 const CHUNK_SIZE_WARNING_LIMIT_KB = 700;
 
 // App directory and build output are set in react-router.config.ts.
-export default defineConfig(({ isSsrBuild }) => ({
+export default defineConfig({
   publicDir: `frontend/public`,
   build: {
     chunkSizeWarningLimit: CHUNK_SIZE_WARNING_LIMIT_KB,
+  },
+  environments: {
     // package.json is "type": "commonjs" for the backend, so the ESM server
     // bundle used for prerendering needs .mjs chunks (entry: serverBuildFile).
-    ...(isSsrBuild && {
-      rollupOptions: { output: { chunkFileNames: `assets/[name]-[hash].mjs` } },
-    }),
+    ssr: {
+      build: {
+        rollupOptions: { output: { chunkFileNames: `assets/[name]-[hash].mjs` } },
+      },
+    },
   },
   plugins: [
     tailwindcss(),
@@ -39,4 +43,4 @@ export default defineConfig(({ isSsrBuild }) => ({
       },
     },
   },
-}))
+})
